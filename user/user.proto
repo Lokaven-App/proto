@@ -1,0 +1,131 @@
+syntax = "proto3";
+package user;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+message User{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    google.protobuf.Timestamp date_of_birth = 6;
+    string gender = 7;
+    string phone_number = 8;
+    string profile_picture_url = 9;
+    bool is_verified = 10;
+    bool is_suspended = 11;
+}
+
+message CreateUserRequest{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    google.protobuf.Timestamp date_of_birth = 6;
+    string gender = 7;
+    string phone_number =8;
+}
+
+message CreateUserResponse{
+    CreateUserRequest data = 1;
+    string code = 2;
+    string status = 3;
+    repeated Error errors = 5;
+}
+
+message UpdateUserRequest{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    string password_confirmation = 6;
+    google.protobuf.Timestamp date_of_birth =7;
+    string gender = 8;
+    string phone_number = 9;
+    string profile_picture_url = 10;
+}
+
+message UpdateUserSettingRequest{
+    string user_uid = 1;
+    google.protobuf.BoolValue email_notification = 2;
+    google.protobuf.BoolValue push_notification = 3;
+    google.protobuf.StringValue currency_uid = 4;
+    google.protobuf.StringValue language_uid = 5;
+    google.protobuf.StringValue payment_type_uid = 6;
+    google.protobuf.StringValue CreditCardNumber = 7;
+}
+
+message Filter{
+    string Field = 1;
+    string Operator =2;
+    string Value = 3;
+}
+
+message BrowseRequest{
+    repeated Filter filters = 1;
+    int32 limit = 2;
+    int32 offset = 3;
+}
+
+message UpdateUserResponse{
+    UpdateUserRequest data = 1;
+}
+
+message UpdateUserSettingResponse{
+    UpdateUserSettingRequest data = 1;
+}
+
+message BrowseUserResponse{
+    repeated User data = 1;
+}
+
+message Error{
+    string source = 1;
+    string title = 2;
+}
+
+message GetUserByCredentialsRequest{
+    string email = 1;
+    string password = 2;
+}
+
+message GetUserByCredentialsResponse{
+    User data = 1;
+}
+
+message GetUserRequest{
+    string uid = 1;
+}
+
+message GetUserResponse{
+    User data = 1;
+}
+
+service UserService{
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users",
+            body    : "*" 
+        };
+    }
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){
+        option (google.api.http) = {
+            patch : "/api/v1/users/{uid}",
+            body : "*"
+        };
+    }
+    rpc UpdateUserSetting(UpdateUserSettingRequest) returns (UpdateUserSettingResponse){
+        option (google.api.http) = {
+            post : "/api/v1/users/{user_uid}/settings",
+            body : "*"
+        };
+    }
+
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+    rpc GetUserByCredentials(GetUserByCredentialsRequest) returns (GetUserByCredentialsResponse);
+}
