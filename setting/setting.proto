@@ -1,0 +1,29 @@
+syntax = "proto3";
+package setting;
+
+import "google/api/annotations.proto";
+
+message Setting{
+    string key = 1;
+    string type = 2;
+    string value = 3;
+}
+
+message UserSetting{
+    string id = 1;
+    repeated Setting settings = 2;
+}
+
+message UpdateUserSettingResponse{
+    UserSetting data = 1;
+}
+
+
+service SettingService{
+    rpc UpdateUserSetting(UserSetting) returns (UpdateUserSettingResponse){
+        option (google.api.http) = {
+            post : "/api/v1/users/{id}/settings",
+            body : "*"
+        };
+    }
+}
