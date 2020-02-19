@@ -25,16 +25,23 @@ message CreateUserRequest{
     string last_name = 3;
     string email = 4;
     string password = 5;
-    google.protobuf.Timestamp date_of_birth = 6;
-    string gender = 7;
-    string phone_number =8;
+    string password_confirmation = 6;
+    google.protobuf.Timestamp date_of_birth = 7;
+    string gender = 8;
+    string phone_number = 9;
 }
 
 message CreateUserResponse{
     CreateUserRequest data = 1;
-    string code = 2;
-    string status = 3;
-    repeated Error errors = 5;
+}
+
+message EmailVerificationRequest {
+    string email = 1;
+    string verification_token = 2;
+}
+
+message EmailVerificationResponse {
+    EmailVerificationRequest data = 1;
 }
 
 message UpdateUserRequest{
@@ -119,13 +126,14 @@ service UserService{
             body : "*"
         };
     }
-    rpc UpdateUserSetting(UpdateUserSettingRequest) returns (UpdateUserSettingResponse){
-        option (google.api.http) = {
-            post : "/api/v1/users/{user_uid}/settings",
-            body : "*"
-        };
-    }
 
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
     rpc GetUserByCredentials(GetUserByCredentialsRequest) returns (GetUserByCredentialsResponse);
+
+    rpc EmailVerification(EmailVerificationRequest) returns (EmailVerificationResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/emailverification",
+            body    : "*" 
+        };
+    }
 }
