@@ -44,6 +44,26 @@ message EmailVerificationResponse {
     EmailVerificationRequest data = 1;
 }
 
+message ResetPasswordTokenRequest {
+    string email = 1;
+}
+
+message ResetPasswordTokenResponse {
+    ResetPasswordTokenRequest data =1;
+}
+
+message ResetPasswordRequest {
+    string email = 1;
+    string reset_password_token = 2;
+    string old_password = 3;
+    string password = 4;
+    string password_confirmation = 5;
+}
+
+message ResetPasswordResponse {
+    ResetPasswordRequest data =1;
+}
+
 message UpdateUserRequest{
     string uid = 1;
     string first_name = 2;
@@ -133,6 +153,20 @@ service UserService{
     rpc EmailVerification(EmailVerificationRequest) returns (EmailVerificationResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/emailverification",
+            body    : "*" 
+        };
+    }
+
+    rpc ResetPasswordToken(ResetPasswordTokenRequest) returns (ResetPasswordTokenResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/resetpasswordtoken",
+            body    : "*" 
+        };
+    }
+
+    rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/resetpassword",
             body    : "*" 
         };
     }
