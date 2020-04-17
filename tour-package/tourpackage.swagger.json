@@ -1,0 +1,1728 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/tourpackage.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/package-explorers": {
+      "get": {
+        "operationId": "TourPackageExplorerService_Browse",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageExplorerPackageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TourPackageExplorerService"
+        ]
+      }
+    },
+    "/api/v1/tourhosts/{host_id}/tourpackages": {
+      "post": {
+        "operationId": "TourPackageService_CreateTourPackage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackage"
+            }
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages": {
+      "get": {
+        "operationId": "TourPackageService_GetTourPackage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageBrowseTourPackage"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}": {
+      "get": {
+        "operationId": "TourPackageService_GetDetailTourPackage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "rate",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "review",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_curated",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_featured",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_refundable",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "host_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type_tour",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "terms_of_service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "custom_policies",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "age_restriction",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cost_foreign_guest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "itinerary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policy_title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "additional_cost",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      },
+      "delete": {
+        "operationId": "TourPackageService_DeleteTourPackage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageDeletePackageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "rate",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "review",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_curated",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_featured",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_refundable",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "host_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type_tour",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "terms_of_service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "custom_policies",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "age_restriction",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cost_foreign_guest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "itinerary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policy_title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "additional_cost",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/addons": {
+      "post": {
+        "operationId": "TourPackageService_AddPackageAddon",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackagePackageAddonResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackage"
+            }
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/addons/{addon}": {
+      "delete": {
+        "operationId": "TourPackageService_DeletePackageAddon",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageDeleteAddonRespone"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "addon",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/categories": {
+      "delete": {
+        "operationId": "TourPackageService_DeletePackageCategory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackagePackageCategoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "rate",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "review",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_curated",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_featured",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_refundable",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "host_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type_tour",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "terms_of_service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "custom_policies",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "age_restriction",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cost_foreign_guest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "itinerary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policy_title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "additional_cost",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      },
+      "post": {
+        "operationId": "TourPackageService_AddPackageCategory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackagePackageCategoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackage"
+            }
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/medias": {
+      "post": {
+        "operationId": "TourPackageService_AddPackageMedia",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackagePackageMediaResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackage"
+            }
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/medias/{media_id}": {
+      "delete": {
+        "operationId": "TourPackageService_DeletePackageMedia",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageDeleteMediaRespone"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/schedules": {
+      "post": {
+        "operationId": "TourPackageService_AddPackageSchedule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackagePackageScheduleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackage"
+            }
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}": {
+      "delete": {
+        "operationId": "TourPackageService_DeletePackageSchedule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageDeleteScheduleRespone"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "schedule_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "quota",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_active",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/tags": {
+      "delete": {
+        "operationId": "TourPackageService_DeletePackageTag",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackagePackageTagResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "rate",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "review",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_curated",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_featured",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_refundable",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "host_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type_tour",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "terms_of_service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "custom_policies",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "age_restriction",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cost_foreign_guest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "itinerary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policy_title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "policy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "additional_cost",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      },
+      "post": {
+        "operationId": "TourPackageService_AddPackageTag",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackagePackageTagResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackage"
+            }
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    },
+    "/api/v1/tourpackages/{tour_id}/tourpackages": {
+      "patch": {
+        "operationId": "TourPackageService_UpdateTourPackage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourpackageUpdateTourPackageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourpackageTourPackageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TourPackageService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "tourpackageBrowseTourPackage": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackageTourPackage"
+          }
+        }
+      }
+    },
+    "tourpackageDeleteAddon": {
+      "type": "object",
+      "properties": {
+        "addon": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "tour_id": {
+          "type": "string"
+        }
+      }
+    },
+    "tourpackageDeleteAddonRespone": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageDeleteAddon"
+        }
+      }
+    },
+    "tourpackageDeleteMedia": {
+      "type": "object",
+      "properties": {
+        "media_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "tour_id": {
+          "type": "string"
+        }
+      }
+    },
+    "tourpackageDeleteMediaRespone": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageDeleteMedia"
+        }
+      }
+    },
+    "tourpackageDeletePackageResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageTourPackage"
+        }
+      }
+    },
+    "tourpackageDeleteSchedule": {
+      "type": "object",
+      "properties": {
+        "schedule_id": {
+          "type": "string"
+        },
+        "tour_id": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "quota": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "tourpackageDeleteScheduleRespone": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageDeleteSchedule"
+        }
+      }
+    },
+    "tourpackageExplorerPackageResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackageTourPackage"
+          }
+        }
+      }
+    },
+    "tourpackageFilter": {
+      "type": "object",
+      "properties": {
+        "Field": {
+          "type": "string"
+        },
+        "Operator": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      }
+    },
+    "tourpackagePackageAddon": {
+      "type": "object",
+      "properties": {
+        "addon": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "tour_id": {
+          "type": "string"
+        }
+      }
+    },
+    "tourpackagePackageAddonResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageTourPackage"
+        }
+      }
+    },
+    "tourpackagePackageCategoryResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageTourPackage"
+        }
+      }
+    },
+    "tourpackagePackageMedia": {
+      "type": "object",
+      "properties": {
+        "media_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "tour_id": {
+          "type": "string"
+        }
+      }
+    },
+    "tourpackagePackageMediaResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageTourPackage"
+        }
+      }
+    },
+    "tourpackagePackagePriceList": {
+      "type": "object",
+      "properties": {
+        "price_id": {
+          "type": "string"
+        },
+        "min_participant": {
+          "type": "string"
+        },
+        "max_participant": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "kid_price": {
+          "type": "string"
+        },
+        "min_kid_age": {
+          "type": "string"
+        },
+        "max_kid_age": {
+          "type": "string"
+        }
+      }
+    },
+    "tourpackagePackageSchedule": {
+      "type": "object",
+      "properties": {
+        "schedule_id": {
+          "type": "string"
+        },
+        "durations": {
+          "type": "string"
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "quota": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "min_quota": {
+          "type": "string"
+        },
+        "max_quota": {
+          "type": "string"
+        }
+      }
+    },
+    "tourpackagePackageScheduleResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageTourPackage"
+        },
+        "min_quota": {
+          "type": "string"
+        },
+        "max_quota": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "tourpackagePackageTagResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageTourPackage"
+        }
+      }
+    },
+    "tourpackageTourPackage": {
+      "type": "object",
+      "properties": {
+        "tour_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "medias": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackagePackageMedia"
+          }
+        },
+        "schedules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackagePackageSchedule"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "location": {
+          "type": "string"
+        },
+        "rate": {
+          "type": "string"
+        },
+        "review": {
+          "type": "string"
+        },
+        "addons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackagePackageAddon"
+          }
+        },
+        "is_curated": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_featured": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_refundable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "host_id": {
+          "type": "string"
+        },
+        "type_tour": {
+          "type": "string"
+        },
+        "price_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackagePackagePriceList"
+          }
+        },
+        "terms_of_service": {
+          "type": "string"
+        },
+        "custom_policies": {
+          "type": "string"
+        },
+        "age_restriction": {
+          "type": "string"
+        },
+        "cost_foreign_guest": {
+          "type": "string"
+        },
+        "itinerary": {
+          "type": "string"
+        },
+        "policy_title": {
+          "type": "string"
+        },
+        "policy": {
+          "type": "string"
+        },
+        "additional_cost": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "tourpackageTourPackageRequest": {
+      "type": "object",
+      "properties": {
+        "tour_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "medias": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackagePackageMedia"
+          }
+        },
+        "schedules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackagePackageSchedule"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "location": {
+          "type": "string"
+        },
+        "rate": {
+          "type": "string"
+        },
+        "review": {
+          "type": "string"
+        },
+        "addons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackagePackageAddon"
+          }
+        },
+        "is_curated": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_featured": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_refundable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "host_id": {
+          "type": "string"
+        },
+        "type_tour": {
+          "type": "string"
+        },
+        "price_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tourpackagePackagePriceList"
+          }
+        },
+        "terms_of_service": {
+          "type": "string"
+        },
+        "custom_policies": {
+          "type": "string"
+        },
+        "age_restriction": {
+          "type": "string"
+        },
+        "cost_foreign_guest": {
+          "type": "string"
+        },
+        "itinerary": {
+          "type": "string"
+        },
+        "policy_title": {
+          "type": "string"
+        },
+        "policy": {
+          "type": "string"
+        },
+        "additional_cost": {
+          "type": "string"
+        }
+      }
+    },
+    "tourpackageTourPackageResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageTourPackage"
+        }
+      }
+    },
+    "tourpackageUpdateTourPackageResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourpackageTourPackage"
+        }
+      }
+    }
+  }
+}

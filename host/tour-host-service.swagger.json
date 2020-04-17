@@ -1,0 +1,667 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/tour-host-service.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/tourhosts": {
+      "get": {
+        "summary": "rpc GetTourHostByCridentials(GetTourHostByCridentialsRequest) returns (GetTourHostByCridentialsResponse);",
+        "operationId": "TourHostService_GetTourHostByCridentials",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourhostserviceGetTourHostByCridentialsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TourHostService"
+        ]
+      },
+      "post": {
+        "operationId": "TourHostService_CreateTourHost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourhostserviceCreateTourHostResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourhostserviceCreateTourHostRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TourHostService"
+        ]
+      }
+    },
+    "/api/v1/tourhosts/verify/{host_id}": {
+      "patch": {
+        "operationId": "TourHostService_UpdateHostBussinessID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourhostserviceResponseMessage"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourhostserviceHostBussinessID"
+            }
+          }
+        ],
+        "tags": [
+          "TourHostService"
+        ]
+      }
+    },
+    "/api/v1/tourhosts/{host_id}": {
+      "get": {
+        "operationId": "TourHostService_GetTourHostById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourhostserviceGetTourHostByIdResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "first_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "last_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "phone_number",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date_of_birth",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "business_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "business_category",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "business_about",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "personalid_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "personalid_number",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "verification_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "verification_number",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_verified",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "account_number",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "balance",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user_uid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TourHostService"
+        ]
+      },
+      "patch": {
+        "operationId": "TourHostService_UpdateTourHost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tourhostserviceUpdateTourHostResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "host_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tourhostserviceUpdateTourHostRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TourHostService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "tourhostserviceCreateTourHostRequest": {
+      "type": "object",
+      "properties": {
+        "host_id": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "dateofbirth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "password": {
+          "type": "string"
+        },
+        "password_confirmation": {
+          "type": "string"
+        },
+        "business_name": {
+          "type": "string"
+        },
+        "business_category": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "business_about": {
+          "type": "string"
+        },
+        "personalid_type": {
+          "type": "string"
+        },
+        "personalid_number": {
+          "type": "string"
+        },
+        "verification_type": {
+          "type": "string"
+        },
+        "verification_number": {
+          "type": "string"
+        },
+        "is_verified": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "account_number": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "user_uid": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        }
+      }
+    },
+    "tourhostserviceCreateTourHostResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourhostserviceCreateTourHostRequest"
+        },
+        "code": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "tourhostserviceGetTourHostByCridentialsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourhostserviceTourHost"
+        }
+      }
+    },
+    "tourhostserviceGetTourHostByIdResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourhostserviceTourHost"
+        }
+      }
+    },
+    "tourhostserviceHostBussinessID": {
+      "type": "object",
+      "properties": {
+        "host_id": {
+          "type": "string"
+        },
+        "bussiness_id": {
+          "type": "string"
+        },
+        "bussiness_id_status": {
+          "$ref": "#/definitions/tourhostserviceVerifiedStatus"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "tourhostserviceHostCardID": {
+      "type": "object",
+      "properties": {
+        "host_id": {
+          "type": "string"
+        },
+        "card_id": {
+          "type": "string"
+        },
+        "person_with_id": {
+          "type": "string"
+        },
+        "card_id_status": {
+          "$ref": "#/definitions/tourhostserviceVerifiedStatus"
+        },
+        "verified_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "tourhostserviceResponseMessage": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "tourhostserviceTourHost": {
+      "type": "object",
+      "properties": {
+        "host_id": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "date_of_birth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "password": {
+          "type": "string"
+        },
+        "business_name": {
+          "type": "string"
+        },
+        "business_category": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "business_about": {
+          "type": "string"
+        },
+        "personalid_type": {
+          "type": "string"
+        },
+        "personalid_number": {
+          "type": "string"
+        },
+        "verification_type": {
+          "type": "string"
+        },
+        "verification_number": {
+          "type": "string"
+        },
+        "is_verified": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "account_number": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "user_uid": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "tourhostserviceUpdateTourHostRequest": {
+      "type": "object",
+      "properties": {
+        "host_id": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "dateofbirth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "password": {
+          "type": "string"
+        },
+        "password_confirmation": {
+          "type": "string"
+        },
+        "business_name": {
+          "type": "string"
+        },
+        "business_category": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "business_about": {
+          "type": "string"
+        },
+        "personalid_type": {
+          "type": "string"
+        },
+        "personalid_number": {
+          "type": "string"
+        },
+        "verification_type": {
+          "type": "string"
+        },
+        "verification_number": {
+          "type": "string"
+        },
+        "is_verified": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "account_number": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "user_uid": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        }
+      }
+    },
+    "tourhostserviceUpdateTourHostResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/tourhostserviceUpdateTourHostRequest"
+        },
+        "code": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "tourhostserviceVerifiedStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "ONREVIEW",
+        "ACCEPTED",
+        "REJECTED"
+      ],
+      "default": "PENDING"
+    }
+  }
+}
