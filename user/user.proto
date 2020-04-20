@@ -17,7 +17,7 @@ message User{
     string profile_picture_url = 9;
     bool is_verified = 10;
     bool is_suspended = 11;
-    int32 role = 12;
+    bool by_admin = 12;
 }
 
 message CreateUserRequest{
@@ -30,7 +30,7 @@ message CreateUserRequest{
     google.protobuf.Timestamp date_of_birth = 7;
     string gender = 8;
     string phone_number = 9;
-    int32 role = 10;
+    bool by_admin = 10;
 }
 
 message CreateUserResponse{
