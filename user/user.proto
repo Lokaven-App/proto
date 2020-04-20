@@ -171,9 +171,8 @@ message CreateUserHostRequest{
     google.protobuf.Timestamp date_of_birth = 7;
     string gender = 8;
     string phone_number = 9;
-    string profile_picture_url = 10;
-    bool is_verified = 11;
-    bool by_admin = 12;
+    bool is_verified = 10;
+    bool by_admin = 11;
 }
 
 message CreateUserHostResponse{
