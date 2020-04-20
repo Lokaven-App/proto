@@ -17,7 +17,6 @@ message User{
     string profile_picture_url = 9;
     bool is_verified = 10;
     bool is_suspended = 11;
-    bool by_admin = 12;
 }
 
 message CreateUserRequest{
@@ -30,7 +29,6 @@ message CreateUserRequest{
     google.protobuf.Timestamp date_of_birth = 7;
     string gender = 8;
     string phone_number = 9;
-    bool by_admin = 10;
 }
 
 message CreateUserResponse{
@@ -163,6 +161,27 @@ message GetUserInfoRespone{
     string title = 3;
 }
 
+message CreateUserHostRequest{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    string password_confirmation = 6;
+    google.protobuf.Timestamp date_of_birth = 7;
+    string gender = 8;
+    string phone_number = 9;
+    string profile_picture_url = 10;
+    bool is_verified = 11;
+    bool by_admin = 12;
+}
+
+message CreateUserHostResponse{
+    CreateUserHostRequest data = 1;
+    string code = 2;
+    string title = 3;
+}
+
 service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
@@ -211,6 +230,13 @@ service UserService{
     rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/resetpassword",
+            body    : "*" 
+        };
+    }
+
+    rpc CreateUserHost(CreateUserHostRequest) returns (CreateUserHostResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/userhosts",
             body    : "*" 
         };
     }
