@@ -166,33 +166,215 @@ func (m *UpdateUserSettingResponse) GetData() *UserSetting {
 	return nil
 }
 
+type HostSetting struct {
+	Id                   string     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Settings             []*Setting `protobuf:"bytes,2,rep,name=settings,proto3" json:"settings,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *HostSetting) Reset()         { *m = HostSetting{} }
+func (m *HostSetting) String() string { return proto.CompactTextString(m) }
+func (*HostSetting) ProtoMessage()    {}
+func (*HostSetting) Descriptor() ([]byte, []int) {
+	return fileDescriptor_21f1b67425477f43, []int{3}
+}
+
+func (m *HostSetting) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_HostSetting.Unmarshal(m, b)
+}
+func (m *HostSetting) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_HostSetting.Marshal(b, m, deterministic)
+}
+func (m *HostSetting) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HostSetting.Merge(m, src)
+}
+func (m *HostSetting) XXX_Size() int {
+	return xxx_messageInfo_HostSetting.Size(m)
+}
+func (m *HostSetting) XXX_DiscardUnknown() {
+	xxx_messageInfo_HostSetting.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_HostSetting proto.InternalMessageInfo
+
+func (m *HostSetting) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *HostSetting) GetSettings() []*Setting {
+	if m != nil {
+		return m.Settings
+	}
+	return nil
+}
+
+type UpdateHostSettingResponse struct {
+	Data                 *HostSetting `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *UpdateHostSettingResponse) Reset()         { *m = UpdateHostSettingResponse{} }
+func (m *UpdateHostSettingResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateHostSettingResponse) ProtoMessage()    {}
+func (*UpdateHostSettingResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_21f1b67425477f43, []int{4}
+}
+
+func (m *UpdateHostSettingResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateHostSettingResponse.Unmarshal(m, b)
+}
+func (m *UpdateHostSettingResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateHostSettingResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateHostSettingResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateHostSettingResponse.Merge(m, src)
+}
+func (m *UpdateHostSettingResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateHostSettingResponse.Size(m)
+}
+func (m *UpdateHostSettingResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateHostSettingResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateHostSettingResponse proto.InternalMessageInfo
+
+func (m *UpdateHostSettingResponse) GetData() *HostSetting {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+type CreateSettingRequest struct {
+	Id                   string     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Settings             []*Setting `protobuf:"bytes,2,rep,name=settings,proto3" json:"settings,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *CreateSettingRequest) Reset()         { *m = CreateSettingRequest{} }
+func (m *CreateSettingRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateSettingRequest) ProtoMessage()    {}
+func (*CreateSettingRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_21f1b67425477f43, []int{5}
+}
+
+func (m *CreateSettingRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateSettingRequest.Unmarshal(m, b)
+}
+func (m *CreateSettingRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateSettingRequest.Marshal(b, m, deterministic)
+}
+func (m *CreateSettingRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateSettingRequest.Merge(m, src)
+}
+func (m *CreateSettingRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateSettingRequest.Size(m)
+}
+func (m *CreateSettingRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateSettingRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateSettingRequest proto.InternalMessageInfo
+
+func (m *CreateSettingRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *CreateSettingRequest) GetSettings() []*Setting {
+	if m != nil {
+		return m.Settings
+	}
+	return nil
+}
+
+type CreateSettingRespone struct {
+	Data                 *CreateSettingRequest `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
+	XXX_unrecognized     []byte                `json:"-"`
+	XXX_sizecache        int32                 `json:"-"`
+}
+
+func (m *CreateSettingRespone) Reset()         { *m = CreateSettingRespone{} }
+func (m *CreateSettingRespone) String() string { return proto.CompactTextString(m) }
+func (*CreateSettingRespone) ProtoMessage()    {}
+func (*CreateSettingRespone) Descriptor() ([]byte, []int) {
+	return fileDescriptor_21f1b67425477f43, []int{6}
+}
+
+func (m *CreateSettingRespone) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateSettingRespone.Unmarshal(m, b)
+}
+func (m *CreateSettingRespone) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateSettingRespone.Marshal(b, m, deterministic)
+}
+func (m *CreateSettingRespone) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateSettingRespone.Merge(m, src)
+}
+func (m *CreateSettingRespone) XXX_Size() int {
+	return xxx_messageInfo_CreateSettingRespone.Size(m)
+}
+func (m *CreateSettingRespone) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateSettingRespone.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateSettingRespone proto.InternalMessageInfo
+
+func (m *CreateSettingRespone) GetData() *CreateSettingRequest {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Setting)(nil), "setting.Setting")
 	proto.RegisterType((*UserSetting)(nil), "setting.UserSetting")
 	proto.RegisterType((*UpdateUserSettingResponse)(nil), "setting.UpdateUserSettingResponse")
+	proto.RegisterType((*HostSetting)(nil), "setting.HostSetting")
+	proto.RegisterType((*UpdateHostSettingResponse)(nil), "setting.UpdateHostSettingResponse")
+	proto.RegisterType((*CreateSettingRequest)(nil), "setting.CreateSettingRequest")
+	proto.RegisterType((*CreateSettingRespone)(nil), "setting.CreateSettingRespone")
 }
 
 func init() { proto.RegisterFile("pb/setting.proto", fileDescriptor_21f1b67425477f43) }
 
 var fileDescriptor_21f1b67425477f43 = []byte{
-	// 271 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x91, 0xc1, 0x4a, 0xc3, 0x30,
-	0x18, 0xc7, 0x69, 0x37, 0x9d, 0x7e, 0x85, 0x51, 0xc3, 0x0e, 0x75, 0x7a, 0x28, 0x39, 0x48, 0x11,
-	0x59, 0xb0, 0xde, 0xbc, 0xef, 0xe4, 0xad, 0x63, 0x0f, 0x90, 0x99, 0x8f, 0x12, 0x1c, 0x49, 0x68,
-	0xd2, 0xc2, 0x10, 0x2f, 0x5e, 0x7c, 0x00, 0x1f, 0xcd, 0x57, 0xf0, 0x41, 0xc4, 0x34, 0x9d, 0x03,
-	0xf5, 0xf6, 0x7d, 0x7f, 0x7e, 0xf9, 0xf1, 0xe7, 0x0b, 0xa4, 0x66, 0xc3, 0x2c, 0x3a, 0x27, 0x55,
-	0xbd, 0x30, 0x8d, 0x76, 0x9a, 0x4c, 0xc2, 0x3a, 0xbf, 0xac, 0xb5, 0xae, 0xb7, 0xc8, 0xb8, 0x91,
-	0x8c, 0x2b, 0xa5, 0x1d, 0x77, 0x52, 0x2b, 0xdb, 0x63, 0x74, 0x09, 0x93, 0x55, 0x0f, 0x92, 0x14,
-	0x46, 0x4f, 0xb8, 0xcb, 0xa2, 0x3c, 0x2a, 0x4e, 0xab, 0xef, 0x91, 0x10, 0x18, 0xbb, 0x9d, 0xc1,
-	0x2c, 0xf6, 0x91, 0x9f, 0xc9, 0x0c, 0x8e, 0x3a, 0xbe, 0x6d, 0x31, 0x1b, 0xf9, 0xb0, 0x5f, 0xe8,
-	0x03, 0x24, 0x6b, 0x8b, 0xcd, 0xa0, 0x9a, 0x42, 0x2c, 0x45, 0x30, 0xc5, 0x52, 0x90, 0x1b, 0x38,
-	0x09, 0x75, 0x6c, 0x16, 0xe7, 0xa3, 0x22, 0x29, 0xd3, 0xc5, 0x50, 0x37, 0xbc, 0xa9, 0xf6, 0x04,
-	0x5d, 0xc2, 0xf9, 0xda, 0x08, 0xee, 0xf0, 0x40, 0x59, 0xa1, 0x35, 0x5a, 0x59, 0x24, 0x05, 0x8c,
-	0x05, 0x77, 0xdc, 0xcb, 0x93, 0x72, 0xb6, 0xd7, 0x1c, 0xb2, 0x9e, 0x28, 0xdf, 0x22, 0x98, 0x86,
-	0x64, 0x85, 0x4d, 0x27, 0x1f, 0x91, 0xb4, 0x70, 0xf6, 0xcb, 0x4c, 0xfe, 0x74, 0xcc, 0xe9, 0x4f,
-	0xfa, 0x5f, 0x17, 0x7a, 0xf5, 0xfa, 0xf1, 0xf9, 0x1e, 0xe7, 0xf4, 0xc2, 0x1f, 0xb7, 0xbb, 0x65,
-	0xad, 0xc5, 0xc6, 0xb2, 0x67, 0x29, 0x5e, 0x86, 0xdf, 0xb0, 0xf7, 0xd1, 0xf5, 0xe6, 0xd8, 0xdf,
-	0xfa, 0xee, 0x2b, 0x00, 0x00, 0xff, 0xff, 0x39, 0xe2, 0xfa, 0x36, 0xa6, 0x01, 0x00, 0x00,
+	// 368 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x93, 0xcd, 0x4a, 0xfb, 0x40,
+	0x14, 0xc5, 0x69, 0xda, 0xff, 0xbf, 0x7a, 0x8b, 0x25, 0x0e, 0x15, 0x62, 0xab, 0x50, 0x66, 0x21,
+	0x45, 0xa4, 0xa1, 0x75, 0xe7, 0x56, 0x0a, 0x8a, 0xbb, 0xd6, 0x3e, 0xc0, 0xd4, 0x5c, 0xea, 0x68,
+	0xc9, 0xc4, 0xcc, 0xa4, 0x50, 0xc4, 0x8d, 0xaf, 0xe0, 0xa3, 0xf9, 0x0a, 0xae, 0x7c, 0x0a, 0xc9,
+	0xe4, 0xa3, 0x53, 0x92, 0xea, 0x42, 0x77, 0xf3, 0x71, 0x72, 0xce, 0x8f, 0x7b, 0x26, 0x60, 0x07,
+	0x33, 0x57, 0xa2, 0x52, 0xdc, 0x9f, 0xf7, 0x83, 0x50, 0x28, 0x41, 0xea, 0xe9, 0xb6, 0x7d, 0x34,
+	0x17, 0x62, 0xbe, 0x40, 0x97, 0x05, 0xdc, 0x65, 0xbe, 0x2f, 0x14, 0x53, 0x5c, 0xf8, 0x32, 0x91,
+	0xd1, 0x11, 0xd4, 0x27, 0x89, 0x90, 0xd8, 0x50, 0x7d, 0xc4, 0x95, 0x53, 0xe9, 0x56, 0x7a, 0xbb,
+	0xe3, 0x78, 0x49, 0x08, 0xd4, 0xd4, 0x2a, 0x40, 0xc7, 0xd2, 0x47, 0x7a, 0x4d, 0x5a, 0xf0, 0x6f,
+	0xc9, 0x16, 0x11, 0x3a, 0x55, 0x7d, 0x98, 0x6c, 0xe8, 0x0d, 0x34, 0xa6, 0x12, 0xc3, 0xcc, 0xaa,
+	0x09, 0x16, 0xf7, 0x52, 0x27, 0x8b, 0x7b, 0xe4, 0x0c, 0x76, 0x52, 0x1c, 0xe9, 0x58, 0xdd, 0x6a,
+	0xaf, 0x31, 0xb4, 0xfb, 0x19, 0x6e, 0xfa, 0xcd, 0x38, 0x57, 0xd0, 0x11, 0x1c, 0x4e, 0x03, 0x8f,
+	0x29, 0x34, 0x2c, 0xc7, 0x28, 0x03, 0xe1, 0x4b, 0x24, 0x3d, 0xa8, 0x79, 0x4c, 0x31, 0x6d, 0xde,
+	0x18, 0xb6, 0x72, 0x1b, 0x53, 0xab, 0x15, 0x31, 0xd3, 0x95, 0x90, 0xea, 0x8f, 0x99, 0x0c, 0xcb,
+	0x1f, 0x99, 0x4c, 0x6d, 0xc2, 0x74, 0x0b, 0xad, 0xcb, 0x10, 0x99, 0xc2, 0xdc, 0xe2, 0x29, 0x42,
+	0xa9, 0x7e, 0x09, 0x77, 0x5d, 0x70, 0x8d, 0xc1, 0x90, 0x0c, 0x36, 0xb8, 0x8e, 0x73, 0x87, 0x32,
+	0x84, 0x04, 0x70, 0xf8, 0x69, 0x41, 0x33, 0xbd, 0x98, 0x60, 0xb8, 0xe4, 0x77, 0x48, 0x22, 0xd8,
+	0x2f, 0xd4, 0x41, 0x4a, 0x07, 0xdf, 0xa6, 0xeb, 0xd3, 0x6d, 0x05, 0xd2, 0x93, 0xd7, 0xf7, 0x8f,
+	0x37, 0xab, 0x4b, 0x3b, 0xfa, 0x45, 0x2e, 0x07, 0x6e, 0x24, 0x31, 0x94, 0xee, 0x33, 0xf7, 0x5e,
+	0xb2, 0x27, 0x2c, 0x2f, 0x2a, 0xa7, 0xeb, 0x58, 0xb3, 0xc4, 0xd2, 0xd9, 0x16, 0x62, 0x4b, 0x3a,
+	0x2a, 0xc6, 0xde, 0x0b, 0xa9, 0x4a, 0x62, 0x1f, 0x60, 0x6f, 0x63, 0x3c, 0xe4, 0xfb, 0xb1, 0xb5,
+	0xb7, 0x5e, 0xeb, 0x0a, 0x68, 0x47, 0xc7, 0x1e, 0x50, 0x3b, 0x8b, 0x35, 0xb2, 0x66, 0xff, 0xf5,
+	0x3f, 0x78, 0xfe, 0x15, 0x00, 0x00, 0xff, 0xff, 0x75, 0xf0, 0x57, 0xb2, 0xbe, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -208,6 +390,9 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SettingServiceClient interface {
 	UpdateUserSetting(ctx context.Context, in *UserSetting, opts ...grpc.CallOption) (*UpdateUserSettingResponse, error)
+	UpdateHostSetting(ctx context.Context, in *HostSetting, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error)
+	// this endpoint only use for create new setting by sign up guest as host
+	CreateSetting(ctx context.Context, in *CreateSettingRequest, opts ...grpc.CallOption) (*CreateSettingRespone, error)
 }
 
 type settingServiceClient struct {
@@ -227,9 +412,30 @@ func (c *settingServiceClient) UpdateUserSetting(ctx context.Context, in *UserSe
 	return out, nil
 }
 
+func (c *settingServiceClient) UpdateHostSetting(ctx context.Context, in *HostSetting, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error) {
+	out := new(UpdateHostSettingResponse)
+	err := c.cc.Invoke(ctx, "/setting.SettingService/UpdateHostSetting", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *settingServiceClient) CreateSetting(ctx context.Context, in *CreateSettingRequest, opts ...grpc.CallOption) (*CreateSettingRespone, error) {
+	out := new(CreateSettingRespone)
+	err := c.cc.Invoke(ctx, "/setting.SettingService/CreateSetting", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SettingServiceServer is the server API for SettingService service.
 type SettingServiceServer interface {
 	UpdateUserSetting(context.Context, *UserSetting) (*UpdateUserSettingResponse, error)
+	UpdateHostSetting(context.Context, *HostSetting) (*UpdateHostSettingResponse, error)
+	// this endpoint only use for create new setting by sign up guest as host
+	CreateSetting(context.Context, *CreateSettingRequest) (*CreateSettingRespone, error)
 }
 
 // UnimplementedSettingServiceServer can be embedded to have forward compatible implementations.
@@ -238,6 +444,12 @@ type UnimplementedSettingServiceServer struct {
 
 func (*UnimplementedSettingServiceServer) UpdateUserSetting(ctx context.Context, req *UserSetting) (*UpdateUserSettingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserSetting not implemented")
+}
+func (*UnimplementedSettingServiceServer) UpdateHostSetting(ctx context.Context, req *HostSetting) (*UpdateHostSettingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateHostSetting not implemented")
+}
+func (*UnimplementedSettingServiceServer) CreateSetting(ctx context.Context, req *CreateSettingRequest) (*CreateSettingRespone, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSetting not implemented")
 }
 
 func RegisterSettingServiceServer(s *grpc.Server, srv SettingServiceServer) {
@@ -262,6 +474,42 @@ func _SettingService_UpdateUserSetting_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SettingService_UpdateHostSetting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HostSetting)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SettingServiceServer).UpdateHostSetting(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/setting.SettingService/UpdateHostSetting",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SettingServiceServer).UpdateHostSetting(ctx, req.(*HostSetting))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SettingService_CreateSetting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSettingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SettingServiceServer).CreateSetting(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/setting.SettingService/CreateSetting",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SettingServiceServer).CreateSetting(ctx, req.(*CreateSettingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _SettingService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "setting.SettingService",
 	HandlerType: (*SettingServiceServer)(nil),
@@ -269,6 +517,14 @@ var _SettingService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateUserSetting",
 			Handler:    _SettingService_UpdateUserSetting_Handler,
+		},
+		{
+			MethodName: "UpdateHostSetting",
+			Handler:    _SettingService_UpdateHostSetting_Handler,
+		},
+		{
+			MethodName: "CreateSetting",
+			Handler:    _SettingService_CreateSetting_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
