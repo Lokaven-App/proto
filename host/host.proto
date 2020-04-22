@@ -136,6 +136,18 @@ message ResponseMessage {
     string message = 2;
 }
 
+message SignUpAsHostRequest{
+    string user_uid = 1;
+    string business_name = 2 ;
+    string business_category = 3 ;
+    string address = 4 ;
+}
+
+message SignUpAsHostRespone{
+    SignUpAsHostRequest data = 1;
+    string code = 2;
+    string title = 3;
+}
 
 service TourHostService{
     rpc UpdateTourHost(UpdateTourHostRequest) returns (UpdateTourHostRespone){
@@ -164,6 +176,13 @@ service TourHostService{
     rpc UpdateHostBussinessID (HostBussinessID) returns (ResponseMessage){
         option (google.api.http) = {
             patch : "/api/v1/tourhosts/verify-bussiness/{host_id}",
+            body: "*"
+        };
+    }
+
+    rpc SignUpAsHost(SignUpAsHostRequest) returns (SignUpAsHostRespone){
+         option (google.api.http) = {
+            post : "/api/v1/registered",
             body: "*"
         };
     }
