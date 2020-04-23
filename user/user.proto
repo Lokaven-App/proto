@@ -181,6 +181,26 @@ message CreateUserHostResponse{
     string title = 3;
 }
 
+message SignUpAsHostRequest{
+    string uid = 1;
+    string business_name = 2 ;
+    string business_category = 3 ;
+    string address = 4 ; 
+    repeated Setting settings = 5; 
+}
+
+message SignUpAsHostRespone{
+    SignUpAsHostRequest data = 1;
+    string title = 2 ;
+    string code = 3 ;
+}
+
+message Setting{
+    string key = 1;
+    string type = 2;
+    string value = 3;
+}
+
 service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
@@ -233,9 +253,17 @@ service UserService{
         };
     }
 
+    // this endpoint only use for handling a sign up host by admin.
     rpc CreateUserHost(CreateUserHostRequest) returns (CreateUserHostResponse) {
         option (google.api.http) = {
             post    : "/api/v1/userhosts",
+            body    : "*" 
+        };
+    }
+
+    rpc SignUpAsHost(SignUpAsHostRequest)returns(SignUpAsHostRespone){
+         option (google.api.http) = {
+            post    : "/api/v1/users/{uid}/registerhosts",
             body    : "*" 
         };
     }

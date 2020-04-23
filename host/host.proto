@@ -180,6 +180,7 @@ service TourHostService{
         };
     }
 
+    // this endpoint only use for handling to sign up guest as host
     rpc SignUpAsHost(SignUpAsHostRequest) returns (SignUpAsHostRespone){
          option (google.api.http) = {
             post : "/api/v1/registered",
