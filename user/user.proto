@@ -50,13 +50,13 @@ message EmailVerificationResponse {
 
 message ResetPasswordTokenRequest {
     string email = 1;
-    
+
 }
 
 message ResetPasswordTokenResponse {
     ResetPasswordTokenRequest data =1;
     string title = 2;
-    string code = 3; 
+    string code = 3;
 }
 
 message ResetPasswordRequest {
@@ -69,7 +69,7 @@ message ResetPasswordRequest {
 message ResetPasswordResponse {
     ResetPasswordRequest data =1;
     string title = 2;
-    string code = 3; 
+    string code = 3;
 }
 
 message UpdateUserRequest{
@@ -153,7 +153,7 @@ message ResendEmailVerificationRespone{
     ResendEmailVerificationRequest data = 1;
     string code = 2;
     string title = 3;
-    }
+}
 
 message GetUserInfoRespone{
     User data = 1;
@@ -185,7 +185,7 @@ service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users",
-            body    : "*" 
+            body    : "*"
         };
     }
 
@@ -208,7 +208,7 @@ service UserService{
     rpc EmailVerification(EmailVerificationRequest) returns (EmailVerificationResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/emailverification",
-            body    : "*" 
+            body    : "*"
         };
     }
 
@@ -222,21 +222,21 @@ service UserService{
     rpc ResetPasswordToken(ResetPasswordTokenRequest) returns (ResetPasswordTokenResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/resetpasswordtoken",
-            body    : "*" 
+            body    : "*"
         };
     }
 
     rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/resetpassword",
-            body    : "*" 
+            body    : "*"
         };
     }
 
     rpc CreateUserHost(CreateUserHostRequest) returns (CreateUserHostResponse) {
         option (google.api.http) = {
             post    : "/api/v1/userhosts",
-            body    : "*" 
+            body    : "*"
         };
     }
 }
