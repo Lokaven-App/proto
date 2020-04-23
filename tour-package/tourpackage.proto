@@ -1,0 +1,333 @@
+syntax = "proto3";
+package tourpackage;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message TourPackage{
+  string tour_id = 1;
+  string title = 2;
+  repeated PackageMedia medias = 3;
+  repeated PackageSchedule schedules = 4;
+  string description = 5;
+  string price = 6;
+  repeated string categories = 7;
+  repeated string tags = 8;
+  string location = 9;
+  string rate = 10;
+  string review = 11;
+  repeated PackageAddon addons = 12;
+  bool is_curated = 13;
+  bool is_featured = 14;
+  bool is_refundable = 15;
+  string host_id = 16;
+  string type_tour = 17;
+  repeated PackagePriceList price_list = 18;
+  string terms_of_service = 19;
+  string custom_policies = 20;
+  string age_restriction = 21;
+  string cost_foreign_guest = 22;
+  string itinerary = 23;
+  string policy_title = 24;
+  string policy = 25;
+  string additional_cost = 26;
+  google.protobuf.Timestamp created_at = 27;
+
+}
+
+message ExplorerPackageResponse {
+  repeated TourPackage data = 1;
+}
+
+message TourPackageRequest{
+  string tour_id = 1;
+  string title = 2;
+  repeated PackageMedia medias = 3;
+  repeated PackageSchedule schedules = 4;
+  string description = 5;
+  string price = 6;
+  repeated string categories = 7;
+  repeated string tags = 8;
+  string location = 9;
+  string rate = 10;
+  string review = 11;
+  repeated PackageAddon addons = 12;
+  bool is_curated = 13;
+  bool is_featured = 14;
+  bool is_refundable = 15;
+  string host_id = 16;
+  string type_tour = 17;
+  repeated PackagePriceList price_list = 18;
+  string terms_of_service = 19;
+  string custom_policies = 20;
+  string age_restriction = 21;
+  string cost_foreign_guest = 22;
+  string itinerary = 23;
+  string policy_title = 24;
+  string policy = 25;
+  string additional_cost = 26;
+}
+
+message TourPackageResponse{
+  TourPackage data = 1;
+}
+
+message UpdateTourPackageResponse{
+  TourPackage data = 1;
+}
+
+message PackageTag{
+  string tag_name = 1;
+  string tour_id = 2;
+}
+
+message PackageTagResponse{
+  TourPackage data = 1;
+}
+
+message PackageCategory{
+  string category_name = 1;
+  string tour_id = 2;
+}
+
+message PackageCategoryResponse{
+  TourPackage data = 1;
+}
+
+message PackageMedia{
+  string media_id = 1;
+  string url = 2;
+  string type = 3 ;
+  string tour_id = 4;
+}
+
+message PackageMediaResponse{
+  TourPackage data = 1;
+}
+
+message PackageSchedule{
+  string schedule_id = 1;
+  string durations = 2;
+  google.protobuf.Timestamp start_date = 3;
+  google.protobuf.Timestamp end_date = 4;
+  string quota = 5;
+  bool is_active = 6;
+  string min_quota = 7;
+  string max_quota = 8;
+}
+
+message PackageScheduleResponse{
+  TourPackage data = 1;
+  string min_quota = 5;
+  string max_quota = 6;
+  bool is_active = 7;
+}
+
+message PackageAddon{
+  string addon = 1;
+  string price = 2;
+  string tour_id = 3;
+}
+
+message DeletePackageResponse{
+  TourPackage data = 1;
+}
+message PackageAddonResponse{
+  TourPackage data = 1;
+}
+
+message PackagePriceList{
+  string price_id = 1;
+  string min_participant = 2;
+  string max_participant = 3;
+  string price = 4;
+  string kid_price = 5;
+  string min_kid_age = 6;
+  string max_kid_age = 7;
+}
+
+message BrowseTourPackage{
+  repeated TourPackage data = 1;
+}
+
+message Filter{
+  string Field = 1;
+  string Operator = 2;
+  string Value = 3;
+}
+
+message BrowseRequest{
+  repeated Filter filters = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message DeleteSchedule{
+  string schedule_id = 1;
+  string tour_id = 2;
+  string duration = 3;
+  google.protobuf.Timestamp start_date = 4;
+  google.protobuf.Timestamp end_date = 5;
+  string quota = 6;
+  bool is_active = 7;
+
+}
+
+message DeleteScheduleRespone{
+  DeleteSchedule data = 1;
+}
+
+message DeleteAddon{
+  string addon = 1;
+  string price = 2;
+  string tour_id = 3;
+}
+
+message DeleteAddonRespone{
+  DeleteAddon data = 1;
+}
+
+message DeleteMedia{
+  string media_id = 1;
+  string url = 2;
+  string type = 3 ;
+  string tour_id = 4;
+}
+
+message DeleteMediaRespone{
+  DeleteMedia data = 1;
+}
+
+message ExplorerFilter {
+  string category = 1;
+  string location = 2;
+  string price = 3;
+  string tag = 4;
+  string rating = 5;
+  string addons = 6;
+}
+
+message ExplorerSearch {
+  string keyword = 1;
+}
+
+message ExplorerSort {
+  string price = 1;
+  string startDate = 2;
+  string endDate = 3;
+  string rating = 4;
+}
+
+message ExplorerDefaultRequest{
+  ExplorerFilter filters = 1;
+  ExplorerSort sorts = 2;
+  ExplorerSearch keywords = 3;
+}
+
+message InitExplorerRequest{
+  string keyword = 1;
+}
+
+
+service TourPackageExplorerService{
+  rpc Browse(InitExplorerRequest) returns (ExplorerPackageResponse){
+    option(google.api.http) = {
+      get : "/api/v1/package-explorers"
+    };
+  }
+}
+
+service TourPackageService{
+  rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
+    option(google.api.http) = {
+      post : "/api/v1/tourhosts/{host_id}/tourpackages",
+      body : "*"
+    };
+  }
+  rpc DeleteTourPackage(TourPackage) returns (DeletePackageResponse){
+    option(google.api.http) = {
+      delete : "/api/v1/tourpackages/{tour_id}"
+    };
+  }
+  rpc GetTourPackage(BrowseRequest)returns(BrowseTourPackage){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages"
+    };
+  }
+  rpc GetDetailTourPackage(TourPackage)returns(TourPackageResponse){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/{tour_id}"
+    };
+  }
+  rpc UpdateTourPackage(TourPackageRequest)returns(UpdateTourPackageResponse){
+    option (google.api.http) = {
+      patch : "/api/v1/tourpackages/{tour_id}/tourpackages",
+      body : "*"
+    };
+  }
+
+  rpc AddPackageTag(TourPackage) returns (PackageTagResponse){
+    option (google.api.http) = {
+      post : "/api/v1/tourpackages/{tour_id}/tags",
+      body : "*"
+    };
+  }
+
+  rpc DeletePackageTag(TourPackage) returns (PackageTagResponse){
+    option (google.api.http) = {
+      delete : "/api/v1/tourpackages/{tour_id}/tags",
+    };
+  }
+
+  rpc AddPackageCategory(TourPackage) returns (PackageCategoryResponse){
+    option (google.api.http) = {
+      post: "/api/v1/tourpackages/{tour_id}/categories",
+      body: "*"
+    };
+  }
+
+  rpc DeletePackageCategory(TourPackage) returns (PackageCategoryResponse){
+    option (google.api.http) = {
+      delete : "/api/v1/tourpackages/{tour_id}/categories",
+    };
+  }
+
+  rpc AddPackageMedia(TourPackage)returns(PackageMediaResponse){
+    option (google.api.http) = {
+      post: "/api/v1/tourpackages/{tour_id}/medias",
+      body: "*"
+    };
+  }
+
+  rpc DeletePackageMedia(DeleteMedia)returns(DeleteMediaRespone){
+    option (google.api.http) = {
+      delete: "/api/v1/tourpackages/{tour_id}/medias/{media_id}",
+    };
+  }
+
+  rpc AddPackageSchedule(TourPackage)returns(PackageScheduleResponse){
+    option (google.api.http) = {
+      post: "/api/v1/tourpackages/{tour_id}/schedules",
+      body: "*"
+    };
+  }
+
+  rpc DeletePackageSchedule(DeleteSchedule)returns(DeleteScheduleRespone){
+    option (google.api.http) = {
+      delete: "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}",
+    };
+  }
+
+  rpc AddPackageAddon(TourPackage)returns(PackageAddonResponse){
+    option (google.api.http) = {
+      post: "/api/v1/tourpackages/{tour_id}/addons",
+      body: "*"
+    };
+  }
+
+  rpc DeletePackageAddon(DeleteAddon)returns(DeleteAddonRespone){
+    option (google.api.http) = {
+      delete: "/api/v1/tourpackages/{tour_id}/addons/{addon}",
+    };
+  }
+}
