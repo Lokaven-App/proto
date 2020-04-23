@@ -18,11 +18,43 @@ message UpdateUserSettingResponse{
     UserSetting data = 1;
 }
 
+message  HostSetting {
+   string id = 1;
+   repeated Setting settings = 2;
+}
+
+message UpdateHostSettingResponse{
+    HostSetting data = 1;
+}
+
+message CreateSettingRequest{
+    string id = 1;
+    repeated Setting settings = 2 ;
+}
+
+message CreateSettingRespone{
+    CreateSettingRequest data = 1 ;
+}
 
 service SettingService{
     rpc UpdateUserSetting(UserSetting) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
             post : "/api/v1/users/{id}/settings",
+            body : "*"
+        };
+    }
+
+    rpc UpdateHostSetting(HostSetting) returns (UpdateHostSettingResponse){
+        option (google.api.http) = {
+            post : "/api/v1/hosts/{id}/settings",
+            body : "*"
+        };
+    }
+
+    // this endpoint only use for create new setting by sign up guest as host
+    rpc CreateSetting(CreateSettingRequest) returns (CreateSettingRespone){
+        option (google.api.http) = {
+            post : "/api/v1/settings",
             body : "*"
         };
     }

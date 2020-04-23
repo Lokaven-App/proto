@@ -1,5 +1,5 @@
 syntax = "proto3";
-package tourhostservice;
+package host;
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
@@ -34,7 +34,7 @@ message UpdateTourHostRequest{
     string first_name = 2;
     string last_name = 3;
     string phone_number = 4;
-    google.protobuf.Timestamp dateofbirth = 5;
+    google.protobuf.Timestamp date_of_birth = 5;
     string password = 6;
     string password_confirmation = 7;
     string business_name = 8;
@@ -52,6 +52,7 @@ message UpdateTourHostRequest{
     google.protobuf.Timestamp updated_at = 20;
     string email = 21 ;
     string gender = 22;
+    bool by_admin = 23;
 }
 
 message UpdateTourHostResponse{
@@ -92,7 +93,7 @@ message CreateTourHostRequest{
     string first_name = 2;
     string last_name = 3;
     string phone_number = 4;
-    google.protobuf.Timestamp dateofbirth = 5;
+    google.protobuf.Timestamp date_of_birth = 5;
     string password = 6;
     string password_confirmation = 7;
     string business_name = 8;
@@ -110,6 +111,7 @@ message CreateTourHostRequest{
     google.protobuf.Timestamp updated_at = 20;
     string email = 21 ;
     string gender = 22;
+    bool by_admin = 23;
 }
 
 message CreateTourHostResponse{
@@ -139,6 +141,19 @@ message GetTourHostRespone{
     TourHost data = 1;
 }
 
+message SignUpAsHostRequest{
+    string user_uid = 1;
+    string business_name = 2 ;
+    string business_category = 3 ;
+    string address = 4 ;
+}
+
+message SignUpAsHostRespone{
+    SignUpAsHostRequest data = 1;
+    string code = 2;
+    string title = 3;
+}
+
 service TourHostService{
     rpc UpdateTourHost(UpdateTourHostRequest) returns (UpdateTourHostResponse){
         option (google.api.http) = {
@@ -153,23 +168,31 @@ service TourHostService{
         };
     }
 
+    rpc CreateTourHost(CreateTourHostRequest) returns (CreateTourHostResponse){
+        option (google.api.http) = {
+            post : "/api/v1/tourhosts",
+            body : "*"
+        };
+    }
+
     rpc UpdateHostCardID (HostCardID) returns (ResponseMessage){
         option (google.api.http) = {
-            patch : "/api/v1/tourhosts/verify/{host_id}",
+            patch : "/api/v1/tourhosts/verify-card/{host_id}",
             body: "*"
         };
     }
 
     rpc UpdateHostBussinessID (HostBussinessID) returns (ResponseMessage){
         option (google.api.http) = {
-            patch : "/api/v1/tourhosts/verify/{host_id}",
+            patch : "/api/v1/tourhosts/verify-bussiness/{host_id}",
             body: "*"
         };
     }
-    rpc CreateTourHost(CreateTourHostRequest) returns (CreateTourHostResponse){
+
+    rpc SignUpAsHost(SignUpAsHostRequest) returns (SignUpAsHostRespone){
         option (google.api.http) = {
-            post : "/api/v1/tourhosts",
-            body : "*"
+            post : "/api/v1/registered",
+            body: "*"
         };
     }
 

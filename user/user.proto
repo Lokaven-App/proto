@@ -33,6 +33,8 @@ message CreateUserRequest{
 
 message CreateUserResponse{
     CreateUserRequest data = 1;
+    string title = 2 ;
+    string code = 3 ;
 }
 
 message EmailVerificationRequest {
@@ -42,26 +44,32 @@ message EmailVerificationRequest {
 
 message EmailVerificationResponse {
     EmailVerificationRequest data = 1;
+    string title = 2;
+    string code = 3;
 }
 
 message ResetPasswordTokenRequest {
     string email = 1;
+    
 }
 
 message ResetPasswordTokenResponse {
     ResetPasswordTokenRequest data =1;
+    string title = 2;
+    string code = 3; 
 }
 
 message ResetPasswordRequest {
     string email = 1;
     string reset_password_token = 2;
-    string old_password = 3;
-    string password = 4;
-    string password_confirmation = 5;
+    string password = 3;
+    string password_confirmation = 4;
 }
 
 message ResetPasswordResponse {
     ResetPasswordRequest data =1;
+    string title = 2;
+    string code = 3; 
 }
 
 message UpdateUserRequest{
@@ -101,6 +109,8 @@ message BrowseRequest{
 
 message UpdateUserResponse{
     UpdateUserRequest data = 1;
+    string title = 2 ;
+    string code = 3;
 }
 
 message UpdateUserSettingResponse{
@@ -133,6 +143,44 @@ message GetUserResponse{
     User data = 1;
 }
 
+message ResendEmailVerificationRequest{
+    string uid = 1;
+    string email = 2;
+    string verification_token = 3;
+}
+
+message ResendEmailVerificationRespone{
+    ResendEmailVerificationRequest data = 1;
+    string code = 2;
+    string title = 3;
+    }
+
+message GetUserInfoRespone{
+    User data = 1;
+    string code = 2;
+    string title = 3;
+}
+
+message CreateUserHostRequest{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    string password_confirmation = 6;
+    google.protobuf.Timestamp date_of_birth = 7;
+    string gender = 8;
+    string phone_number = 9;
+    bool is_verified = 10;
+    bool by_admin = 11;
+}
+
+message CreateUserHostResponse{
+    CreateUserHostRequest data = 1;
+    string code = 2;
+    string title = 3;
+}
+
 service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
@@ -140,6 +188,13 @@ service UserService{
             body    : "*" 
         };
     }
+
+    rpc GetUserInfo(User) returns (GetUserInfoRespone){
+        option (google.api.http) = {
+            get : "/api/v1/users/me",
+        };
+    }
+
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){
         option (google.api.http) = {
             patch : "/api/v1/users/{uid}",
@@ -157,6 +212,13 @@ service UserService{
         };
     }
 
+    rpc ResendVerification(ResendEmailVerificationRequest) returns (ResendEmailVerificationRespone){
+        option (google.api.http) = {
+            post : "/api/v1/users/{uid}/resendemailverification",
+            body : "*"
+        };
+    }
+
     rpc ResetPasswordToken(ResetPasswordTokenRequest) returns (ResetPasswordTokenResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/resetpasswordtoken",
@@ -167,6 +229,13 @@ service UserService{
     rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/resetpassword",
+            body    : "*" 
+        };
+    }
+
+    rpc CreateUserHost(CreateUserHostRequest) returns (CreateUserHostResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/userhosts",
             body    : "*" 
         };
     }
