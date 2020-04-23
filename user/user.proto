@@ -201,6 +201,25 @@ message Setting{
     string value = 3;
 }
 
+message UpdateHostUserRequest{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    string password_confirmation = 6;
+    google.protobuf.Timestamp date_of_birth =7;
+    string gender = 8;
+    string phone_number = 9;
+    string profile_picture_url = 10;
+}
+
+message UpdateHostUserRespone{
+    UpdateHostUserRequest data = 1;
+    string code = 2;
+    string title = 3; 
+}
+
 service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
@@ -265,6 +284,14 @@ service UserService{
          option (google.api.http) = {
             post    : "/api/v1/users/{uid}/registerhosts",
             body    : "*" 
+        };
+    }
+
+    // this endpoint only user for handling for update host profile 
+    rpc UpdateHostUser(UpdateHostUserRequest) returns (UpdateHostUserRespone){
+        option (google.api.http) = {
+            patch : "/api/v1/update/userhosts",
+            body : "*"
         };
     }
 }
