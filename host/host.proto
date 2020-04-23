@@ -55,10 +55,37 @@ message UpdateTourHostRequest{
     bool by_admin = 23;
 }
 
-message UpdateTourHostRespone{
+message UpdateTourHostResponse{
     UpdateTourHostRequest data = 1;
     string code = 2;
     string title = 3;
+}
+
+enum VerifiedStatus {
+    PENDING = 0;
+    ONREVIEW = 1;
+    ACCEPTED = 2;
+    REJECTED = 3;
+}
+
+message HostCardID {
+    string host_id = 1;
+    string card_id = 2;
+    string person_with_id = 3;
+    VerifiedStatus card_id_status = 4;
+    google.protobuf.Timestamp verified_at = 5;
+}
+
+message HostBussinessID {
+    string host_id = 1;
+    string bussiness_id = 2;
+    VerifiedStatus bussiness_id_status = 3;
+    google.protobuf.Timestamp created_at = 4;
+}
+
+message ResponseMessage {
+    string status = 1;
+    string message = 2;
 }
 
 message CreateTourHostRequest{
@@ -87,7 +114,7 @@ message CreateTourHostRequest{
     bool by_admin = 23;
 }
 
-message CreateTourHostRespone{
+message CreateTourHostResponse{
     CreateTourHostRequest data = 1;
     string code = 2;
     string title = 3;
@@ -98,7 +125,11 @@ message GetTourHostByCridentialsRequest{
     string password = 2 ;
 }
 
-message GetTourHostByCridentialsRespone{
+message GetTourHostByCridentialsResponse{
+    TourHost data = 1;
+}
+
+message GetTourHostByIdResponse{
     TourHost data = 1;
 }
 
@@ -108,32 +139,6 @@ message GetTourHostRequest{
 
 message GetTourHostRespone{
     TourHost data = 1;
-}
-enum VerifiedStatus {
-    PENDING = 0;
-    ONREVIEW = 1;
-    ACCEPTED = 2;
-    REJECTED = 3;
-}
-
-message HostCardID {
-    string host_id = 1;
-    string card_id = 2;
-    string person_with_id = 3;
-    VerifiedStatus card_id_status = 4;
-    google.protobuf.Timestamp verified_at = 5;
-}
-
-message HostBussinessID {
-    string host_id = 1;
-    string bussiness_id = 2;
-    VerifiedStatus bussiness_id_status = 3;
-    google.protobuf.Timestamp created_at = 4;
-}
-
-message ResponseMessage {
-    string status = 1;
-    string message = 2;
 }
 
 message SignUpAsHostRequest{
@@ -150,22 +155,26 @@ message SignUpAsHostRespone{
 }
 
 service TourHostService{
-    rpc UpdateTourHost(UpdateTourHostRequest) returns (UpdateTourHostRespone){
+    rpc UpdateTourHost(UpdateTourHostRequest) returns (UpdateTourHostResponse){
         option (google.api.http) = {
             patch : "/api/v1/tourhosts/{host_id}",
             body : "*"
         };
     }
 
-     rpc CreateTourHost(CreateTourHostRequest) returns (CreateTourHostRespone){
+    rpc GetTourHostById(TourHost) returns (GetTourHostByIdResponse){
+        option (google.api.http) = {
+            get : "/api/v1/tourhosts/{host_id}"
+        };
+    }
+
+    rpc CreateTourHost(CreateTourHostRequest) returns (CreateTourHostResponse){
         option (google.api.http) = {
             post : "/api/v1/tourhosts",
             body : "*"
         };
     }
 
-    rpc GetTourHostByCridentials(GetTourHostByCridentialsRequest) returns (GetTourHostByCridentialsRespone);
-    rpc GetTourHost(GetTourHostRequest) returns(GetTourHostRespone);
     rpc UpdateHostCardID (HostCardID) returns (ResponseMessage){
         option (google.api.http) = {
             patch : "/api/v1/tourhosts/verify-card/{host_id}",
@@ -181,10 +190,16 @@ service TourHostService{
     }
 
     rpc SignUpAsHost(SignUpAsHostRequest) returns (SignUpAsHostRespone){
-         option (google.api.http) = {
+        option (google.api.http) = {
             post : "/api/v1/registered",
             body: "*"
         };
     }
-    
+
+    rpc GetTourHostByCridentials(GetTourHostByCridentialsRequest) returns (GetTourHostByCridentialsResponse){
+        option (google.api.http) = {
+          get : "/api/v1/tourhosts"
+        };
+    }
+
 }
