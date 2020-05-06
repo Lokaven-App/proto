@@ -28,8 +28,10 @@ message TourHost{
     string user_uid = 20;
     google.protobuf.Timestamp created_at = 21;
     string email = 22 ;
-    VerifiedStatus card_id_status = 23;
-    VerifiedStatus bussiness_id_status = 24;
+    int32 card_id_status = 23;
+    int32 bussiness_id_status = 24;
+    string card_number = 25;
+    string bussiness_number = 26;
 }
 
 message UpdateTourHostRequest{
@@ -112,6 +114,10 @@ message CreateTourHostRequest{
     string email = 21 ;
     string gender = 22;
     bool by_admin = 23;
+    int32 card_id_status = 24;
+    int32 bussiness_id_status = 25;
+    string card_number = 26;
+    string bussiness_number = 27;
 }
 
 message CreateTourHostResponse{
