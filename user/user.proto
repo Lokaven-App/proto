@@ -77,12 +77,13 @@ message UpdateUserRequest{
     string first_name = 2;
     string last_name = 3;
     string email = 4;
-    string password = 5;
-    string password_confirmation = 6;
-    google.protobuf.Timestamp date_of_birth =7;
-    string gender = 8;
-    string phone_number = 9;
-    string profile_picture_url = 10;
+    string old_password = 5;
+    string password = 6;
+    string password_confirmation = 7;
+    google.protobuf.Timestamp date_of_birth = 8;
+    string gender = 9;
+    string phone_number = 10;
+    string profile_picture_url = 11;
 }
 
 message UpdateUserSettingRequest{
@@ -206,12 +207,13 @@ message UpdateHostUserRequest{
     string first_name = 2;
     string last_name = 3;
     string email = 4;
-    string password = 5;
-    string password_confirmation = 6;
-    google.protobuf.Timestamp date_of_birth =7;
-    string gender = 8;
-    string phone_number = 9;
-    string profile_picture_url = 10;
+    string old_password = 5;
+    string password = 6;
+    string password_confirmation = 7;
+    google.protobuf.Timestamp date_of_birth = 8 ;
+    string gender = 9;
+    string phone_number = 10;
+    string profile_picture_url = 11;
 }
 
 message UpdateHostUserRespone{
