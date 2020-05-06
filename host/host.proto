@@ -18,16 +18,18 @@ message TourHost{
     string business_category = 10;
     string address = 11;
     string business_about  = 12;
-    string personalid_type = 13;
-    string personalid_number = 14;
-    string verification_type = 15;
-    string verification_number = 16;
+    string card_id_type = 13;
+    string card_id = 14;
+    string bussiness_id_type = 15;
+    string bussiness_id = 16;
     bool is_verified = 17;
     string account_number = 18;
     string balance = 19;
     string user_uid = 20;
     google.protobuf.Timestamp created_at = 21;
     string email = 22 ;
+    VerifiedStatus card_id_status = 23;
+    VerifiedStatus bussiness_id_status = 24;
 }
 
 message UpdateTourHostRequest{
@@ -36,20 +38,21 @@ message UpdateTourHostRequest{
     string last_name = 3;
     string phone_number = 4;
     google.protobuf.Timestamp date_of_birth = 5;
-    string password = 6;
-    string password_confirmation = 7;
-    string profile_picture_url = 8;
-    string business_name = 9;
-    string business_category = 10;
-    string address = 11;
-    string business_about  = 12;
-    string user_uid = 13;
-    google.protobuf.Timestamp updated_at = 14;
-    string email = 15 ;
-    string gender = 16;
-    bool by_admin = 17;
-    string verification_number = 18;
-    bool is_verified = 19;
+    string old_password = 6;
+    string password = 7;
+    string password_confirmation = 8;
+    string profile_picture_url = 9;
+    string business_name = 10;
+    string business_category = 11;
+    string address = 12;
+    string business_about = 13;
+    string user_uid = 14;
+    google.protobuf.Timestamp updated_at = 15;
+    string email = 16;
+    string gender = 17;
+    bool by_admin = 18;
+    string verification_number = 19;
+    bool is_verified = 20;
 }
 
 message UpdateTourHostResponse{
@@ -97,10 +100,10 @@ message CreateTourHostRequest{
     string business_category = 9;
     string address = 10;
     string business_about  = 11;
-    string personalid_type = 12;
-    string personalid_number = 13;
-    string verification_type = 14;
-    string verification_number = 15;
+    string card_id_type = 12;
+    string card_id = 13;
+    string bussiness_id_type = 14;
+    string bussiness_id = 15;
     bool is_verified = 16;
     string account_number = 17;
     string balance = 18;
@@ -185,7 +188,6 @@ service TourHostService{
             body: "*"
         };
     }
-
     // this endpoint only use for handling to sign up guest as host
     rpc SignUpAsHost(SignUpAsHostRequest) returns (SignUpAsHostResponse){
          option (google.api.http) = {
