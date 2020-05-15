@@ -17,6 +17,7 @@ message User{
     string profile_picture_url = 9;
     bool is_verified = 10;
     bool is_suspended = 11;
+    string nationality = 12;
 }
 
 message CreateUserRequest{
@@ -29,6 +30,7 @@ message CreateUserRequest{
     google.protobuf.Timestamp date_of_birth = 7;
     string gender = 8;
     string phone_number = 9;
+     string nationality = 10;
 }
 
 message CreateUserResponse{
@@ -84,6 +86,7 @@ message UpdateUserRequest{
     string gender = 9;
     string phone_number = 10;
     string profile_picture_url = 11;
+    string nationality = 12;
 }
 
 message UpdateUserSettingRequest{
@@ -174,6 +177,7 @@ message CreateUserHostRequest{
     string phone_number = 9;
     bool is_verified = 10;
     bool by_admin = 11;
+    string nationality = 12;
 }
 
 message CreateUserHostResponse{
@@ -214,6 +218,7 @@ message UpdateHostUserRequest{
     string gender = 9;
     string phone_number = 10;
     string profile_picture_url = 11;
+    string nationality = 12;
 }
 
 message UpdateHostUserRespone{
