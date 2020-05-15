@@ -32,6 +32,7 @@ message TourHost{
     int32 bussiness_id_status = 24;
     string card_number = 25;
     string bussiness_number = 26;
+    string nationality = 27;
 }
 
 message UpdateTourHostRequest{
@@ -55,6 +56,7 @@ message UpdateTourHostRequest{
     bool by_admin = 18;
     string verification_number = 19;
     bool is_verified = 20;
+    string nationality = 21;
 }
 
 message UpdateTourHostResponse{
