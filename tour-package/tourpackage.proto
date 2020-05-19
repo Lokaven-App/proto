@@ -10,7 +10,6 @@ message TourPackage{
   repeated PackageMedia medias = 3;
   repeated PackageSchedule schedules = 4;
   string description = 5;
-  string price = 6;
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
@@ -22,9 +21,9 @@ message TourPackage{
   bool is_refundable = 15;
   string host_id = 16;
   string type_tour = 17;
-  repeated PackagePriceList price_list = 18;
+  repeated PackagePrice price = 18;
   string terms_of_service = 19;
-  string custom_policies = 20;
+  repeated CustomPolicy custom_policies = 20;
   string age_restriction = 21;
   string cost_foreign_guest = 22;
   string itinerary = 23;
@@ -42,20 +41,21 @@ message TourHost{
   string phone_number = 5;
   google.protobuf.Timestamp date_of_birth = 6;
   string password = 7;
-  string business_name = 8;
-  string business_category = 9;
-  string address = 10;
-  string business_about = 11;
-  string personalid_type = 12;
-  string personalid_number = 13;
-  string verification_type = 14;
-  string verification_number = 15;
-  bool is_verified = 16;
-  string account_number = 17;
-  string balance = 18;
-  string user_uid = 19;
-  google.protobuf.Timestamp created_at = 20;
-  string email = 21 ;
+  string profile_picture_url = 8;
+  string business_name = 9;
+  string business_category = 10;
+  string address = 11;
+  string business_about = 12;
+  string card_id_type = 13;
+  string card_id = 14;
+  string bussiness_id_type = 15;
+  string bussiness_id = 16;
+  bool is_verified = 17;
+  string account_number = 18;
+  string balance = 19;
+  string user_uid = 20;
+  google.protobuf.Timestamp created_at = 21;
+  string email = 22 ;
 }
 
 message TourPackageRequest{
@@ -64,7 +64,6 @@ message TourPackageRequest{
   repeated PackageMedia medias = 3;
   repeated PackageSchedule schedules = 4;
   string description = 5;
-  string price = 6;
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
@@ -76,9 +75,9 @@ message TourPackageRequest{
   bool is_refundable = 15;
   string host_id = 16;
   string type_tour = 17;
-  repeated PackagePriceList price_list = 18;
+  repeated PackagePrice price = 18;
   string terms_of_service = 19;
-  string custom_policies = 20;
+  repeated CustomPolicy custom_policies = 20;
   string age_restriction = 21;
   string cost_foreign_guest = 22;
   string itinerary = 23;
@@ -95,18 +94,16 @@ message UpdateTourPackageResponse{
   TourPackage data = 1;
 }
 
-message PackageTag{
-  string tag_name = 1;
-  string tour_id = 2;
-}
-
 message PackageTagResponse{
   TourPackage data = 1;
 }
 
 message PackageCategory{
-  repeated string category_name = 1;
-  string tour_id = 2;
+  repeated string categories = 1;
+}
+
+message PackageTag{
+  repeated string tags = 1;
 }
 
 message PackageCategoryResponse{
@@ -118,6 +115,19 @@ message PackageMedia{
   string url = 2;
   string type = 3 ;
   string tour_id = 4;
+}
+
+message PackageMediaBrowseRequest{
+  string media_id = 1;
+  string url = 2;
+  string type = 3 ;
+  string tour_id = 4;
+  int32 limit = 12;
+  int32 offset = 13;
+}
+
+message BrowsePackageMedia{
+  repeated PackageMedia data = 1;
 }
 
 message PackageMediaResponse{
@@ -135,6 +145,22 @@ message PackageSchedule{
   string min_quota = 8;
   string max_quota = 9;
   bool is_booked = 10;
+}
+
+message ScheduleBrowseRequest{
+  string schedule_id = 1;
+  string tour_id = 2;
+  string durations = 3;
+  google.protobuf.Timestamp start_date = 4;
+  google.protobuf.Timestamp end_date = 5;
+  string quota = 6;
+  bool is_active = 7;
+  string min_quota = 8;
+  string max_quota = 9;
+  bool is_booked = 10;
+  repeated Filter filters = 11;
+  int32 limit = 12;
+  int32 offset = 13;
 }
 
 message BrowseTourSchedule{
@@ -155,10 +181,21 @@ message PackageAddon{
   string tour_id = 3;
 }
 
+message CustomPolicy{
+  string policy_name = 1;
+  string policy = 2;
+  string tour_id = 3;
+}
+
 message DeletePackageResponse{
   TourPackage data = 1;
   int32 code = 2;
   string title = 3;
+}
+
+message GeneralResponse{
+  int32 code = 1;
+  string title = 2;
 }
 
 message TourHostResponse {
@@ -169,14 +206,33 @@ message PackageAddonResponse{
   TourPackage data = 1;
 }
 
-message PackagePriceList{
+message PackagePrice{
   string price_id = 1;
-  string min_participant = 2;
-  string max_participant = 3;
-  string price = 4;
-  string kid_price = 5;
-  string min_kid_age = 6;
-  string max_kid_age = 7;
+  string tour_id = 2;
+  string min_participant = 3;
+  string max_participant = 4;
+  string price = 5;
+  string kid_price = 7;
+  string min_kid_age = 8;
+  string max_kid_age = 9;
+}
+
+message PriceListBrowseRequest{
+  string price_id = 1;
+  string tour_id = 2;
+  string min_participant = 3;
+  string max_participant = 4;
+  string price = 5;
+  string kid_price = 7;
+  string min_kid_age = 8;
+  string max_kid_age = 9;
+  repeated Filter filters = 11;
+  int32 limit = 12;
+  int32 offset = 13;
+}
+
+message BrowseTourPriceList{
+  repeated PackagePrice data = 1;
 }
 
 message BrowseTourPackage{
@@ -195,6 +251,18 @@ message BrowseRequest{
   int32 offset = 3;
 }
 
+message BrowseRequestWishList{
+  repeated Filter filters = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+  string tour_id = 4 ;
+  string title = 5 ;
+  string price = 6 ;
+  string location = 7 ;
+  string rate = 8 ;
+  string user_uid = 9;
+}
+
 message DeleteSchedule{
   string schedule_id = 1;
   string tour_id = 2;
@@ -208,7 +276,7 @@ message DeleteSchedule{
   bool is_booked = 10;
 }
 
-message DeleteScheduleRespone{
+message DeleteScheduleResponse{
   DeleteSchedule data = 1;
 }
 
@@ -218,7 +286,7 @@ message DeleteAddon{
   string tour_id = 3;
 }
 
-message DeleteAddonRespone{
+message DeleteAddonResponse{
   DeleteAddon data = 1;
 }
 
@@ -229,12 +297,31 @@ message DeleteMedia{
   string tour_id = 4;
 }
 
-message DeleteMediaRespone{
+message DeleteMediaResponse{
   DeleteMedia data = 1;
 }
 
-message CategoryListRespone{
+message CategoryListResponse{
   repeated PackageCategory data = 1 ;
+}
+
+message AddWishListRequest{
+  string tour_id = 1 ;
+  string title = 2 ;
+  string price = 3 ;
+  string location = 4 ;
+  string rate = 5 ;
+  string user_uid = 6;
+}
+
+message AddWishListResponse{
+  AddWishListRequest data = 1;
+  int32 Code = 2 ;
+  string title = 3 ;
+}
+
+message WishListResponse{
+  repeated AddWishListRequest data = 1;
 }
 
 service TourPackageService{
@@ -269,6 +356,12 @@ service TourPackageService{
     };
   }
 
+  rpc GetTourPackageRecommendations(TourPackage) returns (BrowseTourPackage){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/{host_id}/recommendations",
+    };
+  }
+
   rpc GetDetailTourPackageByHostID(TourPackage)returns(TourPackageResponse){
     option (google.api.http) = {
       get : "/api/v1/tourpackages/{tour_id}/by-tourhosts/{host_id}"
@@ -277,7 +370,7 @@ service TourPackageService{
 
   rpc GetDetailHost(TourPackage)returns(TourHostResponse){
     option (google.api.http) = {
-      get : "/api/v1/tourpackages/detail-tourhosts/{host_id}"
+      get : "/api/v1/tourpackages/{tour_id}/detail-tourhosts/{host_id}"
     };
   }
 
@@ -288,87 +381,165 @@ service TourPackageService{
     };
   }
 
-  rpc AddPackageTag(TourPackage) returns (PackageTagResponse){
+  rpc AddPackageTag(TourPackage) returns (GeneralResponse){
     option (google.api.http) = {
       post : "/api/v1/tourpackages/{tour_id}/tags",
       body : "*"
     };
   }
 
-  rpc DeletePackageTag(TourPackage) returns (PackageTagResponse){
+  rpc DeletePackageTag(TourPackage) returns (GeneralResponse){
     option (google.api.http) = {
       delete : "/api/v1/tourpackages/{tour_id}/tags",
     };
   }
 
-  rpc AddPackageCategory(TourPackage) returns (PackageCategoryResponse){
+  rpc AddPackageCategory(TourPackage) returns (GeneralResponse){
     option (google.api.http) = {
       post: "/api/v1/tourpackages/{tour_id}/categories",
       body: "*"
     };
   }
 
-  rpc DeletePackageCategory(TourPackage) returns (PackageCategoryResponse){
+  rpc DeletePackageCategory(TourPackage) returns (GeneralResponse){
     option (google.api.http) = {
       delete : "/api/v1/tourpackages/{tour_id}/categories",
     };
   }
 
-  rpc AddPackageMedia(TourPackage)returns(PackageMediaResponse){
+  rpc AddPackageMedia(TourPackage)returns(GeneralResponse){
     option (google.api.http) = {
       post: "/api/v1/tourpackages/{tour_id}/medias",
       body: "*"
     };
   }
 
-  rpc DeletePackageMedia(DeleteMedia)returns(DeleteMediaRespone){
+  rpc ListPackageMedia(PackageMediaBrowseRequest)returns(BrowsePackageMedia){
+    option (google.api.http) = {
+      get: "/api/v1/tourpackages/{tour_id}/medias",
+    };
+  }
+
+  rpc DetailPackageMedia(PackageMedia)returns(PackageMedia){
+    option (google.api.http) = {
+      get: "/api/v1/tourpackages/{tour_id}/medias/{media_id}",
+    };
+  }
+
+  rpc DeletePackageMedia(DeleteMedia)returns(GeneralResponse){
     option (google.api.http) = {
       delete: "/api/v1/tourpackages/{tour_id}/medias/{media_id}",
     };
   }
 
-  rpc AddPackageSchedule(TourPackage)returns(PackageScheduleResponse){
+  rpc AddPackageSchedule(TourPackage)returns(GeneralResponse){
     option (google.api.http) = {
       post: "/api/v1/tourpackages/{tour_id}/schedules",
       body: "*"
     };
   }
 
-  rpc UpdatePackageSchedule(TourPackage) returns(PackageScheduleResponse) {
+  rpc UpdatePackageSchedule(PackageSchedule)returns(GeneralResponse) {
     option (google.api.http) = {
-      patch : "/api/v1/tourpackages/{tour_id}/schedules",
+      patch : "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}",
       body : "*"
     };
   }
 
-  rpc GetListPackageSchedule(TourPackage) returns(BrowseTourSchedule) {
+  rpc GetListPackageSchedule(ScheduleBrowseRequest)returns(BrowseTourSchedule) {
     option (google.api.http) = {
       get : "/api/v1/tourpackages/{tour_id}/schedules"
     };
   }
 
-  rpc DeletePackageSchedule(DeleteSchedule)returns(DeleteScheduleRespone){
+  rpc GetDetailPackageSchedule(PackageSchedule)returns(PackageSchedule) {
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}"
+    };
+  }
+
+  rpc DeletePackageSchedule(DeleteSchedule)returns(GeneralResponse){
     option (google.api.http) = {
       delete: "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}",
     };
   }
 
-  rpc AddPackageAddon(TourPackage)returns(PackageAddonResponse){
+  rpc AddPackagePrices(TourPackage)returns(GeneralResponse){
+    option (google.api.http) = {
+      post: "/api/v1/tourpackages/{tour_id}/prices",
+      body: "*"
+    };
+  }
+
+  rpc UpdatePackagePrices(PackagePrice)returns(GeneralResponse) {
+    option (google.api.http) = {
+      patch : "/api/v1/tourpackages/{tour_id}/prices/{price_id}",
+      body : "*"
+    };
+  }
+
+  rpc GetListPackagePrices(PriceListBrowseRequest)returns(BrowseTourPriceList) {
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/{tour_id}/prices"
+    };
+  }
+
+  rpc GetDetailPackagePrices(PackagePrice)returns(PackagePrice) {
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/{tour_id}/prices/{price_id}"
+    };
+  }
+
+  rpc DeletePackagePrices(PackagePrice)returns(GeneralResponse){
+    option (google.api.http) = {
+      delete: "/api/v1/tourpackages/{tour_id}/prices/{price_id}",
+    };
+  }
+
+  rpc AddPackageAddon(TourPackage)returns(GeneralResponse){
     option (google.api.http) = {
       post: "/api/v1/tourpackages/{tour_id}/addons",
       body: "*"
     };
   }
 
-  rpc DeletePackageAddon(DeleteAddon)returns(DeleteAddonRespone){
+  rpc DeletePackageAddon(DeleteAddon)returns(GeneralResponse){
     option (google.api.http) = {
       delete: "/api/v1/tourpackages/{tour_id}/addons/{addon}",
     };
   }
 
-  rpc GetListCategory(BrowseRequest) returns (CategoryListRespone){
+
+  rpc GetListCategory(BrowseRequest)returns(CategoryListResponse){
     option (google.api.http) = {
-      get : "/api/v1/tourpackages/categories",
+      get : "/api/v1/tourpackages-categories",
     };
   }
+
+  rpc AddWishList(AddWishListRequest)returns(AddWishListResponse){
+    option (google.api.http) = {
+      post : "/api/v1/tourpackages/{tour_id}/wish-list/{user_uid}",
+      body :"*"
+    };
+  }
+
+  rpc GetWishList(BrowseRequestWishList)returns(WishListResponse){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/wish-list/{user_uid}",
+    };
+  }
+
+  rpc AddCustomPolicy(TourPackage)returns(GeneralResponse){
+    option (google.api.http) = {
+      post: "/api/v1/tourpackages/{tour_id}/custom-policy",
+      body: "*"
+    };
+  }
+
+  rpc DeleteCustomPolicy(CustomPolicy)returns(GeneralResponse){
+    option (google.api.http) = {
+      delete: "/api/v1/tourpackages/{tour_id}/custom-policy/{policy_name}",
+    };
+  }
+
 }
