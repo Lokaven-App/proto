@@ -163,6 +163,20 @@ message ScheduleBrowseRequest{
   int32 offset = 13;
 }
 
+message AddOnBrowseRequest{
+  string addon_id = 1;
+  string tour_id = 4;
+  string addon = 2;
+  string price = 3;
+  repeated Filter filters = 11;
+  int32 limit = 12;
+  int32 offset = 13;
+}
+
+message BrowseTourAddon {
+  repeated PackageAddon data = 1;
+}
+
 message BrowseTourSchedule{
   repeated PackageSchedule data = 1;
 }
@@ -176,9 +190,10 @@ message PackageScheduleResponse{
 }
 
 message PackageAddon{
-  string addon = 1;
-  string price = 2;
-  string tour_id = 3;
+  string addon_id = 1;
+  string tour_id = 4;
+  string addon = 2;
+  string price = 3;
 }
 
 message CustomPolicy{
@@ -281,9 +296,10 @@ message DeleteScheduleResponse{
 }
 
 message DeleteAddon{
-  string addon = 1;
-  string price = 2;
-  string tour_id = 3;
+  string addon_id = 1;
+  string tour_id = 2;
+  string addon = 3;
+  string price = 4;
 }
 
 message DeleteAddonResponse{
@@ -503,9 +519,21 @@ service TourPackageService{
     };
   }
 
+  rpc GetListPackageAddon(AddOnBrowseRequest)returns(BrowseTourAddon){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/{tour_id}/addons"
+    };
+  }
+
+  rpc GetDetailPackageAddon(PackageAddon)returns(PackageAddon){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/{tour_id}/addons/{addon_id}"
+    };
+  }
+
   rpc DeletePackageAddon(DeleteAddon)returns(GeneralResponse){
     option (google.api.http) = {
-      delete: "/api/v1/tourpackages/{tour_id}/addons/{addon}",
+      delete: "/api/v1/tourpackages/{tour_id}/addons/{addon_id}",
     };
   }
 
