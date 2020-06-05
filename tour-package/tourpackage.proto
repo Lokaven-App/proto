@@ -340,6 +340,36 @@ message WishListResponse{
   repeated AddWishListRequest data = 1;
 }
 
+message RequestDetailPriceByParticipant {
+  string price_id = 1;
+  string tour_id = 2;
+  string min_participant = 3;
+  string max_participant = 4;
+  string price = 5;
+  string kid_price = 7;
+  string min_kid_age = 8;
+  string max_kid_age = 9;
+  string adult_participant = 10;
+  string kid_participant = 11;
+}
+
+message ResponseDetailPriceByParticipant {
+  string price_id = 1;
+  string tour_id = 2;
+  string min_participant = 3;
+  string max_participant = 4;
+  string price = 5;
+  string kid_price = 7;
+  string min_kid_age = 8;
+  string max_kid_age = 9;
+  string adult_participant = 10;
+  string kid_participant = 11;
+  string total_participant = 12;
+  string total_adult_price = 13;
+  string total_kid_price = 14;
+  string total_price_participant = 15;
+}
+
 service TourPackageService{
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
     option(google.api.http) = {
@@ -503,6 +533,13 @@ service TourPackageService{
   rpc GetDetailPackagePrices(PackagePrice)returns(PackagePrice) {
     option (google.api.http) = {
       get : "/api/v1/tourpackages/{tour_id}/prices/{price_id}"
+    };
+  }
+
+  rpc GetDetailPackagePricesByParticipant(RequestDetailPriceByParticipant)returns(ResponseDetailPriceByParticipant) {
+    option (google.api.http) = {
+      post : "/api/v1/tourpackages/{tour_id}/prices-participant",
+      body: "*"
     };
   }
 
