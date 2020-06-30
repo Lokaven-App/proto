@@ -21,7 +21,7 @@ message TourPackage{
   bool is_refundable = 15;
   string host_id = 16;
   string type_tour = 17;
-  repeated PackagePrice price = 18;
+  repeated PackagePrice prices = 18;
   string terms_of_service = 19;
   repeated CustomPolicy custom_policies = 20;
   string age_restriction = 21;
@@ -75,7 +75,7 @@ message TourPackageRequest{
   bool is_refundable = 15;
   string host_id = 16;
   string type_tour = 17;
-  repeated PackagePrice price = 18;
+  repeated PackagePrice prices = 18;
   string terms_of_service = 19;
   repeated CustomPolicy custom_policies = 20;
   string age_restriction = 21;
@@ -86,8 +86,14 @@ message TourPackageRequest{
   string additional_cost = 26;
 }
 
+message CreateTourPackageResponse{
+  int32 code = 1;
+  string title = 2;
+  TourPackage data = 3;
+}
+
 message TourPackageResponse{
-  TourPackage data = 1;
+  TourPackage data = 3;
 }
 
 message UpdateTourPackageResponse{
@@ -427,160 +433,9 @@ service TourPackageService{
     };
   }
 
-  rpc AddPackageTag(TourPackage) returns (GeneralResponse){
-    option (google.api.http) = {
-      post : "/api/v1/tourpackages/{tour_id}/tags",
-      body : "*"
-    };
-  }
+}
 
-  rpc DeletePackageTag(TourPackage) returns (GeneralResponse){
-    option (google.api.http) = {
-      delete : "/api/v1/tourpackages/{tour_id}/tags",
-    };
-  }
-
-  rpc AddPackageCategory(TourPackage) returns (GeneralResponse){
-    option (google.api.http) = {
-      post: "/api/v1/tourpackages/{tour_id}/categories",
-      body: "*"
-    };
-  }
-
-  rpc DeletePackageCategory(TourPackage) returns (GeneralResponse){
-    option (google.api.http) = {
-      delete : "/api/v1/tourpackages/{tour_id}/categories",
-    };
-  }
-
-  rpc AddPackageMedia(TourPackage)returns(GeneralResponse){
-    option (google.api.http) = {
-      post: "/api/v1/tourpackages/{tour_id}/medias",
-      body: "*"
-    };
-  }
-
-  rpc ListPackageMedia(PackageMediaBrowseRequest)returns(BrowsePackageMedia){
-    option (google.api.http) = {
-      get: "/api/v1/tourpackages/{tour_id}/medias",
-    };
-  }
-
-  rpc DetailPackageMedia(PackageMedia)returns(PackageMedia){
-    option (google.api.http) = {
-      get: "/api/v1/tourpackages/{tour_id}/medias/{media_id}",
-    };
-  }
-
-  rpc DeletePackageMedia(DeleteMedia)returns(GeneralResponse){
-    option (google.api.http) = {
-      delete: "/api/v1/tourpackages/{tour_id}/medias/{media_id}",
-    };
-  }
-
-  rpc AddPackageSchedule(TourPackage)returns(GeneralResponse){
-    option (google.api.http) = {
-      post: "/api/v1/tourpackages/{tour_id}/schedules",
-      body: "*"
-    };
-  }
-
-  rpc UpdatePackageSchedule(PackageSchedule)returns(GeneralResponse) {
-    option (google.api.http) = {
-      patch : "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}",
-      body : "*"
-    };
-  }
-
-  rpc GetListPackageSchedule(ScheduleBrowseRequest)returns(BrowseTourSchedule) {
-    option (google.api.http) = {
-      get : "/api/v1/tourpackages/{tour_id}/schedules"
-    };
-  }
-
-  rpc GetDetailPackageSchedule(PackageSchedule)returns(PackageSchedule) {
-    option (google.api.http) = {
-      get : "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}"
-    };
-  }
-
-  rpc DeletePackageSchedule(DeleteSchedule)returns(GeneralResponse){
-    option (google.api.http) = {
-      delete: "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}",
-    };
-  }
-
-  rpc AddPackagePrices(TourPackage)returns(GeneralResponse){
-    option (google.api.http) = {
-      post: "/api/v1/tourpackages/{tour_id}/prices",
-      body: "*"
-    };
-  }
-
-  rpc UpdatePackagePrices(PackagePrice)returns(GeneralResponse) {
-    option (google.api.http) = {
-      patch : "/api/v1/tourpackages/{tour_id}/prices/{price_id}",
-      body : "*"
-    };
-  }
-
-  rpc GetListPackagePrices(PriceListBrowseRequest)returns(BrowseTourPriceList) {
-    option (google.api.http) = {
-      get : "/api/v1/tourpackages/{tour_id}/prices"
-    };
-  }
-
-  rpc GetDetailPackagePrices(PackagePrice)returns(PackagePrice) {
-    option (google.api.http) = {
-      get : "/api/v1/tourpackages/{tour_id}/prices/{price_id}"
-    };
-  }
-
-  rpc GetDetailPackagePricesByParticipant(RequestDetailPriceByParticipant)returns(ResponseDetailPriceByParticipant) {
-    option (google.api.http) = {
-      post : "/api/v1/tourpackages/{tour_id}/prices-participant",
-      body: "*"
-    };
-  }
-
-  rpc DeletePackagePrices(PackagePrice)returns(GeneralResponse){
-    option (google.api.http) = {
-      delete: "/api/v1/tourpackages/{tour_id}/prices/{price_id}",
-    };
-  }
-
-  rpc AddPackageAddon(TourPackage)returns(GeneralResponse){
-    option (google.api.http) = {
-      post: "/api/v1/tourpackages/{tour_id}/addons",
-      body: "*"
-    };
-  }
-
-  rpc GetListPackageAddon(AddOnBrowseRequest)returns(BrowseTourAddon){
-    option (google.api.http) = {
-      get : "/api/v1/tourpackages/{tour_id}/addons"
-    };
-  }
-
-  rpc GetDetailPackageAddon(PackageAddon)returns(PackageAddon){
-    option (google.api.http) = {
-      get : "/api/v1/tourpackages/{tour_id}/addons/{addon_id}"
-    };
-  }
-
-  rpc DeletePackageAddon(DeleteAddon)returns(GeneralResponse){
-    option (google.api.http) = {
-      delete: "/api/v1/tourpackages/{tour_id}/addons/{addon_id}",
-    };
-  }
-
-
-  rpc GetListCategory(BrowseRequest)returns(CategoryListResponse){
-    option (google.api.http) = {
-      get : "/api/v1/tourpackages-categories",
-    };
-  }
-
+service WishListService{
   rpc AddWishList(AddWishListRequest)returns(AddWishListResponse){
     option (google.api.http) = {
       post : "/api/v1/tourpackages/{tour_id}/wish-list/{user_uid}",
@@ -594,17 +449,5 @@ service TourPackageService{
     };
   }
 
-  rpc AddCustomPolicy(TourPackage)returns(GeneralResponse){
-    option (google.api.http) = {
-      post: "/api/v1/tourpackages/{tour_id}/custom-policy",
-      body: "*"
-    };
-  }
-
-  rpc DeleteCustomPolicy(CustomPolicy)returns(GeneralResponse){
-    option (google.api.http) = {
-      delete: "/api/v1/tourpackages/{tour_id}/custom-policy/{policy_name}",
-    };
-  }
 
 }
