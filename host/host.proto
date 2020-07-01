@@ -128,12 +128,7 @@ message CreateTourHostResponse{
     string title = 3;
 }
 
-message GetTourHostByCridentialsRequest{
-    string email = 1 ;
-    string password = 2 ;
-}
-
-message GetTourHostByCridentialsResponse{
+message GetTourHostResponse{
     TourHost data = 1;
 }
 
@@ -204,10 +199,15 @@ service TourHostService{
         };
     }
 
-    rpc GetTourHostByCridentials(GetTourHostByCridentialsRequest) returns (GetTourHostByCridentialsResponse){
+    rpc GetTourHostInfo(TourHost) returns (GetTourHostResponse){
         option (google.api.http) = {
-            get : "/api/v1/tourhosts"
+            get : "/api/v1/tourhosts/profile/me"
         };
     }
 
+    rpc GetTourHostByUserUID(TourHost) returns (GetTourHostResponse){
+        option (google.api.http) = {
+            get : "/api/v1/tourhosts/gets/{user_uid}"
+        };
+    }
 }
