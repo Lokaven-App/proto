@@ -237,7 +237,7 @@ service UserService{
 
     rpc GetUserInfo(User) returns (GetUserInfoRespone){
         option (google.api.http) = {
-            get : "/api/v1/users/me",
+            get : "/api/v1/users/profile/me",
         };
     }
 
@@ -260,7 +260,7 @@ service UserService{
 
     rpc ResendVerification(ResendEmailVerificationRequest) returns (ResendEmailVerificationRespone){
         option (google.api.http) = {
-            post : "/api/v1/users/{uid}/resendemailverification",
+            post : "/api/v1/users/resendemailverification",
             body : "*"
         };
     }
@@ -299,6 +299,12 @@ service UserService{
         option (google.api.http) = {
             patch : "/api/v1/update/userhosts",
             body : "*"
+        };
+    }
+
+    rpc GetUserByID(GetUserRequest) returns (GetUserResponse){
+        option (google.api.http) = {
+            get : "/api/v1/users/gets/{uid}",
         };
     }
 }
