@@ -133,6 +133,7 @@ message Error{
 message GetUserByCredentialsRequest{
     string email = 1;
     string password = 2;
+    bool is_host = 3;
 }
 
 message GetUserByCredentialsResponse{
