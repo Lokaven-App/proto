@@ -1,0 +1,268 @@
+syntax = "proto3";
+package booking;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+message Booking{
+  string order_id = 1 ;
+  string order_number = 2;
+  string invoice_number = 3;
+  string user_uid = 4 ;
+  string tour_id = 5 ;
+  string title = 6 ;
+  repeated PackageSchedule schedules = 7;
+  repeated PackageAddon addons = 8;
+  repeated PackagePrice prices = 9;
+  string qty_adults = 10 ;
+  string qty_kids = 11;
+  repeated Participant participants = 12;
+  string sub_price_participants = 13 ;
+  string total_price = 14;
+  string status = 15;
+  string host_id = 16;
+  google.protobuf.Timestamp created_at = 17;
+  google.protobuf.Timestamp end_date = 18;
+  string type_tour = 19;
+  string receipt_number = 20;
+  string total_paid_price = 21;
+  string sub_price_addons = 22;
+}
+
+message TourPackage{
+  string tour_id = 1;
+  string title = 2;
+  repeated PackageMedia medias = 3;
+  repeated PackageSchedule schedules = 4;
+  string description = 5;
+  repeated string categories = 7;
+  repeated string tags = 8;
+  string location = 9;
+  string rate = 10;
+  string review = 11;
+  repeated PackageAddon addons = 12;
+  bool is_curated = 13;
+  bool is_featured = 14;
+  bool is_refundable = 15;
+  string host_id = 16;
+  string type_tour = 17;
+  repeated PackagePrice prices = 18;
+  string terms_of_service = 19;
+  repeated CustomPolicy custom_policies = 20;
+  string age_restriction = 21;
+  string cost_foreign_guest = 22;
+  string itinerary = 23;
+  string policy_title = 24;
+  string policy = 25;
+  string additional_cost = 26;
+  google.protobuf.Timestamp created_at = 27;
+}
+
+message CustomPolicy{
+  string policy_name = 1;
+  string policy = 2;
+  string tour_id = 3;
+}
+
+message BookingByContact{
+  string order_by_contact_id = 1;
+  string user_uid = 2 ;
+  string tour_id = 3 ;
+  string first_name = 4;
+  string last_name = 5;
+  string phone_number = 6;
+  string email = 7;
+  int32 number_of_participant = 8;
+  string status = 9;
+  string host_id = 10;
+  google.protobuf.Timestamp created_at = 11;
+}
+
+message BookingByContactResponse{
+  int32 code = 1;
+  string title = 2;
+  repeated TourPackage tour_recommendation = 3 ;
+  BookingByContact data = 4;
+}
+
+message BookingResponse{
+  int32 code = 1;
+  string title = 2;
+  Booking data = 3;
+}
+
+message PackageSchedule{
+  string schedule_id = 1;
+  string tour_id = 2;
+  string durations = 3;
+  google.protobuf.Timestamp start_date = 4;
+  google.protobuf.Timestamp end_date = 5;
+  string quota = 6;
+  bool is_active = 7;
+  string min_quota = 8;
+  string max_quota = 9;
+  bool is_booked = 10;
+  string order_number = 11;
+}
+
+message PackageMedia{
+  string media_id = 1;
+  string url = 2;
+  string type = 3 ;
+  string tour_id = 4;
+}
+
+message PackageAddon{
+  string addon_id = 1;
+  string addon = 2;
+  string price = 3;
+  string tour_id = 4;
+  string order_number = 5;
+}
+
+message PackagePrice{
+  string price_id = 1;
+  string tour_id = 2;
+  string min_participant = 3;
+  string max_participant = 4;
+  string price = 5;
+  string kid_price = 7;
+  string min_kid_age = 8;
+  string max_kid_age = 9;
+  string order_number = 10;
+}
+
+message Participant{
+  string order_number = 1;
+  string first_name = 2 ;
+  string last_name = 3 ;
+  string phone_number = 4;
+  string email = 5;
+  string age = 6;
+  bool as_contact_info = 7 ;
+}
+
+message ParticipantList {
+  string order_number = 1;
+  repeated Participant participants = 2;
+}
+
+message RequestParticipantQty{
+  string order_number = 1 ;
+  string qty_adults = 2 ;
+  string qty_kids = 3 ;
+  string sub_price_participants = 4 ;
+  string price_id = 5;
+  string tour_id = 6;
+  string min_participant = 7;
+  string max_participant = 8;
+  string price = 9;
+  string kid_price = 10;
+  string min_kid_age = 11;
+  string max_kid_age = 12;
+}
+
+message ResponseParticipantQty {
+  RequestParticipantQty data = 1;
+  int32 code = 2;
+  string title = 3;
+}
+
+message ResponseGetPackageScheduleList{
+  repeated PackageSchedule data = 1;
+}
+
+message ResponseGetAddonlist {
+  repeated PackageAddon data = 1;
+  int32 code = 2;
+  string title = 3;
+}
+
+message ResponseGetPricelist {
+  repeated PackagePrice data = 1;
+  int32 code = 2;
+  string title = 3;
+}
+
+message RequestDetailPriceByParticipant {
+  string price_id = 1;
+  string tour_id = 2;
+  string min_participant = 3;
+  string max_participant = 4;
+  string price = 5;
+  string kid_price = 7;
+  string min_kid_age = 8;
+  string max_kid_age = 9;
+  string adult_participant = 10;
+  string kid_participant = 11;
+}
+
+message ResponseDetailPriceByParticipant {
+  string price_id = 1;
+  string tour_id = 2;
+  string min_participant = 3;
+  string max_participant = 4;
+  string price = 5;
+  string kid_price = 7;
+  string min_kid_age = 8;
+  string max_kid_age = 9;
+  string adult_participant = 10;
+  string kid_participant = 11;
+  string total_participant = 12;
+  string total_adult_price = 13;
+  string total_kid_price = 14;
+  string total_price_participant = 15;
+}
+
+service BookingRPC {
+  rpc CreateBooking (Booking) returns (BookingResponse) {
+    option (google.api.http) = {
+      post : "/api/v1/orders/users/{user_uid}/tourpackages/{tour_id}",
+      body : "*"
+    };
+  }
+
+  rpc CancelBooking (Booking) returns (BookingResponse);
+
+  rpc CancelDetailBooking (Booking) returns (BookingResponse);
+
+  rpc CreateBookingByContact (BookingByContact) returns (BookingByContactResponse) {
+    option (google.api.http) = {
+      post : "/api/v1/orders/orders-by-contact/{user_uid}/tour-packages/{tour_id}",
+      body : "*"
+    };
+  }
+
+  rpc UpdateParticipantQty (RequestParticipantQty) returns (ResponseParticipantQty){
+    option (google.api.http) = {
+      patch : "/api/v1/orders/{order_number}/Participantqty",
+      body : "*"
+    };
+  }
+
+   rpc GetSchedulesList (PackageSchedule) returns (ResponseGetPackageScheduleList) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/{order_number}/tourpackages/{tour_id}/schedules"
+    };
+  }
+
+ rpc GetPriceslist(PackagePrice) returns (ResponseGetPricelist){
+    option (google.api.http) = {
+      get : "/api/v1/orders/{order_number}/tourpackages/{tour_id}/prices"
+    };
+  }
+
+ rpc GetPriceByTotalParticipant (RequestDetailPriceByParticipant) returns(ResponseDetailPriceByParticipant){
+    option (google.api.http) = {
+      post : "/api/v1/orders/tourpackages/{tour_id}/prices-by-participant",
+      body : "*"
+    };
+ }
+
+  rpc GetAddonsList(PackageAddon) returns (ResponseGetAddonlist){
+    option (google.api.http) = {
+      get : "/api/v1/orders/{order_number}/tourpackages/{tour_id}/addons"
+    };
+  }
+
+}

@@ -31,6 +31,7 @@ message TourPackage{
   string policy = 25;
   string additional_cost = 26;
   google.protobuf.Timestamp created_at = 27;
+  bool delete_status = 28;
 }
 
 message TourHost{
@@ -376,6 +377,15 @@ message ResponseDetailPriceByParticipant {
   string total_price_participant = 15;
 }
 
+message UpdateSchedule {
+  string tour_id = 1;
+  string schedule_id = 2;
+}
+
+message UpdateScheduleRespone{
+  TourPackage data = 1;
+}
+
 service TourPackageService{
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
     option(google.api.http) = {
@@ -432,6 +442,9 @@ service TourPackageService{
       body : "*"
     };
   }
+
+  //This service only use after booking process complate
+  rpc UpdateScheduleAfterBooking (UpdateSchedule) returns (UpdateScheduleRespone);
 
 }
 
