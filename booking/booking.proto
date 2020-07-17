@@ -27,6 +27,7 @@ message Booking{
   string receipt_number = 20;
   string total_paid_price = 21;
   string sub_price_addons = 22;
+  string location = 23;
 }
 
 message TourPackage{
@@ -214,6 +215,43 @@ message ResponseDetailPriceByParticipant {
   string total_price_participant = 15;
 }
 
+message ReceiptBooking{
+  string order_id = 1 ;
+  string order_number = 2;
+  string invoice_number = 3;
+  string user_uid = 4 ;
+  string tour_id = 5 ;
+  string title = 6 ;
+  repeated PackageSchedule schedules = 7;
+  repeated PackageAddon addons = 8;
+  repeated PackagePrice prices = 9;
+  string qty_adults = 10 ;
+  string qty_kids = 11;
+  repeated Participant participants = 12;
+  string sub_price_participants = 13 ;
+  string total_price = 14;
+  string status = 15;
+  string host_id = 16;
+  google.protobuf.Timestamp created_at = 17;
+  google.protobuf.Timestamp end_date = 18;
+  string type_tour = 19;
+  string receipt_number = 20;
+  string total_paid_price = 21;
+  string sub_price_addons = 22;
+  string location = 23;
+  string total_quota = 24;
+  string min_quota = 25;
+  string max_quota = 26;
+  string quota_left = 27;
+}
+
+message ResponseReceiptBooking{
+  int32 code = 1;
+  string title = 2;
+  ReceiptBooking data = 3;
+
+}
+
 service BookingRPC {
   rpc CreateBooking (Booking) returns (BookingResponse) {
     option (google.api.http) = {
@@ -222,9 +260,9 @@ service BookingRPC {
     };
   }
 
-  rpc CancelBooking (Booking) returns (BookingResponse);
+  rpc UpdateStatusBooking (Booking) returns (BookingResponse);
 
-  rpc CancelDetailBooking (Booking) returns (BookingResponse);
+  rpc DetailBooking (Booking) returns (BookingResponse);
 
   rpc CreateBookingByContact (BookingByContact) returns (BookingByContactResponse) {
     option (google.api.http) = {
@@ -262,6 +300,12 @@ service BookingRPC {
   rpc GetAddonsList(PackageAddon) returns (ResponseGetAddonlist){
     option (google.api.http) = {
       get : "/api/v1/orders/{order_number}/tourpackages/{tour_id}/addons"
+    };
+  }
+
+  rpc GetBookingReceipt(ReceiptBooking) returns(ResponseReceiptBooking){
+   option (google.api.http) = {
+      get : "/api/v1/orders/{order_number}/users"
     };
   }
 
