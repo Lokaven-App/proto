@@ -382,6 +382,14 @@ message UpdateSchedule {
   string schedule_id = 2;
 }
 
+message ReopenSchedule {
+  string order_id = 1;
+  string tour_id = 2;
+  string schedule_id = 3;
+  repeated PackageSchedule schedules = 4;
+  google.protobuf.Timestamp end_date_payment = 5;
+}
+
 message UpdateScheduleRespone{
   TourPackage data = 1;
 }
@@ -445,6 +453,9 @@ service TourPackageService{
 
   //This service only use after booking process complate
   rpc UpdateScheduleAfterBooking (UpdateSchedule) returns (UpdateScheduleRespone);
+
+  //This service only use after booking failed to paid 
+  rpc UpdateScheduleStatus (ReopenSchedule) returns (UpdateScheduleRespone);
 
 }
 
