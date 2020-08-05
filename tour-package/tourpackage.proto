@@ -152,6 +152,7 @@ message PackageSchedule{
   string min_quota = 8;
   string max_quota = 9;
   bool is_booked = 10;
+  string tour_status = 11;
 }
 
 message ScheduleBrowseRequest{
