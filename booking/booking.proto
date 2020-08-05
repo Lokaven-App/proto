@@ -3,6 +3,7 @@ package booking;
 
 import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
 
 message Booking{
   string order_id = 1 ;
@@ -26,9 +27,10 @@ message Booking{
   string type_tour = 19;
   string receipt_number = 20;
   string total_paid_price = 21;
-  string sub_price_addons = 22;
+  string sub_price_addons = 22;  
   string location = 23;
   string reason = 24;
+  google.protobuf.Timestamp payment_date = 25;
 }
 
 message DetailBookingHost {
@@ -47,11 +49,23 @@ message DetailBookingHost {
   string qty_adults = 13;
   string qty_kids = 14;
   string total_paid_price = 15;
-  int32 min_quota = 16;
+  google.protobuf.Int32Value min_quota = 16;
   string remaining_time = 17;
   google.protobuf.Timestamp payment_date = 18;
   string reason = 19;
   string status = 20;
+  google.protobuf.BoolValue show_link = 21;
+}
+
+message DetailBookingGuest {
+  string order_id = 1;
+  string title = 2;
+  google.protobuf.Timestamp end_date = 3;
+  google.protobuf.Timestamp start_date = 4;
+  string host_name = 5;
+  string type_tour = 6;
+  string status = 7;
+  repeated PackageMedia medias = 8;
 }
 
 message UserInfo {
@@ -109,6 +123,45 @@ message BookingByContact{
   google.protobuf.Timestamp created_at = 11;
 }
 
+message ListBooking {
+  string order_id = 1;
+  repeated PackageMedia medias = 2;
+  string title = 3;
+  google.protobuf.Timestamp start_date = 4;
+  google.protobuf.Timestamp end_date = 5;
+  string host_name = 6;
+  string type_tour = 7;
+  string status = 8;
+  string tour_status = 9;
+}
+
+message ListBookingRequest {
+  enum Params {
+    Booking = 0;
+    Tour = 1;
+    ActiveBooking = 2;
+    ActiveTour = 3;
+  }
+  string page = 1;
+  string per_page = 2;
+  Params param = 3;
+}
+
+message ListBookingResponse {
+  int32 code = 1;
+  string title = 2;
+  repeated ListBooking data = 3;
+  Paginate paginate = 4;
+}
+
+message Paginate {
+  int32 current_page = 1;
+  int32 next_page = 2;
+  int32 total_page = 3;
+  int32 per_page = 4;
+  int32 total = 5;
+}
+
 message BookingByContactResponse{
   int32 code = 1;
   string title = 2;
@@ -134,6 +187,7 @@ message PackageSchedule{
   string max_quota = 9;
   bool is_booked = 10;
   string order_number = 11;
+  string tour_status = 12;
 }
 
 message PackageMedia{
@@ -203,10 +257,22 @@ message ResponseGetPackageScheduleList{
   repeated PackageSchedule data = 1;
 }
 
-message ResponseDetailBooking{
+message ResponseDetailHostBooking{
   int32 code = 1;
   string title = 2;
   DetailBookingHost data = 3;
+}
+
+message ResponseDetailGuestBooking{
+  int32 code = 1;
+  string title = 2;
+  DetailBookingGuest data = 3;
+}
+
+message ResponseParticipantsList {
+  int32 code = 1;
+  string title = 2;
+  repeated Participant data = 3;
 }
 
 message ResponseGetAddonlist {
@@ -289,6 +355,10 @@ message ResponseReceiptBooking{
 
 service BookingRPC {
 
+  rpc UpdateStatusBooking (Booking) returns (BookingResponse);
+
+  rpc DetailBooking (Booking) returns (BookingResponse);
+
   rpc CreateBooking (Booking) returns (BookingResponse) {
     option (google.api.http) = {
       post : "/api/v1/orders/users/{user_uid}/tourpackages/{tour_id}",
@@ -296,15 +366,29 @@ service BookingRPC {
     };
   }
 
-  rpc DetailBookingByHost (DetailBookingHost) returns (ResponseDetailBooking) {
+  rpc DetailBookingByGuest (Booking) returns (ResponseDetailGuestBooking) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/detail/{order_id}"
+    };
+  }
+
+  rpc DetailBookingByHost (Booking) returns (ResponseDetailHostBooking) {
     option (google.api.http) = {
       get : "/api/v1/orders/detail/{order_id}/host/{host_id}"
     };
   }
 
-  rpc UpdateStatusBooking (Booking) returns (BookingResponse);
+  rpc DetailParticipants (Booking) returns (ResponseParticipantsList) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/detail/participant/{order_id}"
+    };
+  }
 
-  rpc DetailBooking (Booking) returns (BookingResponse);
+  rpc ListBooking (ListBookingRequest) returns (ListBookingResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/list/{param}",
+    };
+  }
 
   rpc CreateBookingByContact (BookingByContact) returns (BookingByContactResponse) {
     option (google.api.http) = {
