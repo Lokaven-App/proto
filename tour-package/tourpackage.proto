@@ -395,6 +395,11 @@ message UpdateScheduleRespone{
   TourPackage data = 1;
 }
 
+message RequestTourPackage{
+  string user_uid = 1 ;
+}
+
+
 service TourPackageService{
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
     option(google.api.http) = {
@@ -451,6 +456,9 @@ service TourPackageService{
       body : "*"
     };
   }
+
+  //this method ony use for getting package data using its user UID
+  rpc GetTourPackageByUserUIDOfHosts(RequestTourPackage)returns(BrowseTourPackage);
 
   //This service only use after booking process complate
   rpc UpdateScheduleAfterBooking (UpdateSchedule) returns (UpdateScheduleRespone);
