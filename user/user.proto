@@ -20,6 +20,21 @@ message User{
     string nationality = 12;
 }
 
+message Balances {
+    string uid = 1;
+    string user_uid = 2;
+    int32 amount = 3;
+    google.protobuf.Timestamp updated_at = 4;
+}
+
+message LogsBalance {
+    string uid = 1;
+    string user_uid = 2;
+    int32 amount = 3;
+    string type = 4;
+    string message = 5;
+}
+
 message CreateUserRequest{
     string uid = 1;
     string first_name = 2;
@@ -227,6 +242,11 @@ message UpdateHostUserRespone{
     string title = 3; 
 }
 
+message RefundResponse{
+    string title = 1; 
+    int32 code = 2;
+}
+
 service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
@@ -238,6 +258,13 @@ service UserService{
     rpc GetUserInfo(User) returns (GetUserInfoRespone){
         option (google.api.http) = {
             get : "/api/v1/users/profile/me",
+        };
+    }
+
+    rpc Refund(LogsBalance) returns (RefundResponse){
+        option (google.api.http) = {
+            post : "/api/v1/users/refund/{user_uid}",
+            body : "*"
         };
     }
 
