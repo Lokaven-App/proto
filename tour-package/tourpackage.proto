@@ -32,6 +32,7 @@ message TourPackage{
   string additional_cost = 26;
   google.protobuf.Timestamp created_at = 27;
   bool delete_status = 28;
+  string user_uid = 29;
 }
 
 message TourHost{
@@ -326,7 +327,11 @@ message DeleteMediaResponse{
 }
 
 message CategoryListResponse{
-  repeated PackageCategory data = 1 ;
+  repeated CategoriesListing data = 1 ;
+}
+message CategoriesListing{
+  string category_id =1 ;
+  string category =2;
 }
 
 message AddWishListRequest{
@@ -454,6 +459,12 @@ service TourPackageService{
     option (google.api.http) = {
       patch : "/api/v1/tourpackages/{tour_id}",
       body : "*"
+    };
+  }
+
+  rpc GetListCategory(BrowseRequest)returns(CategoryListResponse){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages-categories"
     };
   }
 
