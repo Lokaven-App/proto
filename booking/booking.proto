@@ -31,6 +31,8 @@ message Booking{
   string location = 23;
   string reason = 24;
   google.protobuf.Timestamp payment_date = 25;
+  bool badge = 26;
+  bool is_refund = 27;
 }
 
 message DetailBookingHost {
@@ -72,6 +74,7 @@ message UserInfo {
   string name = 1;
   string email = 2;
   string phone = 3;
+  string image = 4;
 }
 
 message TourPackage{
@@ -133,25 +136,92 @@ message ListBooking {
   string type_tour = 7;
   string status = 8;
   string tour_status = 9;
+  string quota_left= 10;
+  string awaiting=11;
+  string ongoing=12;
 }
 
-message ListBookingRequest {
-  enum Params {
-    Booking = 0;
-    Tour = 1;
-    ActiveBooking = 2;
-    ActiveTour = 3;
-  }
-  string page = 1;
-  string per_page = 2;
-  Params param = 3;
+message RequestCancelTourHost {
+  bool cancel = 1;
+  string schedule_id = 2;
+  string host_id = 3;
 }
 
-message ListBookingResponse {
+message ResponseCancelTourHost {
+  int32 code = 1;
+  string title = 2;
+}
+
+message ListIncomingBooking{
+  string order_id = 1;
+  repeated PackageMedia medias = 2;
+  string title = 3;
+  google.protobuf.Timestamp start_date = 4;
+  google.protobuf.Timestamp end_date = 5;
+  string host_name = 6;
+  string type_tour = 7;
+  string status = 8;
+  string tour_status = 9;
+  bool badge = 10;
+  string total_participants = 11;
+  string total_books = 12;
+  string quota_left= 13;
+  string awaiting=14;
+  string ongoing=15;
+  bool ask_host=16;
+}
+
+message ListScheduleHost {
+  string order_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string avatar = 4;
+  google.protobuf.Timestamp created_at = 5;
+  string status = 6;
+  int32 total_participant = 7;
+  string total_paid_price = 8;
+  string remaining_time = 9;
+  google.protobuf.Timestamp payment_date = 10;
+  string reason = 11;
+}
+
+message ResponseListScheduleHost {
+  int32 code = 1;
+  string title = 2;
+  repeated ListScheduleHost data = 3;
+  Paginate paginate = 4;
+}
+
+message ResponseListBooking {
   int32 code = 1;
   string title = 2;
   repeated ListBooking data = 3;
   Paginate paginate = 4;
+}
+
+message ResponseIncomingBookingList {
+  int32 code = 1;
+  string title = 2;
+  repeated ListIncomingBooking data = 3;
+  Paginate paginate = 4;
+}
+
+message RequestParams {
+  string page = 1;
+  string per_page = 2;
+  string param = 3;
+  string schedule_id = 4;
+  string host_id = 5;
+  string type_tour = 6;
+}
+
+message RequestParamsIncomingList{
+  string page = 1;
+  string per_page = 2;
+  string param = 3;
+  string schedule_id = 4;
+  string key = 5;
+  string host_id = 6;
 }
 
 message Paginate {
@@ -353,11 +423,59 @@ message ResponseReceiptBooking{
   ReceiptBooking data = 3;
 }
 
+message ActiveTour {
+  string order_id = 1;
+  string title = 2;
+  repeated PackageMedia medias = 3;
+  PackageSchedule schedules = 4;
+  string location = 5;
+  string description = 6;
+  string itinerary = 7;  
+  repeated PackageAddon addons = 8;
+  int32 total_participant = 9;
+  string tour_status = 10;
+  UserInfo host = 12;
+  repeated BroadcastMessage message = 13;
+}
+
+message BroadcastMessage {
+  string message = 1;
+  google.protobuf.Timestamp created_at = 2;
+  UserInfo host = 3;
+}
+
+message ResponseActiveTour {
+  int32 code = 1;
+  string title = 2;
+  google.protobuf.BoolValue review = 3;
+  ActiveTour data = 4;
+}
+
+message TotalParticipants {
+  int32 total = 1;
+  string schedule_id = 2;
+  string tour_id = 3;
+}
+
+message ResponseTotalParticipant {
+  int32 code = 1;
+  string title = 2;
+  TotalParticipants data = 3;
+}
+
 service BookingRPC {
+
+  rpc TotalParticipant (TotalParticipants) returns (ResponseTotalParticipant);
 
   rpc UpdateStatusBooking (Booking) returns (BookingResponse);
 
   rpc DetailBooking (Booking) returns (BookingResponse);
+
+  rpc GetActiveTour (ActiveTour) returns (ResponseActiveTour) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/active/{order_id}",
+    };
+  }
 
   rpc CreateBooking (Booking) returns (BookingResponse) {
     option (google.api.http) = {
@@ -378,15 +496,28 @@ service BookingRPC {
     };
   }
 
+  rpc CancelTourHost (RequestCancelTourHost) returns (ResponseCancelTourHost) {
+    option (google.api.http) = {
+      post : "/api/v1/orders/host/cancel",
+      body : "*"
+    };
+  }
+
   rpc DetailParticipants (Booking) returns (ResponseParticipantsList) {
     option (google.api.http) = {
       get : "/api/v1/orders/detail/participant/{order_id}"
     };
   }
 
-  rpc ListBooking (ListBookingRequest) returns (ListBookingResponse) {
+  rpc ListBooking (RequestParams) returns (ResponseListBooking) {
     option (google.api.http) = {
-      get : "/api/v1/orders/list/{param}",
+      get : "/api/v1/orders/list",
+    };
+  }
+
+  rpc ListScheduleHost (RequestParams) returns (ResponseListScheduleHost) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/schedule/list/{schedule_id}/host/{host_id}",
     };
   }
 
@@ -432,6 +563,12 @@ service BookingRPC {
   rpc GetBookingReceipt(ReceiptBooking) returns(ResponseReceiptBooking){
    option (google.api.http) = {
       get : "/api/v1/orders/{order_number}/users"
+    };
+  }
+
+  rpc GetIncomingBookingList (RequestParamsIncomingList) returns (ResponseIncomingBookingList) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/incoming/list",
     };
   }
 
