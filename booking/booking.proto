@@ -33,6 +33,7 @@ message Booking{
   google.protobuf.Timestamp payment_date = 25;
   bool badge = 26;
   bool is_refund = 27;
+  bool is_reviewed = 28;
 }
 
 message DetailBookingHost {
@@ -468,6 +469,8 @@ service BookingRPC {
   rpc TotalParticipant (TotalParticipants) returns (ResponseTotalParticipant);
 
   rpc UpdateStatusBooking (Booking) returns (BookingResponse);
+
+  rpc UpdateIsReviewed (Booking) returns (BookingResponse);
 
   rpc DetailBooking (Booking) returns (BookingResponse);
 
