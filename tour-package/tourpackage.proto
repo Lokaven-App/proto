@@ -273,6 +273,7 @@ message BrowseRequest{
   repeated Filter filters = 1;
   int32 limit = 2;
   int32 offset = 3;
+  string param = 4;
 }
 
 message BrowseRequestWishList{
@@ -404,8 +405,39 @@ message RequestTourPackage{
   string user_uid = 1 ;
 }
 
+message BroadcastMessage {
+  string message = 1;
+  google.protobuf.Timestamp created_at = 2;
+  UserInfo host = 3;
+}
+
+message UserInfo {
+  string name = 1;
+  string image = 2;
+}
+
+message ActiveTour {
+  string tour_id = 1;
+  string schedule_id = 2;
+  string title = 3;
+  repeated PackageMedia medias = 4;
+  PackageSchedule schedules = 5;
+  string location = 6;
+  string description = 7;
+  string itinerary = 8;  
+  int32 total_participant = 9;
+  string tour_status = 10;
+  repeated BroadcastMessage message = 13;
+}
+
+message ResponseActiveTour {
+  int32 code = 1;
+  string title = 2;
+  ActiveTour data = 3;
+}
 
 service TourPackageService{
+  
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
     option(google.api.http) = {
       post : "/api/v1/tourpackages/tourhosts/{host_id}",
@@ -416,6 +448,12 @@ service TourPackageService{
   rpc DeleteTourPackage(TourPackage) returns (DeletePackageResponse){
     option(google.api.http) = {
       delete : "/api/v1/tourpackages/{tour_id}"
+    };
+  }
+
+  rpc GetActiveTour (ActiveTour) returns (ResponseActiveTour) {
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/active/{tour_id}/{schedule_id}",
     };
   }
 
@@ -477,6 +515,8 @@ service TourPackageService{
   //This service only use after booking failed to paid 
   rpc UpdateScheduleStatus (ReopenSchedule) returns (UpdateScheduleRespone);
 
+  //This Service use for update reviews and rateing only 
+  rpc UpdateReviewAndRate (TourPackage) returns (TourPackageResponse);
 }
 
 service WishListService{
@@ -492,6 +532,5 @@ service WishListService{
       get : "/api/v1/tourpackages/wish-list/{user_uid}",
     };
   }
-
-
 }
+

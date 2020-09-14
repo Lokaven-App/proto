@@ -1,0 +1,112 @@
+syntax = "proto3";
+package review;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message RatingReview{
+  string review_id = 1;
+  string order_id = 2;
+  string user_uid = 3 ;
+  string tour_id = 4 ;
+  string rating = 5 ;
+  string review = 6 ;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  UserDetail user_info = 9;
+}
+
+message RequestAddRatingReview{
+  string review_id = 1;
+  string order_id = 2;
+  string user_uid = 3 ;
+  string tour_id = 4 ;
+  string rating = 5;
+  string review = 6 ;
+  google.protobuf.Timestamp created_at = 7;
+  UserDetail user_info = 8;
+}
+
+message RequestUpdateRatingReview{
+  string review_id = 1;
+  string order_id = 2;
+  string user_uid = 3 ;
+  string tour_id = 4 ;
+  string rating = 5 ;
+  string review = 6 ;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  UserDetail user_info = 9;
+}
+
+message UpdateRatingReviewResponse{
+  RequestUpdateRatingReview data = 1;
+  int32 Code = 2 ;
+  string title = 3 ;
+}
+
+message RatingReviewResponse{
+  RequestAddRatingReview data = 1;
+  int32 Code = 2 ;
+  string title = 3 ;
+}
+
+message RequestParams{
+  string page = 1;
+  string per_page = 2;
+  string tour_id = 3;
+}
+
+message GetRatingReviewListResponse{
+  repeated RatingReview data = 1;
+  int32 Code = 2 ;
+  string title = 3;
+  Paginate paginate = 4;
+}
+
+message Paginate{
+  int32 current_page = 1;
+  int32 next_page = 2;
+  int32 total_page = 3;
+  int32 per_page = 4;
+  int32 total = 5;
+}
+
+message GetSingleRatingReviewResponse{
+  RatingReview data = 1;
+  int32 Code = 2 ;
+}
+
+message UserDetail{
+  string fullname = 1;
+  string url_photo = 2;
+}
+
+
+service RatingAndReviewService{
+    rpc AddRatingReview (RequestAddRatingReview)returns(RatingReviewResponse){
+      option (google.api.http) = {
+        post : "/api/v1/reviews/orders/{order_id}/tourpackages/{tour_id}/users/{user_uid}",
+        body : "*"
+      };
+    }
+
+    rpc UpdateRatingReview (RequestUpdateRatingReview)returns(UpdateRatingReviewResponse){
+       option (google.api.http) = {
+        patch : "/api/v1/reviews/{review_id}/orders/{order_id}/tourpackages/{tour_id}",
+        body : "*"
+      };
+    }
+
+    rpc GetRatingReview (RequestParams)returns(GetRatingReviewListResponse){
+       option (google.api.http) = {
+        get : "/api/v1/reviews/tourpackages/{tour_id}"
+      };
+    }
+
+    rpc GetSingleRatingReview (RatingReview)returns(GetSingleRatingReviewResponse){
+       option (google.api.http) = {
+        get : "/api/v1/reviews/orders/{order_id}/tourpackages/{tour_id}/users"
+      };
+    }
+}
