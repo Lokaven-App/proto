@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package notification;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+message Service {
+    // @inject_tag: bson:"name"
+    string name = 1;
+    // @inject_tag: bson:"id"
+    string id = 2;
+}
+message Body {
+    // @inject_tag: bson:"message"
+    string message = 1;
+    // @inject_tag: bson:"sender"
+    string sender = 2;
+    // @inject_tag: bson:"meta"
+    bytes meta = 3;
+}
+message Participants {
+    // @inject_tag: bson:"user_id"
+    string user_id = 1;
+    // @inject_tag: bson:"device_id"
+    string device_id = 2;
+}
+
+message Notification {
+    // @inject_tag: bson:"service"
+    Service service = 1;
+    // @inject_tag: bson:"body"
+    Body body = 2;
+    // @inject_tag: bson:"created_at"
+    google.protobuf.Timestamp created_at = 3;
+    // @inject_tag: bson:"participants"
+    repeated Participants participants = 4;
+}
+
+message NotificationResponse {
+    string title = 1;
+    int32 code = 2;
+    repeated Notification data = 3;
+}
+
+service NotificationService {
+
+    rpc CreateNotification (Notification) returns (NotificationResponse) {
+        option (google.api.http) = {
+            post : "/api/v1/notification/create",
+            body : "*"
+        };
+    }
+
+    rpc GetNotification (Participants) returns (NotificationResponse) {
+        option (google.api.http) = {
+            get : "/api/v1/notification/get/{user_id}"
+        };
+    }
+        
+}
