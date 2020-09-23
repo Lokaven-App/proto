@@ -82,6 +82,19 @@ message UserDetail{
   string url_photo = 2;
 }
 
+message CounterRating{
+  string stars = 1;
+  int32 count = 2;
+}
+
+message GetRatingListReviewResponse{
+  repeated CounterRating data_rates = 1;
+  repeated RatingReview data = 2;
+  int32 Code = 3 ;
+  string title = 4;
+  double avg_rating = 5;
+  Paginate paginate = 6;
+}
 
 service RatingAndReviewService{
     rpc AddRatingReview (RequestAddRatingReview)returns(RatingReviewResponse){
@@ -107,6 +120,18 @@ service RatingAndReviewService{
     rpc GetSingleRatingReview (RatingReview)returns(GetSingleRatingReviewResponse){
        option (google.api.http) = {
         get : "/api/v1/reviews/orders/{order_id}/tourpackages/{tour_id}/users"
+      };
+    }
+
+    rpc GetNewestRatingListReview (RatingReview)returns(GetSingleRatingReviewResponse){
+       option (google.api.http) = {
+        get : "/api/v1/reviews/tourpackages/{tour_id}/newest"
+      };
+    }
+
+    rpc GetRatingListReview (RequestParams)returns(GetRatingListReviewResponse){
+       option (google.api.http) = {
+        get : "/api/v1/reviews/tourpackages/{tour_id}/list"
       };
     }
 }
