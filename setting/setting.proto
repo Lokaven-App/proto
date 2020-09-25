@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 message Setting{
     string key = 1;
     string type = 2;
-    string value = 3;
+    bool value = 3;
 }
 
 message UserSetting{
@@ -52,10 +52,11 @@ service SettingService{
     }
 
     // this endpoint only use for create new setting by sign up guest as host
-    rpc CreateSetting(CreateSettingRequest) returns (CreateSettingRespone){
+    rpc CreateSetting(CreateSettingRequest) returns (CreateSettingRespone);
+
+    rpc GetSettings(UserSetting) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
-            post : "/api/v1/settings",
-            body : "*"
+            get : "/api/v1/get/settings/{id}",
         };
     }
 }
