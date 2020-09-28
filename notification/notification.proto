@@ -16,9 +16,25 @@ message Body {
     string message = 1;
     // @inject_tag: bson:"sender"
     string sender = 2;
-    // @inject_tag: bson:"meta"
-    bytes meta = 3;
+    // @inject_tag: bson:"properties"
+    Properties properties = 3;
+    // @inject_tag: bson:"time"
+    string time = 4;
+    // @inject_tag: bson:"status"
+    string status = 5;
 }
+
+message Properties {
+    // @inject_tag: bson:"user_id"
+    string user_id = 1;
+    // @inject_tag: bson:"tour_id"
+    string tour_id = 2;
+    // @inject_tag: bson:"schedule_id"
+    string schedule_id = 3;
+    // @inject_tag: bson:"order_number"
+    string order_number = 4;
+}
+
 message Participants {
     // @inject_tag: bson:"user_id"
     string user_id = 1;
