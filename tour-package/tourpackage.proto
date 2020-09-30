@@ -29,10 +29,11 @@ message TourPackage{
   string itinerary = 23;
   string policy_title = 24;
   string policy = 25;
-  string additional_cost = 26;
-  google.protobuf.Timestamp created_at = 27;
-  bool delete_status = 28;
-  string user_uid = 29;
+  string additional_cost_adult = 26;
+  string additional_cost_kid = 27;
+  google.protobuf.Timestamp created_at = 28;
+  bool delete_status = 29;
+  string user_uid = 30;
 }
 
 message TourHost{
@@ -85,7 +86,8 @@ message TourPackageRequest{
   string itinerary = 23;
   string policy_title = 24;
   string policy = 25;
-  string additional_cost = 26;
+  string additional_cost_adult = 26;
+  string additional_cost_kid = 27;
 }
 
 message CreateTourPackageResponse{
@@ -261,6 +263,7 @@ message BrowseTourPriceList{
 
 message BrowseTourPackage{
   repeated TourPackage data = 1;
+  Paginate paginate = 2;
 }
 
 message Filter{
@@ -271,9 +274,10 @@ message Filter{
 
 message BrowseRequest{
   repeated Filter filters = 1;
-  int32 limit = 2;
-  int32 offset = 3;
+  string page = 2;
+  string per_page = 3;
   string param = 4;
+  string host_id = 5;
 }
 
 message BrowseRequestWishList{
@@ -329,6 +333,7 @@ message DeleteMediaResponse{
 
 message CategoryListResponse{
   repeated CategoriesListing data = 1 ;
+  Paginate paginate = 2;
 }
 message CategoriesListing{
   string category_id =1 ;
@@ -427,13 +432,34 @@ message ActiveTour {
   string itinerary = 8;  
   int32 total_participant = 9;
   string tour_status = 10;
-  repeated BroadcastMessage message = 13;
+  bool confirm_end   = 11;
+  repeated BroadcastMessage message = 12;
+}
+
+message ParamActiveTour {
+  string tour_id = 1;
+  string schedule_id = 2;
+  bool confirmed = 3;
 }
 
 message ResponseActiveTour {
   int32 code = 1;
   string title = 2;
   ActiveTour data = 3;
+}
+
+message ResponseConfirmedToEnd {
+  int32 code = 1;
+  string title = 2;
+  string data = 3;
+}
+
+message Paginate {
+  int32 current_page = 1;
+  int32 next_page = 2;
+  int32 total_page = 3;
+  int32 per_page = 4;
+  int32 total = 5;
 }
 
 service TourPackageService{
@@ -469,7 +495,7 @@ service TourPackageService{
     };
   }
 
-  rpc GetTourPackageByHostID(TourPackage)returns(BrowseTourPackage){
+  rpc GetTourPackageByHostID(BrowseRequest)returns(BrowseTourPackage){
     option (google.api.http) = {
       get : "/api/v1/tourpackages/by-tourhosts/{host_id}"
     };
@@ -506,6 +532,12 @@ service TourPackageService{
     };
   }
 
+  rpc ConfirmEndTour (ParamActiveTour) returns (ResponseConfirmedToEnd) {
+    option (google.api.http) = {
+      patch : "/api/v1/tourpackages/active-to-end/{tour_id}/{schedule_id}",
+      body : "*"
+    };
+  }
   //this method ony use for getting package data using its user UID
   rpc GetTourPackageByUserUIDOfHosts(RequestTourPackage)returns(BrowseTourPackage);
 
