@@ -29,7 +29,7 @@ message TourPackage{
   string itinerary = 23;
   string policy_title = 24;
   string policy = 25;
-  string additional_cost_adult = 26;
+  string additional_cost = 26;
   string additional_cost_kid = 27;
   google.protobuf.Timestamp created_at = 28;
   bool delete_status = 29;
@@ -86,7 +86,7 @@ message TourPackageRequest{
   string itinerary = 23;
   string policy_title = 24;
   string policy = 25;
-  string additional_cost_adult = 26;
+  string additional_cost = 26;
   string additional_cost_kid = 27;
 }
 
