@@ -54,6 +54,9 @@ service SettingService{
     // this endpoint only use for create new setting by sign up guest as host
     rpc CreateSetting(CreateSettingRequest) returns (CreateSettingRespone);
 
+    // this endpoint only use for create initial setting for users
+    rpc InitSetting(CreateSettingRequest) returns (CreateSettingRespone);
+
     rpc GetSettings(UserSetting) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
             get : "/api/v1/get/settings/{id}",
