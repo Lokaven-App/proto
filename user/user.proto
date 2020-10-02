@@ -218,7 +218,7 @@ message SignUpAsHostRespone{
 message Setting{
     string key = 1;
     string type = 2;
-    string value = 3;
+    bool value = 3;
 }
 
 message UpdateHostUserRequest{
@@ -307,12 +307,7 @@ service UserService{
     }
 
     // this endpoint only use for handling a sign up host by admin.
-    rpc CreateUserHost(CreateUserHostRequest) returns (CreateUserHostResponse) {
-        option (google.api.http) = {
-            post    : "/api/v1/userhosts",
-            body    : "*" 
-        };
-    }
+    rpc CreateUserHost(CreateUserHostRequest) returns (CreateUserHostResponse);
 
     rpc SignUpAsHost(SignUpAsHostRequest)returns(SignUpAsHostRespone){
          option (google.api.http) = {
@@ -322,12 +317,7 @@ service UserService{
     }
 
     // this endpoint only user for handling for update host profile 
-    rpc UpdateHostUser(UpdateHostUserRequest) returns (UpdateHostUserRespone){
-        option (google.api.http) = {
-            patch : "/api/v1/update/userhosts",
-            body : "*"
-        };
-    }
+    rpc UpdateHostUser(UpdateHostUserRequest) returns (UpdateHostUserRespone);
 
     rpc GetUserByID(GetUserRequest) returns (GetUserResponse){
         option (google.api.http) = {
