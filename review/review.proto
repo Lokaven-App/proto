@@ -62,6 +62,8 @@ message GetRatingReviewListResponse{
   int32 Code = 2 ;
   string title = 3;
   Paginate paginate = 4;
+  double avg_rating = 5;
+  int32 total_reviewer = 6;
 }
 
 message Paginate{
@@ -75,6 +77,8 @@ message Paginate{
 message GetSingleRatingReviewResponse{
   RatingReview data = 1;
   int32 Code = 2 ;
+  string title = 3;
+  int32 total_reviewer = 4; 
 }
 
 message UserDetail{
@@ -90,10 +94,11 @@ message CounterRating{
 message GetRatingListReviewResponse{
   repeated CounterRating data_rates = 1;
   repeated RatingReview data = 2;
-  int32 Code = 3 ;
-  string title = 4;
-  double avg_rating = 5;
-  Paginate paginate = 6;
+  int32 total_reviewer = 3;
+  int32 Code = 4 ;
+  string title = 5;
+  double avg_rating = 6;
+  Paginate paginate = 7;
 }
 
 service RatingAndReviewService{
