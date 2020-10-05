@@ -218,7 +218,7 @@ message SignUpAsHostRespone{
 message Setting{
     string key = 1;
     string type = 2;
-    bool value = 3;
+    string value = 3;
 }
 
 message UpdateHostUserRequest{
