@@ -543,8 +543,22 @@ message ResponseParticipantHost {
   Paginate paginate = 4;
 }
 
+message RequestInfoBookings {
+  string schedule_id = 1;
+  string tour_id = 2;
+  string status = 3;
+}
+
+message ResponseListInfoBookings {
+  int32 code =1;
+  string title = 2;
+  repeated Booking data = 3;
+}
+
 service BookingRPC {
 
+  rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
+  
   rpc TotalParticipant (TotalParticipants) returns (ResponseTotalParticipant);
 
   rpc UpdateStatusBooking (Booking) returns (BookingResponse);
