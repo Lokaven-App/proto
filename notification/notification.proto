@@ -37,6 +37,9 @@ message Properties {
     string host_id = 5;
     // @inject_tag: bson:"type_tour"
     string type_tour = 6;
+    // @inject_tag: bson:"order_id"
+    string order_id = 7;
+
 }
 
 message Participants {
