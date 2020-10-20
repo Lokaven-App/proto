@@ -157,23 +157,24 @@ message ResponseCancelTourHost {
 
 message ListIncomingBooking{
   string order_id = 1;
-  repeated PackageMedia medias = 2;
-  string title = 3;
-  string location = 4;
-  string schedule_id = 5 ;
-  google.protobuf.Timestamp start_date = 6;
-  google.protobuf.Timestamp end_date = 7;
-  string host_name = 8;
-  string type_tour = 9;
-  string status = 10;
-  string tour_status = 11;
-  bool badge = 12;
-  string total_participants = 13;
-  string total_books = 14;
-  string quota_left= 15;
-  string awaiting=16;
-  string ongoing=17;
-  bool ask_host=18;
+  string tour_id = 2;
+  repeated PackageMedia medias = 3;
+  string title = 4;
+  string location = 5;
+  string schedule_id = 6 ;
+  google.protobuf.Timestamp start_date = 7;
+  google.protobuf.Timestamp end_date = 8;
+  string host_name = 9;
+  string type_tour = 10;
+  string status = 11;
+  string tour_status = 12;
+  bool badge = 13;
+  string total_participants = 14;
+  string total_books = 15;
+  string quota_left= 16;
+  string awaiting=17;
+  string ongoing=18;
+  bool ask_host=19;
 }
 
 message ListScheduleHost {
@@ -555,6 +556,28 @@ message ResponseListInfoBookings {
   repeated Booking data = 3;
 }
 
+message GetBookingByTourScheduleID{
+  repeated string order_numbers = 1;
+  string tour_id = 2 ;
+  string title = 3 ;
+  repeated PackageSchedule schedules = 4;
+  string qty_adults = 5 ;
+  string qty_kids = 6;
+  string host_id = 7;
+  string type_tour = 8;
+  string location = 9;
+  string total_quota = 10;
+  string min_quota = 11;
+  string max_quota = 12;
+  string quota_left = 13;
+}
+
+message ResponseGetBookingByTourScheduleID{
+  int32 code = 1;
+  string title = 2;
+  GetBookingByTourScheduleID data = 3;
+}
+
 service BookingRPC {
 
   rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
@@ -685,4 +708,11 @@ service BookingRPC {
       get : "/api/v1/orders/activities-list",
     };
   }
+
+  rpc GetBookingBySchedulesTourID (PackageSchedule) returns(ResponseGetBookingByTourScheduleID){
+    option (google.api.http) = {
+      get : "/api/v1/orders/tours/{tour_id}/schedules/{schedule_id}",
+    };
+  }
+
 }
