@@ -145,8 +145,10 @@ message ListBooking {
   string quota_left= 12;
   string awaiting=13;
   string ongoing=14;
-  google.protobuf.Timestamp cancel_at = 15;
-  google.protobuf.Timestamp created_at = 16;
+  google.protobuf.Timestamp end_payment_date = 15;
+  google.protobuf.Timestamp payment_date = 16;
+  google.protobuf.Timestamp cancel_at = 17;
+  google.protobuf.Timestamp created_at = 18;
 }
 
 message RequestCancelTourHost {
