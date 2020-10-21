@@ -146,6 +146,7 @@ message ListBooking {
   string awaiting=13;
   string ongoing=14;
   google.protobuf.Timestamp cancel_at = 15;
+  google.protobuf.Timestamp created_at = 16;
 }
 
 message RequestCancelTourHost {
