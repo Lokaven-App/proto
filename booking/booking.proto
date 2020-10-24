@@ -586,13 +586,20 @@ message ResponseGetBookingByTourScheduleID{
   GetBookingByTourScheduleID data = 3;
 }
 
+message StatusUpdateResponse {
+  int32 code = 1;
+  string title = 2;
+  bool reopen = 3;
+
+}
+
 service BookingRPC {
 
   rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
   
   rpc TotalParticipant (TotalParticipants) returns (ResponseTotalParticipant);
 
-  rpc UpdateStatusBooking (Booking) returns (BookingResponse);
+  rpc UpdateStatusBooking (Booking) returns (StatusUpdateResponse);
 
   rpc UpdateIsReviewed (Booking) returns (BookingResponse);
 
