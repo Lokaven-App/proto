@@ -20,19 +20,21 @@ message TourHost{
     string business_about  = 12;
     string card_id_type = 13;
     string card_id = 14;
-    string bussiness_id_type = 15;
-    string bussiness_id = 16;
-    bool is_verified = 17;
-    string account_number = 18;
-    string balance = 19;
-    string user_uid = 20;
-    google.protobuf.Timestamp created_at = 21;
+    string person_with_id = 15;
+    string bussiness_id_type = 16;
+    string bussiness_id = 17;
+    bool is_verified = 18;
+    string account_number = 19;
+    string balance = 20;
+    string user_uid = 21;
     string email = 22 ;
     int32 card_id_status = 23;
     int32 bussiness_id_status = 24;
     string card_number = 25;
     string bussiness_number = 26;
     string nationality = 27;
+    google.protobuf.Timestamp updated_at = 28;
+    google.protobuf.Timestamp created_at = 29;
 }
 
 message UpdateTourHostRequest{
@@ -57,6 +59,7 @@ message UpdateTourHostRequest{
     string verification_number = 19;
     bool is_verified = 20;
     string nationality = 21;
+    string person_with_id = 22;
 }
 
 message UpdateTourHostResponse{
@@ -106,20 +109,21 @@ message CreateTourHostRequest{
     string business_about  = 11;
     string card_id_type = 12;
     string card_id = 13;
-    string bussiness_id_type = 14;
-    string bussiness_id = 15;
-    bool is_verified = 16;
-    string account_number = 17;
-    string balance = 18;
-    string user_uid = 19;
-    google.protobuf.Timestamp updated_at = 20;
-    string email = 21 ;
-    string gender = 22;
-    bool by_admin = 23;
-    int32 card_id_status = 24;
-    int32 bussiness_id_status = 25;
-    string card_number = 26;
-    string bussiness_number = 27;
+    string person_with_id = 14;
+    string bussiness_id_type = 15;
+    string bussiness_id = 16;
+    bool is_verified = 17;
+    string account_number = 18;
+    string balance = 19;
+    string user_uid = 20;
+    google.protobuf.Timestamp created_at = 21;
+    string email = 22 ;
+    string gender = 23;
+    bool by_admin = 24;
+    int32 card_id_status = 25;
+    int32 bussiness_id_status = 26;
+    string card_number = 27;
+    string bussiness_number = 28;
 }
 
 message CreateTourHostResponse{
@@ -157,6 +161,45 @@ message SignUpAsHostResponse{
     string title = 3;
 }
 
+message RequestParams {
+  string page = 1;
+  string per_page = 2;
+  string param = 3;
+  string schedule_id = 4;
+  string host_id = 5;
+  string type_tour = 6;
+}
+
+message Paginate {
+  int32 current_page = 1;
+  int32 next_page = 2;
+  int32 total_page = 3;
+  int32 per_page = 4;
+  int32 total = 5;
+}
+
+message ResponseTourHostList{
+  int32 code = 1;
+  string title = 2;
+  repeated TourHost data = 3;
+  Paginate paginate = 4;
+}
+
+message RequestVerified{
+    repeated HostIDS hosts = 1;
+}
+
+message HostIDS{
+    string host_id = 1;
+    bool is_verified = 2;
+}
+
+message ResponseVerified{
+    int32 code = 1;
+    string title = 2;
+    repeated TourHost data = 3;
+}
+
 service TourHostService{
     rpc UpdateTourHost(UpdateTourHostRequest) returns (UpdateTourHostResponse){
         option (google.api.http) = {
@@ -191,13 +234,9 @@ service TourHostService{
             body: "*"
         };
     }
+
     // this endpoint only use for handling to sign up guest as host
-    rpc SignUpAsHost(SignUpAsHostRequest) returns (SignUpAsHostResponse){
-         option (google.api.http) = {
-            post : "/api/v1/registered",
-            body: "*"
-        };
-    }
+    rpc SignUpAsHost(SignUpAsHostRequest) returns (SignUpAsHostResponse);
 
     rpc GetTourHostInfo(TourHost) returns (GetTourHostResponse){
         option (google.api.http) = {
@@ -210,4 +249,18 @@ service TourHostService{
             get : "/api/v1/tourhosts/gets/{user_uid}"
         };
     }
+
+    rpc VerifiedHostByAdmin (RequestVerified) returns (ResponseVerified){
+        option (google.api.http) = {
+            patch : "/api/v1/tourhosts-verification",
+            body: "*"
+        };
+    }
+
+    rpc ListTourHostByAdmin (RequestParams) returns (ResponseTourHostList){
+        option (google.api.http) = {
+            get : "/api/v1/tourhosts-list"
+        };
+    }
+
 }
