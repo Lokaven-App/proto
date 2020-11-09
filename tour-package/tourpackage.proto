@@ -462,6 +462,17 @@ message Paginate {
   int32 total = 5;
 }
 
+message ScheduleTourStatus {
+  string order_id = 1;
+  string tour_id = 2;
+  string schedule_id = 3;
+  string tour_status = 4;
+}
+
+message ScheduleTourStatusResponse{
+  TourPackage data = 1;
+}
+
 service TourPackageService{
   
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
@@ -549,6 +560,10 @@ service TourPackageService{
 
   //This Service use for update reviews and rateing only 
   rpc UpdateReviewAndRate (TourPackage) returns (TourPackageResponse);
+
+  //This method only use for update tour status 
+  rpc UdpdateScheduleTourStatus (ScheduleTourStatus) returns (ScheduleTourStatusResponse);
+  
 }
 
 service WishListService{
