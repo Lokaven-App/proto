@@ -593,6 +593,17 @@ message StatusUpdateResponse {
 
 }
 
+message RequestBookingScheduleTourStatus {
+  string order_number = 1 ;
+  string tour_id = 2;
+  string schedule_id = 3;
+  string tour_status = 4 ;
+}
+
+message ResponseBookingScheduleTourStatus{
+  Booking data = 1;
+}
+
 service BookingRPC {
 
   rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
@@ -604,6 +615,8 @@ service BookingRPC {
   rpc UpdateIsReviewed (Booking) returns (BookingResponse);
 
   rpc DetailBooking (Booking) returns (BookingResponse);
+
+  rpc UpdateBookingScheduleTourStatus (RequestBookingScheduleTourStatus) returns (ResponseBookingScheduleTourStatus);
 
   rpc GetActivityTour (ActiveTour) returns (ResponseActiveTour) {
     option (google.api.http) = {
