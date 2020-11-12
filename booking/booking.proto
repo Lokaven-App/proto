@@ -17,24 +17,25 @@ message Booking{
   repeated PackagePrice prices = 9;
   string qty_adults = 10 ;
   string qty_kids = 11;
-  repeated Participant participants = 12;
-  string sub_price_participants = 13 ;
-  string total_price = 14;
-  string status = 15;
-  string host_id = 16;
-  google.protobuf.Timestamp created_at = 17;
-  google.protobuf.Timestamp end_date = 18;
-  string type_tour = 19;
-  string receipt_number = 20;
-  string total_paid_price = 21;
-  string sub_price_addons = 22;  
-  string location = 23;
-  string reason = 24;
-  google.protobuf.Timestamp payment_date = 25;
-  google.protobuf.Timestamp cancel_at = 26;
-  bool badge = 27;
-  bool is_refund = 28;
-  bool is_reviewed = 29;
+  ContactInfo contact_info = 12;
+  repeated Participant participants = 13;
+  string sub_price_participants = 14 ;
+  string total_price = 15;
+  string status = 16;
+  string host_id = 17;
+  google.protobuf.Timestamp created_at = 18;
+  google.protobuf.Timestamp end_date = 19;
+  string type_tour = 20;
+  string receipt_number = 21;
+  string total_paid_price = 22;
+  string sub_price_addons = 23;  
+  string location = 24;
+  string reason = 25;
+  google.protobuf.Timestamp payment_date = 26;
+  google.protobuf.Timestamp cancel_at = 27;
+  bool badge = 28;
+  bool is_refund = 29;
+  bool is_reviewed = 30;
 }
 
 message DetailBookingHost {
@@ -300,6 +301,13 @@ message PackagePrice{
   string order_number = 10;
 }
 
+message ContactInfo{
+  string first_name = 2 ;
+  string last_name = 3 ;
+  string phone_number = 4;
+  string email = 5;
+}
+
 message Participant{
   string order_number = 1;
   string first_name = 2 ;
@@ -413,23 +421,24 @@ message ReceiptBooking{
   repeated PackagePrice prices = 10;
   string qty_adults = 11 ;
   string qty_kids = 12;
-  repeated Participant participants = 13;
-  string sub_price_participants = 14 ;
-  string total_price = 15;
-  string status = 16;
-  string host_id = 17;
-  google.protobuf.Timestamp created_at = 18;
-  google.protobuf.Timestamp end_date = 19;
-  string type_tour = 20;
-  string receipt_number = 21;
-  string total_paid_price = 22;
-  string sub_price_addons = 23;
-  string location = 24;
-  string total_quota = 25;
-  string min_quota = 26;
-  string max_quota = 27;
-  string quota_left = 28;
-  google.protobuf.Timestamp cancel_at = 29;
+  ContactInfo contact_info = 13;
+  repeated Participant participants = 14;
+  string sub_price_participants = 15 ;
+  string total_price = 16;
+  string status = 17;
+  string host_id = 18;
+  google.protobuf.Timestamp created_at = 19;
+  google.protobuf.Timestamp end_date = 20;
+  string type_tour = 21;
+  string receipt_number = 22;
+  string total_paid_price = 23;
+  string sub_price_addons = 24;
+  string location = 25;
+  string total_quota = 26;
+  string min_quota = 27;
+  string max_quota = 28;
+  string quota_left = 29;
+  google.protobuf.Timestamp cancel_at = 30;
 }
 
 message ResponseReceiptBooking{
@@ -605,6 +614,44 @@ message ResponseBookingScheduleTourStatus{
   Booking data = 1;
 }
 
+message ListBookingByAdmin {
+  string order_id = 1;
+  string order_number =2;
+  UserInfo user_info = 3;
+  ContactInfo contact_info = 4;
+  repeated Participant participants = 5;
+  repeated PackageMedia medias = 6;
+  string title = 7;
+  string location = 8;
+  google.protobuf.Timestamp start_date = 9;
+  google.protobuf.Timestamp end_date = 10;
+  string host_name = 11;
+  string type_tour = 12;
+  string status = 13;
+  string tour_status = 14;
+  string quota_left= 15;
+  string awaiting=16;
+  string ongoing=17;
+  string reason=18;
+  google.protobuf.Timestamp end_payment_date = 19;
+  google.protobuf.Timestamp payment_date = 20;
+  google.protobuf.Timestamp cancel_at = 21;
+  google.protobuf.Timestamp created_at = 22;
+}
+
+message RequestAdminParams {
+  string page = 1;
+  string per_page = 2;
+  string param = 3;
+}
+
+message ResponseAdminListBooking {
+  int32 code = 1;
+  string title = 2;
+  repeated ListBookingByAdmin data = 3;
+  Paginate paginate = 4;
+}
+
 service BookingRPC {
 
   rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
@@ -741,6 +788,12 @@ service BookingRPC {
   rpc GetBookingBySchedulesTourID (PackageSchedule) returns(ResponseGetBookingByTourScheduleID){
     option (google.api.http) = {
       get : "/api/v1/orders/tours/{tour_id}/schedules/{schedule_id}",
+    };
+  }
+
+  rpc ListBookingByAdmin (RequestAdminParams) returns (ResponseAdminListBooking) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/list-admin",
     };
   }
 
