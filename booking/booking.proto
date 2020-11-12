@@ -471,6 +471,7 @@ message TotalParticipants {
   int32 total = 1;
   string schedule_id = 2;
   string tour_id = 3;
+  string status = 4;
 }
 
 message ResponseTotalParticipant {
