@@ -67,20 +67,21 @@ message EmailVerificationResponse {
 
 message ResetPasswordTokenRequest {
     string email = 1;
-    
+    string param = 2;
 }
 
 message ResetPasswordTokenResponse {
-    ResetPasswordTokenRequest data =1;
-    string title = 2;
-    string code = 3; 
+    string title = 1;
+    string code = 2; 
+    ResetPasswordTokenRequest data = 3;
 }
 
 message ResetPasswordRequest {
-    string email = 1;
-    string reset_password_token = 2;
-    string password = 3;
-    string password_confirmation = 4;
+    string param = 1;
+    string email = 2;
+    string reset_password_token = 3;
+    string password = 4;
+    string password_confirmation = 5;
 }
 
 message ResetPasswordResponse {
@@ -247,6 +248,27 @@ message RefundResponse{
     int32 code = 2;
 }
 
+message GetAllUserRequest{
+    string param = 1;
+    string search = 2;
+}
+
+message GetUsers{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    google.protobuf.Timestamp date_of_birth = 5 ;
+    string gender = 6;
+    string phone_number = 7;
+    string profile_picture_url = 8;
+    string nationality = 9;
+}
+
+message GetAllUserResponse{
+    repeated GetUsers data = 1;
+}
+
 service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
@@ -324,4 +346,7 @@ service UserService{
             get : "/api/v1/users/gets/{uid}",
         };
     }
+
+    // this endpoint only use for handle get all user for admin
+    rpc GetAllUser(GetAllUserRequest) returns (GetAllUserResponse);
 }
