@@ -269,6 +269,42 @@ message GetAllUserResponse{
     repeated GetUsers data = 1;
 }
 
+message UserDetail{
+    string user_uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    google.protobuf.Timestamp date_of_birth = 6;
+    string gender = 7;
+    string phone_number = 8;
+    string profile_picture_url = 9;
+    bool is_suspended = 10;
+    string nationality = 11;
+    string host_id = 12;
+    string business_name = 13;
+    string business_category = 14;
+    string address = 15;
+    string business_about  = 16;
+    string card_id_type = 17;
+    string card_id = 18;
+    string person_with_id = 19;
+    string bussiness_id_type = 20;
+    string bussiness_id = 21;
+    bool is_host = 22;
+    string account_number = 23;
+    string balance = 24;
+    google.protobuf.Timestamp created_at = 25;
+    int32 card_id_status = 26;
+    int32 bussiness_id_status = 27;
+    string card_number = 28;
+    string bussiness_number = 29;
+}
+
+message UserDetailResponse{
+    UserDetail data = 1;
+}
+
 service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
@@ -349,4 +385,10 @@ service UserService{
 
     // this endpoint only use for handle get all user for admin
     rpc GetAllUser(GetAllUserRequest) returns (GetAllUserResponse);
+
+    rpc GetUserDetail(GetUserRequest) returns (UserDetailResponse){
+        option (google.api.http) = {
+            get : "/api/v1/users/{uid}/details",
+        };
+    }
 }
