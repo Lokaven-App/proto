@@ -64,13 +64,36 @@ message DetailBookingHost {
 
 message DetailBookingGuest {
   string order_id = 1;
-  string title = 2;
-  google.protobuf.Timestamp end_date = 3;
-  google.protobuf.Timestamp start_date = 4;
-  string host_name = 5;
-  string type_tour = 6;
-  string status = 7;
-  repeated PackageMedia medias = 8;
+  string order_number = 2;
+  string invoice_number = 3;
+  string title = 4;
+  google.protobuf.Timestamp end_date = 5;
+  google.protobuf.Timestamp start_date = 6;
+  string host_name = 7;
+  string user_uid = 8;
+  string status = 9;
+  repeated PackageMedia medias = 10;
+  repeated PackageAddon addons = 12;
+  repeated PackagePrice prices = 13;
+  string qty_adults = 14;
+  string qty_kids = 15;
+  ContactInfo contact_info = 16;
+  repeated Participant participants = 17;
+  string sub_price_participants = 18 ;
+  string total_price = 19;
+  string host_id = 21;
+  google.protobuf.Timestamp created_at = 22;
+  string type_tour = 24;
+  string receipt_number = 25;
+  string total_paid_price = 26;
+  string sub_price_addons = 27;  
+  string location = 28;
+  string reason = 29;
+  google.protobuf.Timestamp payment_date = 30;
+  google.protobuf.Timestamp cancel_at = 31;
+  bool badge = 32;
+  bool is_refund = 33;
+  bool is_reviewed = 34;
 }
 
 message UserInfo {
@@ -150,6 +173,7 @@ message ListBooking {
   google.protobuf.Timestamp payment_date = 16;
   google.protobuf.Timestamp cancel_at = 17;
   google.protobuf.Timestamp created_at = 18;
+  string schedule_id = 19;
 }
 
 message RequestCancelTourHost {
