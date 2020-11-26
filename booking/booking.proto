@@ -551,12 +551,15 @@ message ListActivityBooking{
   string order_id = 1;
   repeated PackageMedia medias = 2;
   string title = 3;
-  google.protobuf.Timestamp start_date = 4;
-  google.protobuf.Timestamp end_date = 5;
-  string tour_status = 9;
-  string total_participants = 11;
-  string total_books = 12;
-  string ongoing=13;
+  string schedule_id = 4;
+  google.protobuf.Timestamp start_date = 5;
+  google.protobuf.Timestamp end_date = 6;
+  string tour_status = 7;
+  string total_participants = 8;
+  string total_books = 9;
+  string ongoing=10;
+  string host_name=11;
+  google.protobuf.Timestamp cancel_at = 12;
 }
 
 message ResponseBookingActivityList {
@@ -624,7 +627,7 @@ message StatusUpdateResponse {
   int32 code = 1;
   string title = 2;
   bool reopen = 3;
-
+  repeated Participant participants = 4; 
 }
 
 message RequestBookingScheduleTourStatus {
