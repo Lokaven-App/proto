@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  lokaven-action:
+  lokaven-protoc:
     runs-on: ubuntu-18.04
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
