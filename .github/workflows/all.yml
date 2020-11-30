@@ -1,4 +1,4 @@
-name: lokaven-action
+name: lokaven-protoc
 
 on: 
   push: 
