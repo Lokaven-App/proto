@@ -12,16 +12,20 @@ message Service {
     string id = 2;
 }
 message Body {
+    // @inject_tag: bson:"title"
+    string title = 1;
     // @inject_tag: bson:"message"
-    string message = 1;
+    string message = 2;
     // @inject_tag: bson:"sender"
-    string sender = 2;
-    // @inject_tag: bson:"properties"
-    Properties properties = 3;
+    string sender = 3;
     // @inject_tag: bson:"time"
     string time = 4;
     // @inject_tag: bson:"status"
     string status = 5;
+    // @inject_tag: bson:"type"
+    string type = 6;
+    // @inject_tag: bson:"properties"
+    Properties properties = 7;
 }
 
 message Properties {
@@ -39,7 +43,22 @@ message Properties {
     string type_tour = 6;
     // @inject_tag: bson:"order_id"
     string order_id = 7;
-
+    // @inject_tag: bson:"withdrawal_status"
+    string withdrawal_status = 8;
+    // @inject_tag: bson:"withdrawal_date"
+    string withdrawal_date = 9;
+    // @inject_tag: bson:"profile_url"
+    string profile_url = 10;
+    // @inject_tag: bson:"opponent_of_discussion"
+    string opponent_of_discussion = 11;
+    // @inject_tag: bson:"photo_against_discussion"
+    string photo_against_discussion = 12;
+    // @inject_tag: bson:"host_name"
+    string host_name = 13;
+    // @inject_tag: bson:"schedule_start_date"
+    google.protobuf.Timestamp schedule_start_date = 14;
+    // @inject_tag: bson:"schedule_end_date"
+    google.protobuf.Timestamp schedule_end_date = 15;
 }
 
 message Participants {
