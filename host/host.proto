@@ -165,9 +165,7 @@ message RequestParams {
   string page = 1;
   string per_page = 2;
   string param = 3;
-  string schedule_id = 4;
-  string host_id = 5;
-  string type_tour = 6;
+  string key = 4;
 }
 
 message Paginate {

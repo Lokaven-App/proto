@@ -34,6 +34,7 @@ message TourPackage{
   google.protobuf.Timestamp created_at = 28;
   bool delete_status = 29;
   string user_uid = 30;
+  google.protobuf.Timestamp update_at = 31;
 }
 
 message TourHost{
@@ -101,7 +102,9 @@ message TourPackageResponse{
 }
 
 message UpdateTourPackageResponse{
-  TourPackage data = 1;
+  int32 code = 1;
+  string title = 2;
+  TourPackage data = 3;
 }
 
 message PackageTagResponse{
@@ -549,6 +552,27 @@ service TourPackageService{
       body : "*"
     };
   }
+
+  rpc AddSchedule(PackageSchedule)returns(UpdateTourPackageResponse){
+    option (google.api.http) = {
+      post : "/api/v1/tourpackages/{tour_id}/schedules",
+      body : "*"
+    };
+  }
+
+  rpc UpdateScheduleTourPackage(PackageSchedule)returns(UpdateTourPackageResponse){
+    option (google.api.http) = {
+      patch : "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}",
+      body : "*"
+    };
+  }
+
+   rpc DeleteSchedule(PackageSchedule) returns (UpdateTourPackageResponse){
+    option(google.api.http) = {
+      delete : "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}"
+    };
+  }
+
   //this method ony use for getting package data using its user UID
   rpc GetTourPackageByUserUIDOfHosts(RequestTourPackage)returns(BrowseTourPackage);
 
