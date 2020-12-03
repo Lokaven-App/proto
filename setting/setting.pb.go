@@ -166,19 +166,91 @@ func (m *UpdateUserSettingResponse) GetData() *UserSetting {
 	return nil
 }
 
+type BankAccount struct {
+	BankId               string   `protobuf:"bytes,1,opt,name=bank_id,json=bankId,proto3" json:"bank_id,omitempty"`
+	Bank                 string   `protobuf:"bytes,2,opt,name=bank,proto3" json:"bank,omitempty"`
+	AccountNumber        string   `protobuf:"bytes,3,opt,name=account_number,json=accountNumber,proto3" json:"account_number,omitempty"`
+	AccountHolder        string   `protobuf:"bytes,4,opt,name=account_holder,json=accountHolder,proto3" json:"account_holder,omitempty"`
+	IsDefault            bool     `protobuf:"varint,5,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *BankAccount) Reset()         { *m = BankAccount{} }
+func (m *BankAccount) String() string { return proto.CompactTextString(m) }
+func (*BankAccount) ProtoMessage()    {}
+func (*BankAccount) Descriptor() ([]byte, []int) {
+	return fileDescriptor_21f1b67425477f43, []int{3}
+}
+
+func (m *BankAccount) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BankAccount.Unmarshal(m, b)
+}
+func (m *BankAccount) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BankAccount.Marshal(b, m, deterministic)
+}
+func (m *BankAccount) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BankAccount.Merge(m, src)
+}
+func (m *BankAccount) XXX_Size() int {
+	return xxx_messageInfo_BankAccount.Size(m)
+}
+func (m *BankAccount) XXX_DiscardUnknown() {
+	xxx_messageInfo_BankAccount.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BankAccount proto.InternalMessageInfo
+
+func (m *BankAccount) GetBankId() string {
+	if m != nil {
+		return m.BankId
+	}
+	return ""
+}
+
+func (m *BankAccount) GetBank() string {
+	if m != nil {
+		return m.Bank
+	}
+	return ""
+}
+
+func (m *BankAccount) GetAccountNumber() string {
+	if m != nil {
+		return m.AccountNumber
+	}
+	return ""
+}
+
+func (m *BankAccount) GetAccountHolder() string {
+	if m != nil {
+		return m.AccountHolder
+	}
+	return ""
+}
+
+func (m *BankAccount) GetIsDefault() bool {
+	if m != nil {
+		return m.IsDefault
+	}
+	return false
+}
+
 type HostSetting struct {
-	Id                   string     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Settings             []*Setting `protobuf:"bytes,2,rep,name=settings,proto3" json:"settings,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	Id                   string         `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Settings             []*Setting     `protobuf:"bytes,2,rep,name=settings,proto3" json:"settings,omitempty"`
+	BankAccount          []*BankAccount `protobuf:"bytes,3,rep,name=bank_account,json=bankAccount,proto3" json:"bank_account,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
 }
 
 func (m *HostSetting) Reset()         { *m = HostSetting{} }
 func (m *HostSetting) String() string { return proto.CompactTextString(m) }
 func (*HostSetting) ProtoMessage()    {}
 func (*HostSetting) Descriptor() ([]byte, []int) {
-	return fileDescriptor_21f1b67425477f43, []int{3}
+	return fileDescriptor_21f1b67425477f43, []int{4}
 }
 
 func (m *HostSetting) XXX_Unmarshal(b []byte) error {
@@ -213,6 +285,13 @@ func (m *HostSetting) GetSettings() []*Setting {
 	return nil
 }
 
+func (m *HostSetting) GetBankAccount() []*BankAccount {
+	if m != nil {
+		return m.BankAccount
+	}
+	return nil
+}
+
 type UpdateHostSettingResponse struct {
 	Data                 *HostSetting `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
@@ -224,7 +303,7 @@ func (m *UpdateHostSettingResponse) Reset()         { *m = UpdateHostSettingResp
 func (m *UpdateHostSettingResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateHostSettingResponse) ProtoMessage()    {}
 func (*UpdateHostSettingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_21f1b67425477f43, []int{4}
+	return fileDescriptor_21f1b67425477f43, []int{5}
 }
 
 func (m *UpdateHostSettingResponse) XXX_Unmarshal(b []byte) error {
@@ -264,7 +343,7 @@ func (m *CreateSettingRequest) Reset()         { *m = CreateSettingRequest{} }
 func (m *CreateSettingRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateSettingRequest) ProtoMessage()    {}
 func (*CreateSettingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_21f1b67425477f43, []int{5}
+	return fileDescriptor_21f1b67425477f43, []int{6}
 }
 
 func (m *CreateSettingRequest) XXX_Unmarshal(b []byte) error {
@@ -310,7 +389,7 @@ func (m *CreateSettingRespone) Reset()         { *m = CreateSettingRespone{} }
 func (m *CreateSettingRespone) String() string { return proto.CompactTextString(m) }
 func (*CreateSettingRespone) ProtoMessage()    {}
 func (*CreateSettingRespone) Descriptor() ([]byte, []int) {
-	return fileDescriptor_21f1b67425477f43, []int{6}
+	return fileDescriptor_21f1b67425477f43, []int{7}
 }
 
 func (m *CreateSettingRespone) XXX_Unmarshal(b []byte) error {
@@ -338,45 +417,158 @@ func (m *CreateSettingRespone) GetData() *CreateSettingRequest {
 	return nil
 }
 
+type BankAccountRequest struct {
+	Id                   string         `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	BankId               string         `protobuf:"bytes,2,opt,name=bank_id,json=bankId,proto3" json:"bank_id,omitempty"`
+	BankAccount          []*BankAccount `protobuf:"bytes,3,rep,name=bank_account,json=bankAccount,proto3" json:"bank_account,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *BankAccountRequest) Reset()         { *m = BankAccountRequest{} }
+func (m *BankAccountRequest) String() string { return proto.CompactTextString(m) }
+func (*BankAccountRequest) ProtoMessage()    {}
+func (*BankAccountRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_21f1b67425477f43, []int{8}
+}
+
+func (m *BankAccountRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BankAccountRequest.Unmarshal(m, b)
+}
+func (m *BankAccountRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BankAccountRequest.Marshal(b, m, deterministic)
+}
+func (m *BankAccountRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BankAccountRequest.Merge(m, src)
+}
+func (m *BankAccountRequest) XXX_Size() int {
+	return xxx_messageInfo_BankAccountRequest.Size(m)
+}
+func (m *BankAccountRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_BankAccountRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BankAccountRequest proto.InternalMessageInfo
+
+func (m *BankAccountRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *BankAccountRequest) GetBankId() string {
+	if m != nil {
+		return m.BankId
+	}
+	return ""
+}
+
+func (m *BankAccountRequest) GetBankAccount() []*BankAccount {
+	if m != nil {
+		return m.BankAccount
+	}
+	return nil
+}
+
+type GetHostSettingResponse struct {
+	Data                 []*BankAccount `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *GetHostSettingResponse) Reset()         { *m = GetHostSettingResponse{} }
+func (m *GetHostSettingResponse) String() string { return proto.CompactTextString(m) }
+func (*GetHostSettingResponse) ProtoMessage()    {}
+func (*GetHostSettingResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_21f1b67425477f43, []int{9}
+}
+
+func (m *GetHostSettingResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetHostSettingResponse.Unmarshal(m, b)
+}
+func (m *GetHostSettingResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetHostSettingResponse.Marshal(b, m, deterministic)
+}
+func (m *GetHostSettingResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetHostSettingResponse.Merge(m, src)
+}
+func (m *GetHostSettingResponse) XXX_Size() int {
+	return xxx_messageInfo_GetHostSettingResponse.Size(m)
+}
+func (m *GetHostSettingResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetHostSettingResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetHostSettingResponse proto.InternalMessageInfo
+
+func (m *GetHostSettingResponse) GetData() []*BankAccount {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Setting)(nil), "setting.Setting")
 	proto.RegisterType((*UserSetting)(nil), "setting.UserSetting")
 	proto.RegisterType((*UpdateUserSettingResponse)(nil), "setting.UpdateUserSettingResponse")
+	proto.RegisterType((*BankAccount)(nil), "setting.BankAccount")
 	proto.RegisterType((*HostSetting)(nil), "setting.HostSetting")
 	proto.RegisterType((*UpdateHostSettingResponse)(nil), "setting.UpdateHostSettingResponse")
 	proto.RegisterType((*CreateSettingRequest)(nil), "setting.CreateSettingRequest")
 	proto.RegisterType((*CreateSettingRespone)(nil), "setting.CreateSettingRespone")
+	proto.RegisterType((*BankAccountRequest)(nil), "setting.BankAccountRequest")
+	proto.RegisterType((*GetHostSettingResponse)(nil), "setting.GetHostSettingResponse")
 }
 
 func init() { proto.RegisterFile("pb/setting.proto", fileDescriptor_21f1b67425477f43) }
 
 var fileDescriptor_21f1b67425477f43 = []byte{
-	// 388 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x94, 0xcd, 0x4e, 0xc2, 0x40,
-	0x14, 0x85, 0x43, 0x41, 0xd1, 0xdb, 0x48, 0x70, 0xc2, 0xa2, 0x80, 0x26, 0xd8, 0x85, 0x21, 0xc6,
-	0xd0, 0x80, 0x3b, 0xb7, 0x86, 0x28, 0x21, 0x6e, 0x40, 0x1e, 0x60, 0xb0, 0x37, 0x75, 0x94, 0x74,
-	0x6a, 0x67, 0x4a, 0x42, 0x8c, 0x1b, 0x17, 0xbe, 0x80, 0x8f, 0xe6, 0x2b, 0xf8, 0x20, 0x86, 0xe9,
-	0x0f, 0x25, 0x2d, 0xba, 0x80, 0xdd, 0xfc, 0x9c, 0x9e, 0xfb, 0xe5, 0x9c, 0x49, 0xa1, 0xea, 0x4d,
-	0x2d, 0x81, 0x52, 0x32, 0xd7, 0xe9, 0x78, 0x3e, 0x97, 0x9c, 0x94, 0xa3, 0x6d, 0xe3, 0xc4, 0xe1,
-	0xdc, 0x99, 0xa1, 0x45, 0x3d, 0x66, 0x51, 0xd7, 0xe5, 0x92, 0x4a, 0xc6, 0x5d, 0x11, 0xca, 0xcc,
-	0x3e, 0x94, 0xc7, 0xa1, 0x90, 0x54, 0xa1, 0xf8, 0x82, 0x0b, 0xa3, 0xd0, 0x2a, 0xb4, 0x0f, 0x47,
-	0xcb, 0x25, 0x21, 0x50, 0x92, 0x0b, 0x0f, 0x0d, 0x4d, 0x1d, 0xa9, 0x35, 0xa9, 0xc1, 0xde, 0x9c,
-	0xce, 0x02, 0x34, 0x8a, 0xea, 0x30, 0xdc, 0x98, 0x43, 0xd0, 0x27, 0x02, 0xfd, 0xd8, 0xaa, 0x02,
-	0x1a, 0xb3, 0x23, 0x27, 0x8d, 0xd9, 0xe4, 0x12, 0x0e, 0x22, 0x1c, 0x61, 0x68, 0xad, 0x62, 0x5b,
-	0xef, 0x55, 0x3b, 0x31, 0x6e, 0xf4, 0xcd, 0x28, 0x51, 0x98, 0x7d, 0xa8, 0x4f, 0x3c, 0x9b, 0x4a,
-	0x4c, 0x59, 0x8e, 0x50, 0x78, 0xdc, 0x15, 0x48, 0xda, 0x50, 0xb2, 0xa9, 0xa4, 0xca, 0x5c, 0xef,
-	0xd5, 0x12, 0x9b, 0xb4, 0x56, 0x29, 0x96, 0x4c, 0x77, 0x5c, 0xc8, 0x1d, 0x33, 0xa5, 0x2c, 0xff,
-	0x65, 0x4a, 0x6b, 0x43, 0xa6, 0x07, 0xa8, 0xdd, 0xf8, 0x48, 0x25, 0x26, 0x16, 0xaf, 0x01, 0x0a,
-	0xb9, 0x25, 0xdc, 0x20, 0xe3, 0xba, 0x04, 0x43, 0xd2, 0x5d, 0xe3, 0x3a, 0x4d, 0x1c, 0xf2, 0x10,
-	0x42, 0xc0, 0xde, 0x67, 0x09, 0x2a, 0xd1, 0xc5, 0x18, 0xfd, 0x39, 0x7b, 0x44, 0x12, 0xc0, 0x71,
-	0xa6, 0x0e, 0x92, 0x1b, 0x7c, 0xc3, 0x5c, 0x9d, 0x6e, 0x2a, 0xd0, 0x3c, 0xff, 0xf8, 0xfe, 0xf9,
-	0xd2, 0x5a, 0x66, 0x53, 0xbd, 0xc8, 0x79, 0xd7, 0x0a, 0x04, 0xfa, 0xc2, 0x7a, 0x63, 0xf6, 0x7b,
-	0xfc, 0x84, 0xc5, 0x75, 0xe1, 0x62, 0x35, 0x36, 0x5d, 0x62, 0x6e, 0xb6, 0x99, 0xb1, 0x39, 0x1d,
-	0x65, 0xc7, 0x3e, 0x71, 0x21, 0x73, 0xc6, 0xde, 0xc3, 0xd1, 0x5a, 0x3c, 0xe4, 0xef, 0xd8, 0x1a,
-	0x1b, 0xaf, 0xc3, 0x0a, 0x86, 0xa0, 0x0f, 0x5c, 0x26, 0x77, 0x63, 0xf6, 0x0c, 0xfa, 0x2d, 0xc6,
-	0x5e, 0x62, 0x8b, 0x0e, 0xce, 0x54, 0x18, 0x4d, 0x52, 0x8f, 0xc3, 0x70, 0x50, 0x26, 0x29, 0xa8,
-	0x4c, 0xa6, 0xfb, 0xea, 0xff, 0x70, 0xf5, 0x1b, 0x00, 0x00, 0xff, 0xff, 0x7f, 0x31, 0x17, 0x78,
-	0x5a, 0x04, 0x00, 0x00,
+	// 656 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x55, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0x96, 0x9d, 0xfe, 0x8e, 0x69, 0x55, 0x56, 0x29, 0xb8, 0x09, 0x15, 0xc1, 0x52, 0x21, 0xaa,
+	0x48, 0xa3, 0xa6, 0x87, 0x0a, 0x10, 0x87, 0x94, 0x56, 0x6d, 0x54, 0xc1, 0x21, 0xa5, 0xe7, 0x68,
+	0x13, 0x0f, 0xa9, 0x49, 0xb0, 0x8d, 0x77, 0x1d, 0xa9, 0x54, 0x5c, 0x80, 0x37, 0xe0, 0xc0, 0x81,
+	0x07, 0xe0, 0x35, 0x78, 0x07, 0x5e, 0x81, 0x07, 0x41, 0x5e, 0xaf, 0xff, 0x14, 0xa7, 0x41, 0x6d,
+	0x6e, 0xbb, 0xe3, 0xd9, 0xef, 0xfb, 0xf6, 0x9b, 0x99, 0x35, 0xac, 0xb9, 0xdd, 0x3a, 0x43, 0xce,
+	0x2d, 0xbb, 0xbf, 0xe3, 0x7a, 0x0e, 0x77, 0xc8, 0xa2, 0xdc, 0x96, 0x1e, 0xf4, 0x1d, 0xa7, 0x3f,
+	0xc4, 0x3a, 0x75, 0xad, 0x3a, 0xb5, 0x6d, 0x87, 0x53, 0x6e, 0x39, 0x36, 0x0b, 0xd3, 0x8c, 0x23,
+	0x58, 0x3c, 0x0b, 0x13, 0xc9, 0x1a, 0x14, 0x06, 0x78, 0xa9, 0x2b, 0x15, 0xa5, 0xba, 0xdc, 0x0e,
+	0x96, 0x84, 0xc0, 0x1c, 0xbf, 0x74, 0x51, 0x57, 0x45, 0x48, 0xac, 0x49, 0x11, 0xe6, 0x47, 0x74,
+	0xe8, 0xa3, 0x5e, 0x10, 0xc1, 0x70, 0x63, 0x9c, 0x82, 0x76, 0xce, 0xd0, 0x8b, 0xa0, 0x56, 0x41,
+	0xb5, 0x4c, 0x89, 0xa4, 0x5a, 0x26, 0x79, 0x0a, 0x4b, 0x52, 0x0e, 0xd3, 0xd5, 0x4a, 0xa1, 0xaa,
+	0x35, 0xd6, 0x76, 0x22, 0xb9, 0xf2, 0x4c, 0x3b, 0xce, 0x30, 0x8e, 0x60, 0xe3, 0xdc, 0x35, 0x29,
+	0xc7, 0x14, 0x64, 0x1b, 0x99, 0xeb, 0xd8, 0x0c, 0x49, 0x15, 0xe6, 0x4c, 0xca, 0xa9, 0x00, 0xd7,
+	0x1a, 0xc5, 0x18, 0x26, 0x9d, 0x2b, 0x32, 0x8c, 0x5f, 0x0a, 0x68, 0x07, 0xd4, 0x1e, 0x34, 0x7b,
+	0x3d, 0xc7, 0xb7, 0x39, 0xb9, 0x0f, 0x8b, 0x5d, 0x6a, 0x0f, 0x3a, 0xb1, 0xb2, 0x85, 0x60, 0xdb,
+	0x32, 0x83, 0x6b, 0x06, 0xab, 0xe8, 0x9a, 0xc1, 0x9a, 0x6c, 0xc1, 0x2a, 0x0d, 0xcf, 0x75, 0x6c,
+	0xff, 0x43, 0x17, 0x3d, 0x79, 0xdf, 0x15, 0x19, 0x7d, 0x23, 0x82, 0xe9, 0xb4, 0x0b, 0x67, 0x68,
+	0xa2, 0xa7, 0xcf, 0x65, 0xd2, 0x4e, 0x44, 0x90, 0x6c, 0x02, 0x58, 0xac, 0x63, 0xe2, 0x3b, 0xea,
+	0x0f, 0xb9, 0x3e, 0x5f, 0x51, 0xaa, 0x4b, 0xed, 0x65, 0x8b, 0x1d, 0x86, 0x01, 0xe3, 0x9b, 0x02,
+	0xda, 0x89, 0xc3, 0xf8, 0x4c, 0xec, 0x23, 0xfb, 0x70, 0x47, 0xdc, 0x53, 0x4a, 0xd0, 0x0b, 0xe2,
+	0x44, 0xe2, 0x54, 0xca, 0x93, 0xb6, 0xd6, 0x4d, 0x36, 0x89, 0xef, 0x29, 0x2d, 0x53, 0x7d, 0x4f,
+	0xe7, 0x86, 0xbe, 0xbf, 0x85, 0xe2, 0x2b, 0x0f, 0x29, 0xc7, 0x18, 0xe2, 0xa3, 0x8f, 0x8c, 0xdf,
+	0xb2, 0x29, 0x5a, 0x63, 0xa8, 0x81, 0x30, 0x24, 0xbb, 0x19, 0x5d, 0x9b, 0x31, 0x42, 0x9e, 0x04,
+	0x29, 0x70, 0x04, 0x24, 0xed, 0xc1, 0x04, 0x79, 0xa9, 0x76, 0x51, 0x33, 0xed, 0x72, 0x63, 0x7f,
+	0x0f, 0xe0, 0xde, 0x31, 0xf2, 0xeb, 0xcd, 0x9d, 0x0c, 0x25, 0x32, 0x1a, 0xbf, 0x97, 0x60, 0x55,
+	0x9e, 0x3e, 0x43, 0x6f, 0x64, 0xf5, 0x90, 0xf8, 0x70, 0x77, 0x6c, 0x5c, 0x48, 0xee, 0x60, 0x94,
+	0x8c, 0x24, 0x3a, 0x69, 0xc0, 0x8c, 0xc7, 0x5f, 0xfe, 0xfc, 0xfd, 0xae, 0x56, 0x8c, 0xb2, 0x78,
+	0x31, 0x46, 0xbb, 0x75, 0x9f, 0xa1, 0xc7, 0xea, 0x57, 0x96, 0xf9, 0x39, 0x7a, 0x62, 0xd8, 0x73,
+	0x65, 0x3b, 0xa1, 0x4d, 0x77, 0x6e, 0x6e, 0x5f, 0x8c, 0xd1, 0xe6, 0x58, 0x30, 0x4e, 0x7b, 0xe1,
+	0x30, 0x9e, 0x43, 0xfb, 0x55, 0x01, 0xd2, 0x34, 0xcd, 0x00, 0x22, 0x3d, 0xdc, 0x37, 0x27, 0xde,
+	0x13, 0xc4, 0x35, 0xa3, 0x9a, 0x43, 0x1c, 0x54, 0xaf, 0x26, 0xeb, 0x9c, 0x51, 0xf1, 0x09, 0x88,
+	0x2c, 0xe5, 0x74, 0x11, 0x0f, 0xe3, 0x68, 0x7e, 0xf5, 0x8d, 0x9a, 0x50, 0xf0, 0x84, 0x6c, 0xe5,
+	0x28, 0xe8, 0x23, 0x67, 0x19, 0x19, 0x8c, 0xfc, 0x54, 0x60, 0xfd, 0x10, 0x87, 0x18, 0x5e, 0x27,
+	0xcd, 0x5f, 0xce, 0x6d, 0x9c, 0xb0, 0xbf, 0xff, 0xcb, 0x8b, 0xa6, 0x50, 0xf2, 0x62, 0xfb, 0x59,
+	0x8e, 0x12, 0x53, 0x50, 0x66, 0x2d, 0xb9, 0x92, 0x13, 0x92, 0x94, 0x88, 0xfc, 0x50, 0x60, 0x3d,
+	0x21, 0x98, 0xa9, 0xba, 0x97, 0x42, 0xdd, 0x7e, 0xa3, 0x31, 0xad, 0x52, 0xe3, 0xb2, 0x82, 0x9a,
+	0xbd, 0x86, 0x95, 0xcc, 0xa3, 0x40, 0xae, 0x7f, 0x2c, 0x4a, 0x13, 0x3f, 0x87, 0x0f, 0xcf, 0x29,
+	0x68, 0x2d, 0xdb, 0xe2, 0xb3, 0x01, 0x7b, 0x0f, 0xda, 0x31, 0x46, 0x58, 0xec, 0x16, 0xd3, 0xfb,
+	0x48, 0x78, 0x54, 0x26, 0x1b, 0x91, 0x47, 0x7d, 0x4c, 0x3a, 0x57, 0x58, 0xd5, 0x5d, 0x10, 0x7f,
+	0xfe, 0xbd, 0x7f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xd6, 0x69, 0xd8, 0x07, 0x34, 0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -393,6 +585,10 @@ const _ = grpc.SupportPackageIsVersion4
 type SettingServiceClient interface {
 	UpdateUserSetting(ctx context.Context, in *UserSetting, opts ...grpc.CallOption) (*UpdateUserSettingResponse, error)
 	UpdateHostSetting(ctx context.Context, in *HostSetting, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error)
+	AddHostBankAccount(ctx context.Context, in *HostSetting, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error)
+	GetHostBankAccount(ctx context.Context, in *HostSetting, opts ...grpc.CallOption) (*GetHostSettingResponse, error)
+	DeleteHostBankAccount(ctx context.Context, in *BankAccountRequest, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error)
+	UpdateHostBankAccount(ctx context.Context, in *BankAccountRequest, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error)
 	// this endpoint only use for create new setting by sign up guest as host
 	CreateSetting(ctx context.Context, in *CreateSettingRequest, opts ...grpc.CallOption) (*CreateSettingRespone, error)
 	// this endpoint only use for create initial setting for users
@@ -420,6 +616,42 @@ func (c *settingServiceClient) UpdateUserSetting(ctx context.Context, in *UserSe
 func (c *settingServiceClient) UpdateHostSetting(ctx context.Context, in *HostSetting, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error) {
 	out := new(UpdateHostSettingResponse)
 	err := c.cc.Invoke(ctx, "/setting.SettingService/UpdateHostSetting", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *settingServiceClient) AddHostBankAccount(ctx context.Context, in *HostSetting, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error) {
+	out := new(UpdateHostSettingResponse)
+	err := c.cc.Invoke(ctx, "/setting.SettingService/AddHostBankAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *settingServiceClient) GetHostBankAccount(ctx context.Context, in *HostSetting, opts ...grpc.CallOption) (*GetHostSettingResponse, error) {
+	out := new(GetHostSettingResponse)
+	err := c.cc.Invoke(ctx, "/setting.SettingService/GetHostBankAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *settingServiceClient) DeleteHostBankAccount(ctx context.Context, in *BankAccountRequest, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error) {
+	out := new(UpdateHostSettingResponse)
+	err := c.cc.Invoke(ctx, "/setting.SettingService/DeleteHostBankAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *settingServiceClient) UpdateHostBankAccount(ctx context.Context, in *BankAccountRequest, opts ...grpc.CallOption) (*UpdateHostSettingResponse, error) {
+	out := new(UpdateHostSettingResponse)
+	err := c.cc.Invoke(ctx, "/setting.SettingService/UpdateHostBankAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -457,6 +689,10 @@ func (c *settingServiceClient) GetSettings(ctx context.Context, in *UserSetting,
 type SettingServiceServer interface {
 	UpdateUserSetting(context.Context, *UserSetting) (*UpdateUserSettingResponse, error)
 	UpdateHostSetting(context.Context, *HostSetting) (*UpdateHostSettingResponse, error)
+	AddHostBankAccount(context.Context, *HostSetting) (*UpdateHostSettingResponse, error)
+	GetHostBankAccount(context.Context, *HostSetting) (*GetHostSettingResponse, error)
+	DeleteHostBankAccount(context.Context, *BankAccountRequest) (*UpdateHostSettingResponse, error)
+	UpdateHostBankAccount(context.Context, *BankAccountRequest) (*UpdateHostSettingResponse, error)
 	// this endpoint only use for create new setting by sign up guest as host
 	CreateSetting(context.Context, *CreateSettingRequest) (*CreateSettingRespone, error)
 	// this endpoint only use for create initial setting for users
@@ -473,6 +709,18 @@ func (*UnimplementedSettingServiceServer) UpdateUserSetting(ctx context.Context,
 }
 func (*UnimplementedSettingServiceServer) UpdateHostSetting(ctx context.Context, req *HostSetting) (*UpdateHostSettingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateHostSetting not implemented")
+}
+func (*UnimplementedSettingServiceServer) AddHostBankAccount(ctx context.Context, req *HostSetting) (*UpdateHostSettingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddHostBankAccount not implemented")
+}
+func (*UnimplementedSettingServiceServer) GetHostBankAccount(ctx context.Context, req *HostSetting) (*GetHostSettingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHostBankAccount not implemented")
+}
+func (*UnimplementedSettingServiceServer) DeleteHostBankAccount(ctx context.Context, req *BankAccountRequest) (*UpdateHostSettingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteHostBankAccount not implemented")
+}
+func (*UnimplementedSettingServiceServer) UpdateHostBankAccount(ctx context.Context, req *BankAccountRequest) (*UpdateHostSettingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateHostBankAccount not implemented")
 }
 func (*UnimplementedSettingServiceServer) CreateSetting(ctx context.Context, req *CreateSettingRequest) (*CreateSettingRespone, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSetting not implemented")
@@ -520,6 +768,78 @@ func _SettingService_UpdateHostSetting_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SettingServiceServer).UpdateHostSetting(ctx, req.(*HostSetting))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SettingService_AddHostBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HostSetting)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SettingServiceServer).AddHostBankAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/setting.SettingService/AddHostBankAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SettingServiceServer).AddHostBankAccount(ctx, req.(*HostSetting))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SettingService_GetHostBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HostSetting)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SettingServiceServer).GetHostBankAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/setting.SettingService/GetHostBankAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SettingServiceServer).GetHostBankAccount(ctx, req.(*HostSetting))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SettingService_DeleteHostBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BankAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SettingServiceServer).DeleteHostBankAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/setting.SettingService/DeleteHostBankAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SettingServiceServer).DeleteHostBankAccount(ctx, req.(*BankAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SettingService_UpdateHostBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BankAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SettingServiceServer).UpdateHostBankAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/setting.SettingService/UpdateHostBankAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SettingServiceServer).UpdateHostBankAccount(ctx, req.(*BankAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -589,6 +909,22 @@ var _SettingService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateHostSetting",
 			Handler:    _SettingService_UpdateHostSetting_Handler,
+		},
+		{
+			MethodName: "AddHostBankAccount",
+			Handler:    _SettingService_AddHostBankAccount_Handler,
+		},
+		{
+			MethodName: "GetHostBankAccount",
+			Handler:    _SettingService_GetHostBankAccount_Handler,
+		},
+		{
+			MethodName: "DeleteHostBankAccount",
+			Handler:    _SettingService_DeleteHostBankAccount_Handler,
+		},
+		{
+			MethodName: "UpdateHostBankAccount",
+			Handler:    _SettingService_UpdateHostBankAccount_Handler,
 		},
 		{
 			MethodName: "CreateSetting",

@@ -18,9 +18,18 @@ message UpdateUserSettingResponse{
     UserSetting data = 1;
 }
 
+message BankAccount{
+    string bank_id = 1;
+    string bank = 2;
+    string account_number = 3;
+    string account_holder =4;
+    bool is_default =5;
+}
+
 message  HostSetting {
    string id = 1;
    repeated Setting settings = 2;
+   repeated BankAccount bank_account = 3;
 }
 
 message UpdateHostSettingResponse{
@@ -36,6 +45,16 @@ message CreateSettingRespone{
     CreateSettingRequest data = 1 ;
 }
 
+message BankAccountRequest{
+    string id = 1;
+    string bank_id = 2;
+    repeated BankAccount bank_account = 3;
+}
+
+message GetHostSettingResponse{
+    repeated BankAccount data = 1;
+}
+
 service SettingService{
     rpc UpdateUserSetting(UserSetting) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
@@ -48,6 +67,32 @@ service SettingService{
         option (google.api.http) = {
             post : "/api/v1/hosts/{id}/settings",
             body : "*"
+        };
+    }
+
+    rpc AddHostBankAccount(HostSetting) returns (UpdateHostSettingResponse){
+        option (google.api.http) = {
+            post : "/api/v1/hosts/{id}/bank-account/settings",
+            body : "*"
+        };
+    }
+
+    rpc GetHostBankAccount(HostSetting) returns (GetHostSettingResponse){
+        option (google.api.http) = {
+            get : "/api/v1/hosts/{id}/gets/bank-accounts"
+        };
+    }
+
+     rpc DeleteHostBankAccount(BankAccountRequest) returns (UpdateHostSettingResponse){
+        option (google.api.http) = {
+            delete : "/api/v1/hosts/{id}/delete/bank-account/{bank_id}/settings"
+        };
+    }
+
+     rpc UpdateHostBankAccount(BankAccountRequest) returns (UpdateHostSettingResponse){
+        option (google.api.http) = {
+            patch : "/api/v1/hosts/{id}/bank-account/{bank_id}/settings",
+            body  : "*"
         };
     }
 
