@@ -15,27 +15,28 @@ message Booking{
   repeated PackageSchedule schedules = 7;
   repeated PackageAddon addons = 8;
   repeated PackagePrice prices = 9;
-  string qty_adults = 10 ;
-  string qty_kids = 11;
-  ContactInfo contact_info = 12;
-  repeated Participant participants = 13;
-  string sub_price_participants = 14 ;
-  string total_price = 15;
-  string status = 16;
-  string host_id = 17;
-  google.protobuf.Timestamp created_at = 18;
-  google.protobuf.Timestamp end_date = 19;
-  string type_tour = 20;
-  string receipt_number = 21;
-  string total_paid_price = 22;
-  string sub_price_addons = 23;  
-  string location = 24;
-  string reason = 25;
-  google.protobuf.Timestamp payment_date = 26;
-  google.protobuf.Timestamp cancel_at = 27;
-  bool badge = 28;
-  bool is_refund = 29;
-  bool is_reviewed = 30;
+  AdditionalCost additional_cost = 10;
+  string qty_adults = 11 ;
+  string qty_kids = 12;
+  ContactInfo contact_info = 13;
+  repeated Participant participants = 14;
+  string sub_price_participants = 15 ;
+  string total_price = 16;
+  string status = 17;
+  string host_id = 18;
+  google.protobuf.Timestamp created_at = 19;
+  google.protobuf.Timestamp end_date = 20;
+  string type_tour = 21;
+  string receipt_number = 22;
+  string total_paid_price = 23;
+  string sub_price_addons = 24;  
+  string location = 25;
+  string reason = 26;
+  google.protobuf.Timestamp payment_date = 27;
+  google.protobuf.Timestamp cancel_at = 28;
+  bool badge = 29;
+  bool is_refund = 30;
+  bool is_reviewed = 31;
 }
 
 message DetailBookingHost {
@@ -53,13 +54,14 @@ message DetailBookingHost {
   UserInfo user_info = 12;
   string qty_adults = 13;
   string qty_kids = 14;
-  string total_paid_price = 15;
-  google.protobuf.Int32Value min_quota = 16;
-  google.protobuf.Timestamp remaining_time = 17;
-  google.protobuf.Timestamp payment_date = 18;
-  string reason = 19;
-  string status = 20;
-  google.protobuf.BoolValue show_link = 21;
+  AdditionalCost additional_cost = 15;
+  string total_paid_price = 16;
+  google.protobuf.Int32Value min_quota = 17;
+  google.protobuf.Timestamp remaining_time = 18;
+  google.protobuf.Timestamp payment_date = 19;
+  string reason = 20;
+  string status = 21;
+  google.protobuf.BoolValue show_link = 22;
 }
 
 message DetailBookingGuest {
@@ -75,12 +77,13 @@ message DetailBookingGuest {
   repeated PackageMedia medias = 10;
   repeated PackageAddon addons = 12;
   repeated PackagePrice prices = 13;
-  string qty_adults = 14;
-  string qty_kids = 15;
-  ContactInfo contact_info = 16;
-  repeated Participant participants = 17;
-  string sub_price_participants = 18 ;
-  string total_price = 19;
+  AdditionalCost additional_cost = 14;
+  string qty_adults = 15;
+  string qty_kids = 16;
+  ContactInfo contact_info = 17;
+  repeated Participant participants = 18;
+  string sub_price_participants = 19 ;
+  string total_price = 20;
   string host_id = 21;
   google.protobuf.Timestamp created_at = 22;
   string type_tour = 24;
@@ -129,9 +132,8 @@ message TourPackage{
   string itinerary = 23;
   string policy_title = 24;
   string policy = 25;
-  string additional_cost = 26;
-  string additional_cost_kid = 27;
-  google.protobuf.Timestamp created_at = 28;
+  AdditionalCost additional_cost = 26;
+  google.protobuf.Timestamp created_at = 27;
 }
 
 message CustomPolicy{
@@ -444,26 +446,27 @@ message ReceiptBooking{
   repeated PackageSchedule schedules = 8;
   repeated PackageAddon addons = 9;
   repeated PackagePrice prices = 10;
-  string qty_adults = 11 ;
-  string qty_kids = 12;
-  ContactInfo contact_info = 13;
-  repeated Participant participants = 14;
-  string sub_price_participants = 15 ;
-  string total_price = 16;
-  string status = 17;
-  string host_id = 18;
-  google.protobuf.Timestamp created_at = 19;
-  google.protobuf.Timestamp end_date = 20;
-  string type_tour = 21;
-  string receipt_number = 22;
-  string total_paid_price = 23;
-  string sub_price_addons = 24;
-  string location = 25;
-  string total_quota = 26;
-  string min_quota = 27;
-  string max_quota = 28;
-  string quota_left = 29;
-  google.protobuf.Timestamp cancel_at = 30;
+  AdditionalCost additional_cost = 11;
+  string qty_adults = 12;
+  string qty_kids = 13;
+  ContactInfo contact_info = 14;
+  repeated Participant participants = 15;
+  string sub_price_participants = 16 ;
+  string total_price = 17;
+  string status = 18;
+  string host_id = 19;
+  google.protobuf.Timestamp created_at = 20;
+  google.protobuf.Timestamp end_date = 21;
+  string type_tour = 22;
+  string receipt_number = 23;
+  string total_paid_price = 24;
+  string sub_price_addons = 25;
+  string location = 26;
+  string total_quota = 27;
+  string min_quota = 28;
+  string max_quota = 29;
+  string quota_left = 30;
+  google.protobuf.Timestamp cancel_at = 31;
 }
 
 message ResponseReceiptBooking{
@@ -679,6 +682,14 @@ message ResponseAdminListBooking {
   string title = 2;
   repeated ListBookingByAdmin data = 3;
   Paginate paginate = 4;
+}
+
+message AdditionalCost{
+  string additional_adult_price = 1;
+  string additional_kid_price = 2;
+  string additional_adult_qty = 3;
+  string additional_kid_qty = 4;
+  string total_additional_price = 5;
 }
 
 service BookingRPC {
