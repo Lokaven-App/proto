@@ -279,6 +279,7 @@ message BrowseRequest{
   string per_page = 3;
   string param = 4;
   string host_id = 5;
+  string key = 6;
 }
 
 message BrowseRequestWishList{
