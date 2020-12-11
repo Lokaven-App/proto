@@ -632,7 +632,9 @@ message StatusUpdateResponse {
   int32 code = 1;
   string title = 2;
   bool reopen = 3;
-  repeated Participant participants = 4; 
+  repeated Participant participants = 4;
+  string user_id = 5;
+  string host_id = 6;
 }
 
 message RequestBookingScheduleTourStatus {
