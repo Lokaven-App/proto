@@ -635,6 +635,10 @@ message StatusUpdateResponse {
   repeated Participant participants = 4;
   string user_id = 5;
   string host_id = 6;
+  string order_id = 7;
+  string order_number = 8;
+  repeated PackageSchedule schedules = 9;
+  string tour_title = 10;
 }
 
 message RequestBookingScheduleTourStatus {
