@@ -1,0 +1,95 @@
+syntax = "proto3";
+package wallet;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+
+message Balance {
+    string uid = 1;
+    string user_uid = 2;
+    int32 amount = 3;
+    google.protobuf.Timestamp updated_at = 4;
+}
+
+message Balances {
+    repeated Balance balances = 1;
+}
+
+message BalanceResponse {
+    Balance data = 1;
+}
+
+// message BalancesResponse {
+//     repeated Balances data = 1;
+// }
+
+message BalanceRequest {
+    string uid = 1;
+}
+
+// message BalancesRequest {
+//     string user_id = 1;
+// }
+
+message LogBalance {
+    string uid = 1;
+    string balance_uid = 2;
+    string user_uid = 3;
+    int32 amount = 4;
+    string type = 5;
+    string message = 6;
+    string transaction_id = 7;
+    google.protobuf.Timestamp updated_at = 8;
+}
+
+// message LogBalanceResponse {
+//     LogBalance data = 1;
+// }
+
+message LogsBalanceResponse {
+    repeated LogBalance data = 1;
+}
+
+// message LogBalanceRequest {
+//     string uid = 1;
+// }
+
+message LogBalancesRequest {
+    string user_id = 1;
+}
+
+service WalletService{
+    rpc CreateOrAddBalance(LogBalance) returns (BalanceResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/wallet",
+            body    : "*" 
+        };
+    }
+
+    rpc GetBalance(BalanceRequest) returns (BalanceResponse){
+        option (google.api.http) = {
+            get : "/api/v1/users/wallets/{uid}",
+        };
+    }
+
+    // rpc GetBalances(BalancesRequest) returns (BalancesResponse){
+    //     option (google.api.http) = {
+    //         get : "/api/v1/users/wallets",
+    //     };
+    // }
+
+    // rpc GetLogBalance(LogBalanceRequest) returns (LogBalanceResponse){
+    //     option (google.api.http) = {
+    //         get : "/api/v1/users/wallets/logs/{uid}",
+    //     };
+    // }
+
+    rpc GetLogBalances(LogBalancesRequest) returns (LogsBalanceResponse){
+        option (google.api.http) = {
+            get : "/api/v1/users/wallets/logs",
+        };
+    };
+
+}
