@@ -338,8 +338,10 @@ message CategoryListResponse{
   Paginate paginate = 2;
 }
 message CategoriesListing{
-  string category_id =1 ;
-  string category =2;
+  string category_id = 1;
+  string category = 2;
+  string category_image_url = 3;
+  int32 count_used = 4;
 }
 
 message AddWishListRequest{
@@ -480,6 +482,17 @@ message AdditionalCost{
   string additional_kid_price = 2;
 }
 
+message CategoryResponse{
+  string title =1;
+  int32 code =2;
+  CategoriesListing data = 3;
+}
+
+message DeleteCategoryResponse{
+  string title =1;
+  int32 code =2;
+}
+
 service TourPackageService{
   
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
@@ -574,6 +587,26 @@ service TourPackageService{
    rpc DeleteSchedule(PackageSchedule) returns (UpdateTourPackageResponse){
     option(google.api.http) = {
       delete : "/api/v1/tourpackages/{tour_id}/schedules/{schedule_id}"
+    };
+  }
+
+ rpc AddCategoryByAdmin(CategoriesListing) returns (CategoryResponse){
+    option(google.api.http) = {
+      post : "/api/v1/tourpackages/categories",
+      body : "*"
+    };
+  }
+
+  rpc EditCategoryByAdmin(CategoriesListing) returns (CategoryResponse){
+    option(google.api.http) = {
+      patch : "/api/v1/tourpackages/categories/{category_id}",
+      body : "*"
+    };
+  }
+
+  rpc DeleteCategoryByAdmin(CategoriesListing) returns (DeleteCategoryResponse){
+    option(google.api.http) = {
+      delete : "/api/v1/tourpackages/categories/{category_id}"
     };
   }
 
