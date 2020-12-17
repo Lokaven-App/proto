@@ -59,6 +59,14 @@ message Properties {
     google.protobuf.Timestamp schedule_start_date = 14;
     // @inject_tag: bson:"schedule_end_date"
     google.protobuf.Timestamp schedule_end_date = 15;
+    // @inject_tag: bson:"discussion_id"
+    string discussion_id = 16;
+    // @inject_tag: bson:"image_tour_url"
+    string image_tour_url = 17;
+    // @inject_tag: bson:"location_tour"
+    string location_tour = 18;
+    // @inject_tag: bson:"tour_status"
+    string tour_status = 19;
 }
 
 message Participants {
