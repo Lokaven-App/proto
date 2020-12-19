@@ -176,7 +176,7 @@ message ResendEmailVerificationRespone{
     }
 
 message GetUserInfoRespone{
-    User data = 1;
+    ResponseUser data = 1;
     string code = 2;
     string title = 3;
 }
@@ -303,6 +303,22 @@ message UserDetail{
 
 message UserDetailResponse{
     UserDetail data = 1;
+}
+
+message ResponseUser{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    google.protobuf.Timestamp date_of_birth = 6;
+    string gender = 7;
+    string phone_number = 8;
+    string profile_picture_url = 9;
+    bool is_verified = 10;
+    bool is_suspended = 11;
+    string nationality = 12;
+    google.protobuf.Timestamp created_at = 13;
 }
 
 service UserService{

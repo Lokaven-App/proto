@@ -59,6 +59,8 @@ message Properties {
     google.protobuf.Timestamp schedule_start_date = 14;
     // @inject_tag: bson:"schedule_end_date"
     google.protobuf.Timestamp schedule_end_date = 15;
+    // @inject_tag: bson:"discussion_id"
+    string discussion_id = 16;
 }
 
 message Participants {
