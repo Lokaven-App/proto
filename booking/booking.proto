@@ -639,6 +639,7 @@ message StatusUpdateResponse {
   string order_number = 8;
   repeated PackageSchedule schedules = 9;
   string tour_title = 10;
+  string tour_id = 11;
 }
 
 message RequestBookingScheduleTourStatus {
