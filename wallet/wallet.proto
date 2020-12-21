@@ -37,11 +37,13 @@ message LogBalance {
     string uid = 1;
     string balance_uid = 2;
     string user_uid = 3;
-    int32 amount = 4;
-    string type = 5;
-    string message = 6;
-    string transaction_id = 7;
-    google.protobuf.Timestamp updated_at = 8;
+    string tour_uid = 4;
+    string schedule_uid =5;
+    int32 amount = 6;
+    string type = 7;
+    string message = 8;
+    string transaction_id = 9;
+    google.protobuf.Timestamp updated_at = 10;
 }
 
 // message LogBalanceResponse {
