@@ -60,6 +60,8 @@ message LogsBalanceResponse {
 
 message LogBalancesRequest {
     string user_id = 1;
+    string tour_id = 2;
+    string schedule_id = 3;
 }
 
 service WalletService{
