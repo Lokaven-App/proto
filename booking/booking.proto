@@ -699,6 +699,17 @@ message AdditionalCost{
   string total_additional_price = 5;
 }
 
+message RequestCountOrders {
+  string uid = 1;
+  string type = 2;
+}
+
+message ResponseCountOrders {
+  int32 code = 1;
+  string title = 2;
+  int32 total = 3;
+}
+
 service BookingRPC {
 
   rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
@@ -710,6 +721,8 @@ service BookingRPC {
   rpc UpdateIsReviewed (Booking) returns (BookingResponse);
 
   rpc DetailBooking (Booking) returns (BookingResponse);
+
+  rpc CountOrdersUser (RequestCountOrders) returns (ResponseCountOrders);
 
   rpc UpdateBookingScheduleTourStatus (RequestBookingScheduleTourStatus) returns (ResponseBookingScheduleTourStatus);
 
