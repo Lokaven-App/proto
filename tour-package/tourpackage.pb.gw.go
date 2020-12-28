@@ -101,60 +101,6 @@ func local_request_TourPackageService_CreateTourPackage_0(ctx context.Context, m
 
 }
 
-func request_TourPackageService_CountTourHost_0(ctx context.Context, marshaler runtime.Marshaler, client TourPackageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq RequestCountTour
-	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["host_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "host_id")
-	}
-
-	protoReq.HostId, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "host_id", err)
-	}
-
-	msg, err := client.CountTourHost(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_TourPackageService_CountTourHost_0(ctx context.Context, marshaler runtime.Marshaler, server TourPackageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq RequestCountTour
-	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["host_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "host_id")
-	}
-
-	protoReq.HostId, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "host_id", err)
-	}
-
-	msg, err := server.CountTourHost(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
 var (
 	filter_TourPackageService_DeleteTourPackage_0 = &utilities.DoubleArray{Encoding: map[string]int{"tour_id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
@@ -1581,26 +1527,6 @@ func RegisterTourPackageServiceHandlerServer(ctx context.Context, mux *runtime.S
 
 	})
 
-	mux.Handle("GET", pattern_TourPackageService_CountTourHost_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_TourPackageService_CountTourHost_0(rctx, inboundMarshaler, server, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_TourPackageService_CountTourHost_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	mux.Handle("DELETE", pattern_TourPackageService_DeleteTourPackage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -2051,26 +1977,6 @@ func RegisterTourPackageServiceHandlerClient(ctx context.Context, mux *runtime.S
 
 	})
 
-	mux.Handle("GET", pattern_TourPackageService_CountTourHost_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_TourPackageService_CountTourHost_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_TourPackageService_CountTourHost_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	mux.Handle("DELETE", pattern_TourPackageService_DeleteTourPackage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -2417,8 +2323,6 @@ func RegisterTourPackageServiceHandlerClient(ctx context.Context, mux *runtime.S
 var (
 	pattern_TourPackageService_CreateTourPackage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "tourpackages", "tourhosts", "host_id"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_TourPackageService_CountTourHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v1", "tourpackages", "count", "tour", "host_id"}, "", runtime.AssumeColonVerbOpt(true)))
-
 	pattern_TourPackageService_DeleteTourPackage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "tourpackages", "tour_id"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_TourPackageService_GetActiveTour_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v1", "tourpackages", "active", "tour_id", "schedule_id"}, "", runtime.AssumeColonVerbOpt(true)))
@@ -2456,8 +2360,6 @@ var (
 
 var (
 	forward_TourPackageService_CreateTourPackage_0 = runtime.ForwardResponseMessage
-
-	forward_TourPackageService_CountTourHost_0 = runtime.ForwardResponseMessage
 
 	forward_TourPackageService_DeleteTourPackage_0 = runtime.ForwardResponseMessage
 

@@ -513,11 +513,7 @@ service TourPackageService{
   }
 
   //Sementara HTTP
-  rpc CountTourHost (RequestCountTour) returns (ResponseCountTour) {
-    option (google.api.http) = {
-      get : "/api/v1/tourpackages/count/tour/{host_id}",
-    };
-  }
+  rpc CountTourHost (RequestCountTour) returns (ResponseCountTour);
   
   rpc DeleteTourPackage(TourPackage) returns (DeletePackageResponse){
     option(google.api.http) = {
