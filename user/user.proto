@@ -18,6 +18,7 @@ message User{
     bool is_verified = 10;
     bool is_suspended = 11;
     string nationality = 12;
+    bool deleted_permanently = 13;
 }
 
 message Balances {
@@ -163,6 +164,24 @@ message GetUserResponse{
     User data = 1;
 }
 
+message OldUser{
+    string uid = 1;
+    string user_uid = 2;
+    string first_name = 3;
+    string last_name = 4;
+    string email = 5;
+    string phone_number = 6;
+    string business_name = 7;
+    string business_category = 8;
+    string business_address = 9;
+    string business_about = 10;
+    string profile_picture_url = 11;
+    string nationality = 12;
+    google.protobuf.Timestamp join_at = 13;
+    bool is_verified = 14;
+    google.protobuf.Timestamp created_at = 15;
+}
+
 message ResendEmailVerificationRequest{
     string uid = 1;
     string email = 2;
@@ -299,6 +318,7 @@ message UserDetail{
     int32 bussiness_id_status = 27;
     string card_number = 28;
     string bussiness_number = 29;
+    bool deleted_permanently = 30;
 }
 
 message UserDetailResponse{
@@ -321,7 +341,32 @@ message ResponseUser{
     google.protobuf.Timestamp created_at = 13;
 }
 
+message RequestDelete {
+    string uid = 1;
+}
+
+message ResponseDelete {
+    string title = 1; 
+    int32 code = 2;
+}
+
+
+message OldUserResponse {
+    string title = 1;
+    int32 code = 2;
+    OldUser data = 3;
+}
+
+
 service UserService{
+
+    rpc DeletePermanently(RequestDelete) returns (ResponseDelete) {
+        option (google.api.http) = {
+            post    : "/api/v1/delete/permanently",
+            body    : "*" 
+        };
+    }
+
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users",
@@ -350,6 +395,13 @@ service UserService{
     }
 
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
+
+    rpc GetOldUser(GetUserRequest) returns (OldUserResponse){
+        option (google.api.http) = {
+            get    : "/api/v1/users/olduser/{uid}",
+        };
+    }
+
     rpc GetUserByCredentials(GetUserByCredentialsRequest) returns (GetUserByCredentialsResponse);
 
     rpc EmailVerification(EmailVerificationRequest) returns (EmailVerificationResponse) {
