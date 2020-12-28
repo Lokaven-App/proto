@@ -33,8 +33,10 @@ message TourHost{
     string card_number = 25;
     string bussiness_number = 26;
     string nationality = 27;
-    google.protobuf.Timestamp updated_at = 28;
-    google.protobuf.Timestamp created_at = 29;
+    string rejection_message = 28;
+    google.protobuf.Timestamp updated_at = 29;
+    google.protobuf.Timestamp created_at = 30;
+    google.protobuf.Timestamp verified_at = 31;
 }
 
 message UpdateTourHostRequest{
@@ -56,10 +58,8 @@ message UpdateTourHostRequest{
     string email = 16;
     string gender = 17;
     bool by_admin = 18;
-    string verification_number = 19;
-    bool is_verified = 20;
-    string nationality = 21;
-    string person_with_id = 22;
+    bool is_verified = 19;
+    string nationality = 20;
 }
 
 message UpdateTourHostResponse{
@@ -198,6 +198,50 @@ message ResponseVerified{
     repeated TourHost data = 3;
 }
 
+message RequestBusinessCardID {
+    string host_id = 1;
+    string card_id = 2;
+    string person_with_id = 3;
+    VerifiedStatus card_id_status = 4;
+    string bussiness_id = 5;
+    VerifiedStatus bussiness_id_status = 6;
+    string rejection_message = 7;
+    bool is_verified = 8;
+    google.protobuf.Timestamp verified_at = 9;
+    google.protobuf.Timestamp updated_at = 10;
+}
+
+message ResponseBusinessCardID{
+    int32 code = 1;
+    string title = 2;
+    TourHost data = 3;
+}
+
+message RequestAdministratorUpdateHost{
+    string user_uid = 1;
+    string business_name = 2;
+    string business_category = 3;
+    string address = 4;
+    string business_about = 5;
+    string card_id_type = 6;
+    string card_id = 7;
+    VerifiedStatus card_id_status = 8;
+    string person_with_id = 9;
+    string bussiness_id_type = 10;
+    string bussiness_id = 11;
+    VerifiedStatus bussiness_id_status = 12;
+    bool is_verified = 13;
+    bool by_admin = 14;
+    google.protobuf.Timestamp updated_at = 15;
+    google.protobuf.Timestamp created_at = 16;
+}
+
+message ResponseAdministratorUpdateHost{
+    int32 code = 1;
+    string title = 2;
+    TourHost data = 3;
+}
+
 service TourHostService{
     rpc UpdateTourHost(UpdateTourHostRequest) returns (UpdateTourHostResponse){
         option (google.api.http) = {
@@ -258,6 +302,20 @@ service TourHostService{
     rpc ListTourHostByAdmin (RequestParams) returns (ResponseTourHostList){
         option (google.api.http) = {
             get : "/api/v1/tourhosts-list"
+        };
+    }
+
+    rpc UpdateStatusCardBusinessIDByAdmin (RequestBusinessCardID) returns (ResponseBusinessCardID){
+        option (google.api.http) = {
+            patch : "/api/v1/tourhosts/verification/status",
+            body : "*"
+        };
+    }
+
+    rpc UpdateTourHostByAdmin(RequestAdministratorUpdateHost) returns (ResponseAdministratorUpdateHost){
+        option (google.api.http) = {
+            patch : "/api/v1/tourhosts/{user_uid}/administrator",
+            body : "*"
         };
     }
 
