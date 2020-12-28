@@ -493,6 +493,16 @@ message DeleteCategoryResponse{
   int32 code =2;
 }
 
+message RequestCountTour {
+  string host_id = 1;
+}
+
+message ResponseCountTour {
+  int32 code = 1;
+  string title = 2;
+  int32 total = 3;
+}
+
 service TourPackageService{
   
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
@@ -502,6 +512,13 @@ service TourPackageService{
     };
   }
 
+  //Sementara HTTP
+  rpc CountTourHost (RequestCountTour) returns (ResponseCountTour) {
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/count/tour/{host_id}",
+    };
+  }
+  
   rpc DeleteTourPackage(TourPackage) returns (DeletePackageResponse){
     option(google.api.http) = {
       delete : "/api/v1/tourpackages/{tour_id}"
