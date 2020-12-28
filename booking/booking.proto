@@ -722,6 +722,8 @@ service BookingRPC {
   rpc DetailBooking (Booking) returns (BookingResponse);
 
   rpc CountOrdersUser (RequestCountOrders) returns (ResponseCountOrders);
+  
+  rpc CountOrdersHost (RequestCountOrders) returns (ResponseCountOrders);
 
   rpc UpdateBookingScheduleTourStatus (RequestBookingScheduleTourStatus) returns (ResponseBookingScheduleTourStatus);
 
