@@ -701,7 +701,6 @@ message AdditionalCost{
 
 message RequestCountOrders {
   string uid = 1;
-  string type = 2;
 }
 
 message ResponseCountOrders {
