@@ -132,7 +132,7 @@ service WalletService{
 
     rpc GetLogBalances(LogBalancesRequest) returns (LogsBalanceResponse){
         option (google.api.http) = {
-            get : "/api/v1/users/wallets/logs",
+            get : "/api/v1/users/wallets/logs-balance",
         };
     };
 
