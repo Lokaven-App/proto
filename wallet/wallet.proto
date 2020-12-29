@@ -151,7 +151,7 @@ service WalletService{
 
     rpc WithdrawHostCallback(HostWithdrawCallback) returns (HostWithdrawCallbackResponse){
         option (google.api.http) = {
-            post    : "/api/v1/users/wallet/withdraw",
+            post    : "/api/v1/users/wallet/withdraw-callback",
             body    : "*" 
         };
     };

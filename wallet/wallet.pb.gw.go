@@ -618,7 +618,7 @@ var (
 
 	pattern_WalletService_WithdrawHostReq_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "users", "wallet", "withdraw"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_WalletService_WithdrawHostCallback_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "users", "wallet", "withdraw"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_WalletService_WithdrawHostCallback_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "users", "wallet", "withdraw-callback"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
