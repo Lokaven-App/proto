@@ -9,29 +9,29 @@ message ReqWithdraw {
     string balance_uid        = 1; // hold balanceid
     string tour_id           = 2;
     string schedule_id       = 3;
-	int32  Amount            = 4;
-	string BankCode          = 5;
-	string AccountHolderName = 6;
-	string AccountNumber     = 7;
-	string Description       = 8;
+	int32  amount            = 4;
+	string bank_code          = 5;
+	string account_holder_name = 6;
+	string account_number     = 7;
+	string description       = 8;
 }
 
 message HostWithdrawCallback {
-	string ID                          = 1;
-	string UserID                      = 2;
-	string ExternalID                  = 3;  
-	int32 Amount                       = 4;
-	string BankCode                    = 5;
-	string AccountHolderName           = 6;
-	string DisbursementDescription     = 7;
-	string FailureCode                 = 8;
-	bool IsInstant                     = 9;
-	string Status                      = 10;               
-	google.protobuf.Timestamp Updated  = 11;              
-	google.protobuf.Timestamp Created  = 12;     
-	repeated string EmailTo            = 13;       
-	repeated string EmailCc            = 14;       
-	repeated string EmailBcc           = 15;
+	string id                          = 1;
+	string user_iD                      = 2;
+	string external_iD                  = 3;  
+	int32 amount                       = 4;
+	string bank_code                    = 5;
+	string account_holder_name           = 6;
+	string disbursement_description     = 7;
+	string failure_code                 = 8;
+	bool is_instant                     = 9;
+	string status                      = 10;               
+	google.protobuf.Timestamp updated_at  = 11;              
+	google.protobuf.Timestamp created_at  = 12;     
+	repeated string email_to            = 13;       
+	repeated string email_cc            = 14;       
+	repeated string email_bcc           = 15;
 }
 
 message HostWithdrawCallbackResponse {
