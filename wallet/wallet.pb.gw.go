@@ -612,9 +612,9 @@ var (
 
 	pattern_WalletService_GetBalance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "users", "wallets", "uid"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_WalletService_GetLogBalances_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "users", "wallets", "logs-balance"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_WalletService_GetLogBalances_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "users", "logs-balances", "wallets"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_WalletService_GetLogBalancesSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v1", "users", "wallets", "logs", "tour_id", "schedule_id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_WalletService_GetLogBalancesSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v1", "users", "logs", "wallets", "tour_id", "schedule_id"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_WalletService_WithdrawHostReq_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "users", "wallet", "withdraw"}, "", runtime.AssumeColonVerbOpt(true)))
 

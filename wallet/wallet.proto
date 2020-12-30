@@ -132,13 +132,13 @@ service WalletService{
 
     rpc GetLogBalances(LogBalancesRequest) returns (LogsBalanceResponse){
         option (google.api.http) = {
-            get : "/api/v1/users/wallets/logs-balance",
+            get : "/api/v1/users/logs-balances/wallets",
         };
     };
 
     rpc GetLogBalancesSchedule(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse){
         option (google.api.http) = {
-            get : "/api/v1/users/wallets/logs/{tour_id}/{schedule_id}",
+            get : "/api/v1/users/logs/wallets/{tour_id}/{schedule_id}",
         };
     };
 
