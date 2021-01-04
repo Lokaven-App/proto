@@ -21,9 +21,11 @@ message UpdateUserSettingResponse{
 message BankAccount{
     string bank_id = 1;
     string bank = 2;
-    string account_number = 3;
-    string account_holder =4;
-    bool is_default =5;
+    string code = 3;
+    string account_number = 4;
+    string account_holder = 5;
+    bool can_disburse = 6;
+    bool is_default = 7;
 }
 
 message  HostSetting {
@@ -53,6 +55,23 @@ message BankAccountRequest{
 
 message GetHostSettingResponse{
     repeated BankAccount data = 1;
+}
+
+message Banks{
+   string name = 1;
+   string code = 2;
+   bool can_disburse = 3;
+   bool can_name_validate = 4;
+}
+
+message RequestBanks{
+  string key = 1;   
+}
+
+message ResponseBanks{
+   int32 code = 1;
+   string title = 2;
+   repeated Banks data = 3;
 }
 
 service SettingService{
@@ -105,6 +124,12 @@ service SettingService{
     rpc GetSettings(UserSetting) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
             get : "/api/v1/get/settings/{id}",
+        };
+    }
+
+    rpc GetBanks(RequestBanks) returns (ResponseBanks){
+         option (google.api.http) = {
+            get : "/api/v1/get/settings-banks",
         };
     }
 }
