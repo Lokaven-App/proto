@@ -270,6 +270,8 @@ message RefundResponse{
 message GetAllUserRequest{
     string param = 1;
     string search = 2;
+    int32 page = 3;
+    int32 per_page = 4;
 }
 
 message GetUsers{
