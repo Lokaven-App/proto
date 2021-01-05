@@ -288,6 +288,7 @@ message GetUsers{
 
 message GetAllUserResponse{
     repeated GetUsers data = 1;
+    Paginate paginate = 2;
 }
 
 message UserDetail{
@@ -359,6 +360,14 @@ message OldUserResponse {
     OldUser data = 3;
 }
 
+
+message Paginate {
+  int32 current_page = 1;
+  int32 next_page = 2;
+  int32 total_page = 3;
+  int32 per_page = 4;
+  int32 total = 5;
+}
 
 service UserService{
 
