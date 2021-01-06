@@ -18,8 +18,8 @@ message ReqWithdraw {
 
 message HostWithdrawCallback {
 	string id                          = 1;
-	string user_iD                      = 2;
-	string external_iD                  = 3;  
+	string user_id                      = 2;
+	string external_id                  = 3;  
 	int32 amount                       = 4;
 	string bank_code                    = 5;
 	string account_holder_name           = 6;
@@ -65,17 +65,24 @@ message BalanceRequest {
 //     string user_id = 1;
 // }
 
+message Tour {
+    string tour_title = 1;
+    google.protobuf.Timestamp tour_start_date = 2;
+    google.protobuf.Timestamp tour_end_date = 3;
+    string schedule_id = 4;
+    string tour_id = 5;
+}
+
 message LogBalance {
     string uid = 1;
     string balance_uid = 2;
     string user_uid = 3;
-    string tour_uid = 4;
-    string schedule_uid =5;
-    int32 amount = 6;
-    string type = 7;
-    string message = 8;
-    string transaction_id = 9;
-    google.protobuf.Timestamp updated_at = 10;
+    Tour tour = 4;
+    int32 amount = 5;
+    string type = 6;
+    string message = 7;
+    string transaction_id = 8;
+    google.protobuf.Timestamp updated_at = 9;
 }
 
 message SingleLogBalanceResponse {
