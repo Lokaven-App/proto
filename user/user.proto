@@ -19,6 +19,7 @@ message User{
     bool is_suspended = 11;
     string nationality = 12;
     bool deleted_permanently = 13;
+    bool is_deactivate = 14;
 }
 
 message Balances {
@@ -322,6 +323,7 @@ message UserDetail{
     string card_number = 28;
     string bussiness_number = 29;
     bool deleted_permanently = 30;
+    bool is_deactivate = 31;
 }
 
 message UserDetailResponse{
@@ -342,6 +344,8 @@ message ResponseUser{
     bool is_suspended = 11;
     string nationality = 12;
     google.protobuf.Timestamp created_at = 13;
+    bool deleted_permanently = 14;
+    bool is_deactivate = 15;
 }
 
 message RequestDelete {
@@ -370,6 +374,19 @@ message Paginate {
 }
 
 service UserService{
+
+    rpc Deactivate(RequestDelete) returns (ResponseDelete) {
+        option (google.api.http) = {
+            get    : "/api/v1/users/deactivate/{uid}",
+        };
+    }
+
+    rpc Reactivate(RequestDelete) returns (ResponseDelete) {
+        option (google.api.http) = {
+            get    : "/api/v1/users/reactivate/{uid}",
+        };
+    }
+
 
     rpc DeletePermanently(RequestDelete) returns (ResponseDelete) {
         option (google.api.http) = {
