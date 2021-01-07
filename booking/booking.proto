@@ -153,7 +153,10 @@ message BookingByContact{
   int32 number_of_participant = 8;
   string status = 9;
   string host_id = 10;
-  google.protobuf.Timestamp created_at = 11;
+  string info = 11;
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
+  google.protobuf.Timestamp deleted_at = 14;
 }
 
 message ListBooking {
@@ -709,6 +712,36 @@ message ResponseCountOrders {
   int32 total = 3;
 }
 
+message RequestGetBookingByContactByAdmin{
+  string page = 1;
+  string per_page = 2;
+  string param = 3;
+}
+
+message ResponseGetBookingByContactByAdmin{
+  int32 code = 1;
+  string title = 2;
+  repeated BookingByContact data = 3;
+  Paginate paginate = 4;
+}
+
+message RequestStatusUpdateBookingByContact{
+  string by_contact_id = 1;
+  string status = 2;
+  string info = 3;
+}
+
+message ResponseBookingByContact{
+  int32 code = 1;
+  string title = 2;
+  BookingByContact data = 3;
+}
+
+message RequestDeleteBookingByContact{
+  string by_contact_id = 1;
+  string info = 2;
+}
+
 service BookingRPC {
 
   rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
@@ -855,6 +888,25 @@ service BookingRPC {
   rpc ListBookingByAdmin (RequestAdminParams) returns (ResponseAdminListBooking) {
     option (google.api.http) = {
       get : "/api/v1/orders/list-admin",
+    };
+  }
+
+  rpc GetBookingByContactByAdmin (RequestGetBookingByContactByAdmin) returns (ResponseGetBookingByContactByAdmin) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/orders-by-contact/list",
+    };
+  }
+
+  rpc UpdateStatusBookingByContactByAdmin (RequestStatusUpdateBookingByContact) returns (ResponseBookingByContact) {
+    option (google.api.http) = {
+      patch : "/api/v1/orders/orders-by-contact/{by_contact_id}",
+      body : "*"
+    };
+  }
+
+  rpc DeleteBookingByContactByAdmin (RequestDeleteBookingByContact) returns (ResponseBookingByContact) {
+    option (google.api.http) = {
+      delete: "/api/v1/orders/orders-by-contact/{by_contact_id}",
     };
   }
 
