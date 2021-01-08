@@ -74,6 +74,14 @@ message ResponseBanks{
    repeated Banks data = 3;
 }
 
+message RequestBankAccount{
+    string id = 1;
+}
+
+message ResponseBankAccount{
+    BankAccount data = 1;
+}
+
 service SettingService{
     rpc UpdateUserSetting(UserSetting) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
@@ -132,4 +140,8 @@ service SettingService{
             get : "/api/v1/get/settings-banks",
         };
     }
+
+    // this endpoint only use for get bank account data default 
+    rpc GetHostBankAccountByUserID(RequestBankAccount) returns (ResponseBankAccount);
+
 }
