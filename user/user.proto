@@ -385,7 +385,7 @@ message Administrator{
   string password = 7;
   google.protobuf.Timestamp created_at = 8;
   google.protobuf.Timestamp updated_at = 9;
-  google.protobuf.Timestamp deleted_at = 10;
+  google.protobuf.Timestamp last_login = 10;
 }
 
 message RequestCreateAdmin{
