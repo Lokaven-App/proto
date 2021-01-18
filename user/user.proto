@@ -48,7 +48,7 @@ message CreateUserRequest{
     google.protobuf.Timestamp date_of_birth = 7;
     string gender = 8;
     string phone_number = 9;
-     string nationality = 10;
+    string nationality = 10;
 }
 
 message CreateUserResponse{
@@ -375,6 +375,85 @@ message Paginate {
   int32 total = 5;
 }
 
+message Administrator{
+  string uid = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  int32 role_admin = 5;
+  string role_name = 6;
+  string password = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+  google.protobuf.Timestamp deleted_at = 10;
+}
+
+message RequestCreateAdmin{
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  int32 role_admin = 4;
+  string password = 5;
+  string password_confirmation = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+message RequestEditAdmin{
+  string uid = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string old_password = 5;
+  string password = 6;
+  string password_confirmation = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message ResponseAdministrator{
+    string title = 1;
+    int32 code = 2;
+    Administrator data = 3;
+}
+
+message RequestListAdmin{
+    string key = 1;
+    int32 page = 2;
+    int32 per_page = 3;
+}
+
+message ResponseListAdmin{
+    repeated Administrator data = 1;
+    Paginate paginate = 2;
+}
+
+message ResponseDeleteAdmin{
+    string title = 1;
+    int32 code = 2;
+    repeated Administrator data = 3;
+}
+
+message RequestEditRoleAdmin{
+   string uid = 1; 
+   int32 role_admin = 2;
+}
+
+message Roles{
+    int32 role_admin = 1;
+    string role_name = 2;
+}
+
+message RequestRoles{
+    string key = 1;
+}
+
+message ResponseRoles{
+    repeated Roles data = 1;
+}
+
+message RequestGetAdmin{
+    string uid = 1;
+}
+
 service UserService{
 
     rpc Deactivate(RequestDelete) returns (ResponseDelete) {
@@ -489,4 +568,47 @@ service UserService{
             get : "/api/v1/users/{uid}/details",
         };
     }
+
+    rpc AddNewAdmin(RequestCreateAdmin) returns (ResponseAdministrator){
+        option (google.api.http) = {
+            post : "/api/v1/users/administrator",
+            body : "*"
+        };
+    }
+
+     rpc EditAdmin(RequestEditAdmin) returns (ResponseAdministrator){
+        option (google.api.http) = {
+            patch : "/api/v1/users/administrator/{uid}",
+            body : "*"
+        };
+    }
+
+    rpc ListAdmin(RequestListAdmin) returns (ResponseListAdmin){
+         option (google.api.http) = {
+            get : "/api/v1/users/administrator-list",
+        };
+    }
+
+    rpc DeleteAdmin(Administrator) returns(ResponseDeleteAdmin){
+         option (google.api.http) = {
+            delete : "/api/v1/users/administrator/{uid}",
+        };
+    }
+
+     rpc EditRoleAdmin(RequestEditRoleAdmin) returns (ResponseAdministrator){
+        option (google.api.http) = {
+            patch : "/api/v1/users/administrator/{uid}/roles",
+            body : "*"
+        };
+    }
+
+    rpc ListRoles(RequestRoles) returns (ResponseRoles){
+         option (google.api.http) = {
+            get : "/api/v1/users/administrator/roles/list",
+        };
+    }
+
+    //This endpoint only use for get admin 
+    rpc GetAdmin(RequestGetAdmin) returns (ResponseAdministrator);
+
 }
