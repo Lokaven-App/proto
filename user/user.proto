@@ -326,6 +326,7 @@ message UserDetail{
     string bussiness_number = 29;
     bool deleted_permanently = 30;
     bool is_deactivate = 31;
+    bool is_verified = 32;
 }
 
 message UserDetailResponse{
