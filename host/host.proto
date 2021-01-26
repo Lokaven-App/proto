@@ -178,10 +178,45 @@ message Paginate {
   int32 total = 5;
 }
 
+message TourHostList{
+    string host_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string gender = 4;
+    string phone_number = 5;
+    google.protobuf.Timestamp date_of_birth = 6;
+    //string password = 7;
+    string profile_picture_url = 8;
+    string business_name = 9;
+    string business_category = 10;
+    string address = 11;
+    string business_about  = 12;
+    string card_id_type = 13;
+    string card_id = 14;
+    string person_with_id = 15;
+    string bussiness_id_type = 16;
+    string bussiness_id = 17;
+    bool is_verified = 18;
+    //string account_number = 19;
+    //string balance = 20;
+    string user_uid = 21;
+    string email = 22 ;
+    int32 card_id_status = 23;
+    int32 bussiness_id_status = 24;
+    string card_number = 25;
+    string bussiness_number = 26;
+    string nationality = 27;
+    string rejection_message = 28;
+    int32 count_package = 29;
+    google.protobuf.Timestamp updated_at = 30;
+    google.protobuf.Timestamp created_at = 31;
+    google.protobuf.Timestamp verified_at = 32;
+}
+
 message ResponseTourHostList{
   int32 code = 1;
   string title = 2;
-  repeated TourHost data = 3;
+  repeated TourHostList data = 3;
   Paginate paginate = 4;
 }
 
