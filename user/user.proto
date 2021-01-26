@@ -272,8 +272,9 @@ message RefundResponse{
 message GetAllUserRequest{
     string param = 1;
     string search = 2;
-    int32 page = 3;
-    int32 per_page = 4;
+    string sort_by = 3;
+    int32 page = 5;
+    int32 per_page = 6;
 }
 
 message GetUsers{
@@ -299,7 +300,7 @@ message UserDetail{
     string first_name = 2;
     string last_name = 3;
     string email = 4;
-    string password = 5;
+    //string password = 5;
     google.protobuf.Timestamp date_of_birth = 6;
     string gender = 7;
     string phone_number = 8;
@@ -317,8 +318,8 @@ message UserDetail{
     string bussiness_id_type = 20;
     string bussiness_id = 21;
     bool is_host = 22;
-    string account_number = 23;
-    string balance = 24;
+    //string account_number = 23;
+    //string balance = 24;
     google.protobuf.Timestamp created_at = 25;
     int32 card_id_status = 26;
     int32 bussiness_id_status = 27;

@@ -167,6 +167,7 @@ message RequestParams {
   string per_page = 2;
   string param = 3;
   string key = 4;
+  string sort_by = 5;
 }
 
 message Paginate {
