@@ -85,6 +85,23 @@ message NotificationResponse {
     string title = 1;
     int32 code = 2;
     repeated Notification data = 3;
+    Paginate paginate = 4;
+}
+
+message Request {
+    string page = 1;
+    string per_page = 2;
+    string user_id = 3;
+    string device_id = 4;
+    string type = 5;  
+}
+
+message Paginate {
+    int32 current_page = 1;
+    int32 next_page = 2;
+    int32 total_page = 3;
+    int32 per_page = 4;
+    int32 total = 5;
 }
 
 service NotificationService {
@@ -96,7 +113,7 @@ service NotificationService {
         };
     }
 
-    rpc GetNotification (Participants) returns (NotificationResponse) {
+    rpc GetNotification (Request) returns (NotificationResponse) {
         option (google.api.http) = {
             get : "/api/v1/notification/get/{user_id}"
         };
