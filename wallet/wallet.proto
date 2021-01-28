@@ -16,22 +16,56 @@ message ReqWithdraw {
 	string description       = 8;
 }
 
+enum LogType {
+    withdraw_request = 0;
+    withdraw_success = 1;
+    withdraw_failed  = 2;
+    refund           = 3;
+    dp               = 4;
+    full_payment     = 5;
+}
+
+enum TransactionType {
+    money_in    = 0;
+    money_out   = 1;
+}
+
+enum TransactionStatus {
+    success     = 0;
+    failed      = 1;
+    pending     = 2;
+}
+
+message Host {
+    string id = 1;
+    string name = 2;
+    string bussiness_name = 3;
+    string email = 4;
+    string contact = 5;
+}
+
+message DeletedUser {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+}
+
 message HostWithdrawCallback {
-	string id                          = 1;
-	string user_id                      = 2;
-	string external_id                  = 3;  
-	int32 amount                       = 4;
-	string bank_code                    = 5;
-	string account_holder_name           = 6;
-	string disbursement_description     = 7;
-	string failure_code                 = 8;
-	bool is_instant                     = 9;
-	string status                      = 10;               
+	string id                             = 1;
+	string user_id                        = 2;
+	string external_id                    = 3;  
+	int32 amount                          = 4;
+	string bank_code                      = 5;
+	string account_holder_name            = 6;
+	string disbursement_description       = 7;
+	string failure_code                   = 8;
+	bool is_instant                       = 9;
+	string status                         = 10;               
 	google.protobuf.Timestamp updated_at  = 11;              
 	google.protobuf.Timestamp created_at  = 12;     
-	repeated string email_to            = 13;       
-	repeated string email_cc            = 14;       
-	repeated string email_bcc           = 15;
+	repeated string email_to              = 13;       
+	repeated string email_cc              = 14;       
+	repeated string email_bcc             = 15;
 }
 
 message HostWithdrawCallbackResponse {
@@ -79,10 +113,12 @@ message LogBalance {
     string user_uid = 3;
     Tour tour = 4;
     int32 amount = 5;
-    string type = 6;
+    LogType type = 6;
     string message = 7;
     string transaction_id = 8;
-    google.protobuf.Timestamp updated_at = 9;
+    TransactionType transaction_type = 9; 
+    TransactionStatus status= 10;
+    google.protobuf.Timestamp updated_at = 11;
 }
 
 message SingleLogBalanceResponse {
@@ -97,14 +133,28 @@ message LogsBalanceResponse {
     repeated LogBalance data = 1;
 }
 
-// message LogBalanceRequest {
-//     string uid = 1;
-// }
+message TransactionInHistoryResponse {
+    google.protobuf.Timestamp created_at = 1;
+    LogType type = 2;
+    string amount = 3;
+    TransactionStatus status = 4;
+    Tour tour = 5;
+    Host host = 6;
+    DeletedUser deleted_user = 7;
+}
 
 message LogBalancesRequest {
     string user_id = 1;
     int32 limit = 2;
     int32 offset = 3;
+}
+
+message LogHistoryRequest {
+    string filter = 1;
+    int32 limit   = 2;
+    int32 page    = 3;
+    string search = 4;
+    string order  = 5;
 }
 
 message LogBalancesRequestWithSchedule {
@@ -142,6 +192,12 @@ service WalletService{
     rpc GetLogBalances(LogBalancesRequest) returns (LogsBalanceResponse){
         option (google.api.http) = {
             get : "/api/v1/users/logs-balances/wallets",
+        };
+    };
+
+    rpc TransactionInHistory(LogHistoryRequest) returns (TransactionInHistoryResponse){
+        option (google.api.http) = {
+            get : "/api/v1/wallets/logs",
         };
     };
 
