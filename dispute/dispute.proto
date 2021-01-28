@@ -1,0 +1,43 @@
+syntax = "proto3";
+package dispute;
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message Dispute {
+    // @inject_tag: bson:"_id"
+    string id = 1;
+    // @inject_tag: bson:"dispute_number"
+    string dispute_number = 2;
+    // @inject_tag: bson:"tour_id"
+    string tour_id = 3;
+    // @inject_tag: bson:"schedule_id"
+    string schedule_id = 4;
+    // @inject_tag: bson:"guest_name"
+    string guest_name = 5;
+    // @inject_tag: bson:"guest_email"
+    string guest_email = 6;
+    // @inject_tag: bson:"guest_phone"
+    string guest_phone = 7;
+    // @inject_tag: bson:"message"
+    string message = 8;
+    // @inject_tag: bson:"resolve"
+    bool resolve = 9;
+    // @inject_tag: bson:"created_at"
+    google.protobuf.Timestamp created_at = 10;
+}
+
+message Responses {
+    int32 code = 1;
+    string title = 2;
+}
+
+service DisputeServices {
+
+    rpc CreateDispute (Dispute) returns (Responses) {
+        option (google.api.http) = {
+          post : "/api/v1/dispute/create",
+          body : "*"
+        };
+    }
+    
+}

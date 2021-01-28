@@ -48,17 +48,25 @@ message TourHost{
   string business_name = 9;
   string business_category = 10;
   string address = 11;
-  string business_about = 12;
+  string business_about  = 12;
   string card_id_type = 13;
   string card_id = 14;
-  string bussiness_id_type = 15;
-  string bussiness_id = 16;
-  bool is_verified = 17;
-  string account_number = 18;
-  string balance = 19;
-  string user_uid = 20;
-  google.protobuf.Timestamp created_at = 21;
+  string person_with_id = 15;
+  string bussiness_id_type = 16;
+  string bussiness_id = 17;
+  bool is_verified = 18;
+  string account_number = 19;
+  string balance = 20;
+  string user_uid = 21;
   string email = 22 ;
+  int32 card_id_status = 23;
+  int32 bussiness_id_status = 24;
+  string nationality = 25;
+  google.protobuf.Timestamp updated_at = 26;
+  google.protobuf.Timestamp created_at = 27;
+  google.protobuf.Timestamp verified_at = 28;
+  bool deleted_permanently = 29;
+  bool is_deactivate = 30;
 }
 
 message TourPackageRequest{
@@ -157,6 +165,7 @@ message PackageSchedule{
   string max_quota = 9;
   bool is_booked = 10;
   string tour_status = 11;
+  bool on_hold = 12;
 }
 
 message ScheduleBrowseRequest{
@@ -505,6 +514,8 @@ message ResponseCountTour {
 
 service TourPackageService{
   
+  rpc CountTourHost (RequestCountTour) returns (ResponseCountTour);
+
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
     option(google.api.http) = {
       post : "/api/v1/tourpackages/tourhosts/{host_id}",
@@ -512,9 +523,6 @@ service TourPackageService{
     };
   }
 
-  //Sementara HTTP
-  rpc CountTourHost (RequestCountTour) returns (ResponseCountTour);
-  
   rpc DeleteTourPackage(TourPackage) returns (DeletePackageResponse){
     option(google.api.http) = {
       delete : "/api/v1/tourpackages/{tour_id}"
@@ -620,6 +628,12 @@ service TourPackageService{
   rpc DeleteCategoryByAdmin(CategoriesListing) returns (DeleteCategoryResponse){
     option(google.api.http) = {
       delete : "/api/v1/tourpackages/categories/{category_id}"
+    };
+  }
+
+  rpc DetailCategory(CategoriesListing)returns(CategoryResponse){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/categories/{category_id}/detail"
     };
   }
 

@@ -19,6 +19,8 @@ message User{
     bool is_suspended = 11;
     string nationality = 12;
     bool deleted_permanently = 13;
+    bool is_deactivate = 14;
+    google.protobuf.Timestamp created_at = 15;
 }
 
 message Balances {
@@ -46,7 +48,7 @@ message CreateUserRequest{
     google.protobuf.Timestamp date_of_birth = 7;
     string gender = 8;
     string phone_number = 9;
-     string nationality = 10;
+    string nationality = 10;
 }
 
 message CreateUserResponse{
@@ -270,8 +272,9 @@ message RefundResponse{
 message GetAllUserRequest{
     string param = 1;
     string search = 2;
-    int32 page = 3;
-    int32 per_page = 4;
+    string sort_by = 3;
+    int32 page = 5;
+    int32 per_page = 6;
 }
 
 message GetUsers{
@@ -284,6 +287,7 @@ message GetUsers{
     string phone_number = 7;
     string profile_picture_url = 8;
     string nationality = 9;
+    google.protobuf.Timestamp created_at = 10 ;
 }
 
 message GetAllUserResponse{
@@ -296,7 +300,7 @@ message UserDetail{
     string first_name = 2;
     string last_name = 3;
     string email = 4;
-    string password = 5;
+    //string password = 5;
     google.protobuf.Timestamp date_of_birth = 6;
     string gender = 7;
     string phone_number = 8;
@@ -314,14 +318,16 @@ message UserDetail{
     string bussiness_id_type = 20;
     string bussiness_id = 21;
     bool is_host = 22;
-    string account_number = 23;
-    string balance = 24;
+    //string account_number = 23;
+    //string balance = 24;
     google.protobuf.Timestamp created_at = 25;
     int32 card_id_status = 26;
     int32 bussiness_id_status = 27;
     string card_number = 28;
     string bussiness_number = 29;
     bool deleted_permanently = 30;
+    bool is_deactivate = 31;
+    bool is_verified = 32;
 }
 
 message UserDetailResponse{
@@ -342,6 +348,8 @@ message ResponseUser{
     bool is_suspended = 11;
     string nationality = 12;
     google.protobuf.Timestamp created_at = 13;
+    bool deleted_permanently = 14;
+    bool is_deactivate = 15;
 }
 
 message RequestDelete {
@@ -369,7 +377,99 @@ message Paginate {
   int32 total = 5;
 }
 
+message Administrator{
+  string uid = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  int32 role_admin = 5;
+  string role_name = 6;
+  string password = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+  google.protobuf.Timestamp last_login = 10;
+}
+
+message RequestCreateAdmin{
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  int32 role_admin = 4;
+  string password = 5;
+  string password_confirmation = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+message RequestEditAdmin{
+  string uid = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string old_password = 5;
+  string password = 6;
+  string password_confirmation = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message ResponseAdministrator{
+    string title = 1;
+    int32 code = 2;
+    Administrator data = 3;
+}
+
+message RequestListAdmin{
+    string key = 1;
+    int32 page = 2;
+    int32 per_page = 3;
+}
+
+message ResponseListAdmin{
+    repeated Administrator data = 1;
+    Paginate paginate = 2;
+}
+
+message ResponseDeleteAdmin{
+    string title = 1;
+    int32 code = 2;
+    repeated Administrator data = 3;
+}
+
+message RequestEditRoleAdmin{
+   string uid = 1; 
+   int32 role_admin = 2;
+}
+
+message Roles{
+    int32 role_admin = 1;
+    string role_name = 2;
+}
+
+message RequestRoles{
+    string key = 1;
+}
+
+message ResponseRoles{
+    repeated Roles data = 1;
+}
+
+message RequestGetAdmin{
+    string uid = 1;
+}
+
 service UserService{
+
+    rpc Deactivate(RequestDelete) returns (ResponseDelete) {
+        option (google.api.http) = {
+            get    : "/api/v1/users/deactivate/{uid}",
+        };
+    }
+
+    rpc Reactivate(RequestDelete) returns (ResponseDelete) {
+        option (google.api.http) = {
+            get    : "/api/v1/users/reactivate/{uid}",
+        };
+    }
+
 
     rpc DeletePermanently(RequestDelete) returns (ResponseDelete) {
         option (google.api.http) = {
@@ -470,4 +570,47 @@ service UserService{
             get : "/api/v1/users/{uid}/details",
         };
     }
+
+    rpc AddNewAdmin(RequestCreateAdmin) returns (ResponseAdministrator){
+        option (google.api.http) = {
+            post : "/api/v1/users/administrator",
+            body : "*"
+        };
+    }
+
+     rpc EditAdmin(RequestEditAdmin) returns (ResponseAdministrator){
+        option (google.api.http) = {
+            patch : "/api/v1/users/administrator/{uid}",
+            body : "*"
+        };
+    }
+
+    rpc ListAdmin(RequestListAdmin) returns (ResponseListAdmin){
+         option (google.api.http) = {
+            get : "/api/v1/users/administrator-list",
+        };
+    }
+
+    rpc DeleteAdmin(Administrator) returns(ResponseDeleteAdmin){
+         option (google.api.http) = {
+            delete : "/api/v1/users/administrator/{uid}",
+        };
+    }
+
+     rpc EditRoleAdmin(RequestEditRoleAdmin) returns (ResponseAdministrator){
+        option (google.api.http) = {
+            patch : "/api/v1/users/administrator/{uid}/roles",
+            body : "*"
+        };
+    }
+
+    rpc ListRoles(RequestRoles) returns (ResponseRoles){
+         option (google.api.http) = {
+            get : "/api/v1/users/administrator/roles/list",
+        };
+    }
+
+    //This endpoint only use for get admin 
+    rpc GetAdmin(RequestGetAdmin) returns (ResponseAdministrator);
+
 }
