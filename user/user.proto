@@ -287,7 +287,9 @@ message GetUsers{
     string phone_number = 7;
     string profile_picture_url = 8;
     string nationality = 9;
-    google.protobuf.Timestamp created_at = 10 ;
+    bool is_verified = 10 ;
+    bool is_deactivate = 11;
+    google.protobuf.Timestamp created_at = 12 ;
 }
 
 message GetAllUserResponse{
@@ -368,6 +370,12 @@ message OldUserResponse {
     OldUser data = 3;
 }
 
+message ListOldUserResponse {
+    string title = 1;
+    int32 code = 2;
+    repeated OldUser data = 3;
+    Paginate paginate = 4;
+}
 
 message Paginate {
   int32 current_page = 1;
@@ -513,6 +521,12 @@ service UserService{
         };
     }
 
+    rpc ListOldUser(GetAllUserRequest) returns (ListOldUserResponse){
+        option (google.api.http) = {
+            get    : "/api/v1/users/list/permanently",
+        };
+    }
+
     rpc GetUserByCredentials(GetUserByCredentialsRequest) returns (GetUserByCredentialsResponse);
 
     rpc EmailVerification(EmailVerificationRequest) returns (EmailVerificationResponse) {
@@ -564,6 +578,7 @@ service UserService{
 
     // this endpoint only use for handle get all user for admin
     rpc GetAllUser(GetAllUserRequest) returns (GetAllUserResponse);
+    
 
     rpc GetUserDetail(GetUserRequest) returns (UserDetailResponse){
         option (google.api.http) = {
