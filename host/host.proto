@@ -187,7 +187,7 @@ message TourHostList{
     google.protobuf.Timestamp date_of_birth = 6;
     //string password = 7;
     string profile_picture_url = 8;
-    bool is_verified = 9;
+    bool is_verified_email= 9;
     bool is_deactivate = 10;
     string business_name = 11;
     string business_category = 12;
@@ -204,15 +204,17 @@ message TourHostList{
     string email = 23;
     int32 card_id_status = 24;
     int32 bussiness_id_status = 25;
-    string card_number = 26;
-    string bussiness_number = 27;
-    string nationality = 28;
-    string rejection_message = 29;
-    int32 count_package = 30;
-    bool is_host = 31;
-    google.protobuf.Timestamp updated_at = 32;
-    google.protobuf.Timestamp created_at = 33;
-    google.protobuf.Timestamp verified_at = 34;
+    bool is_verified = 26;
+    string card_number = 27;
+    string bussiness_number = 28;
+    string nationality = 29;
+    string rejection_message = 30;
+    int32 count_package = 31;
+    bool is_host = 32;
+    google.protobuf.Timestamp updated_at = 33;
+    google.protobuf.Timestamp created_at = 34;
+    google.protobuf.Timestamp verified_at = 35;
+    
 }
 
 message ResponseTourHostList{
@@ -278,7 +280,7 @@ message RequestAdministratorUpdateHost{
 message ResponseAdministratorUpdateHost{
     int32 code = 1;
     string title = 2;
-    TourHost data = 3;
+    TourHostList data = 3;
 }
 
 service TourHostService{
