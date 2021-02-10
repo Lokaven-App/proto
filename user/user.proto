@@ -464,6 +464,15 @@ message RequestGetAdmin{
     string uid = 1;
 }
 
+message RequestIsHost{
+     string uid = 1;
+}
+
+message ResponseIsHost{
+    int32 code = 1;
+    string title = 2;
+}
+
 service UserService{
 
     rpc Deactivate(RequestDelete) returns (ResponseDelete) {
@@ -628,4 +637,6 @@ service UserService{
     //This endpoint only use for get admin 
     rpc GetAdmin(RequestGetAdmin) returns (ResponseAdministrator);
 
+    //this endpoint only use for update is host by convert by admin
+    rpc UpdateIsHost(RequestIsHost) returns (ResponseIsHost);
 }
