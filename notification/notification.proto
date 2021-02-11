@@ -61,6 +61,8 @@ message Properties {
     google.protobuf.Timestamp schedule_end_date = 15;
     // @inject_tag: bson:"discussion_id"
     string discussion_id = 16;
+    // @inject_tag: bson:"discussion_parent_id"
+    string discussion_parent_id = 17;
 }
 
 message Participants {
