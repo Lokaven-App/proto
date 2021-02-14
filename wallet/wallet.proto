@@ -121,8 +121,22 @@ message LogBalance {
     google.protobuf.Timestamp updated_at = 11;
 }
 
+message LogBalanceResponse {
+    string uid = 1;
+    string balance_uid = 2;
+    string user_uid = 3;
+    Tour tour = 4;
+    int32 amount = 5;
+    string type = 6;
+    string message = 7;
+    string transaction_id = 8;
+    string transaction_type = 9; 
+    string status= 10;
+    google.protobuf.Timestamp updated_at = 11;
+}
+
 message SingleLogBalanceResponse {
-    LogBalance data = 1;
+    LogBalanceResponse data = 1;
 }
 
 // message LogBalanceResponse {
@@ -130,7 +144,7 @@ message SingleLogBalanceResponse {
 // }
 
 message LogsBalanceResponse {
-    repeated LogBalance data = 1;
+    repeated LogBalanceResponse data = 1;
 }
 
 message TransactionInHistoryResponse {
