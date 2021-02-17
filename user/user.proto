@@ -320,17 +320,17 @@ message UserDetail{
     string person_with_id = 20;
     string bussiness_id_type = 21;
     string bussiness_id = 22;
-    bool is_host = 23;
-    //string account_number = 24;
-    //string balance = 25;
-    google.protobuf.Timestamp created_at = 26;
-    int32 card_id_status = 27;
-    int32 bussiness_id_status = 28;
-    string card_number = 29;
-    string bussiness_number = 30;
-    bool deleted_permanently = 31;
-    bool is_deactivate = 32;
-    bool is_verified = 33;
+    string rejection_message = 23;
+    bool is_host = 24;
+    google.protobuf.Timestamp created_at = 25;
+    int32 card_id_status = 26;
+    int32 bussiness_id_status = 27;
+    string card_number = 28;
+    string bussiness_number = 39;
+    bool deleted_permanently = 30;
+    bool is_deactivate = 31;
+    bool is_verified = 32;
+    int32 count_package = 33;
 }
 
 message UserDetailResponse{
@@ -347,12 +347,14 @@ message ResponseUser{
     string gender = 7;
     string phone_number = 8;
     string profile_picture_url = 9;
-    bool is_verified = 10;
-    bool is_suspended = 11;
-    string nationality = 12;
-    google.protobuf.Timestamp created_at = 13;
-    bool deleted_permanently = 14;
-    bool is_deactivate = 15;
+    int32 balance = 10 ; 
+    string account_number = 11;
+    bool is_verified = 12;
+    bool is_suspended = 13;
+    string nationality = 14;
+    google.protobuf.Timestamp created_at = 15;
+    bool deleted_permanently = 16;
+    bool is_deactivate = 17;
 }
 
 message RequestDelete {
@@ -472,6 +474,41 @@ message RequestIsHost{
 message ResponseIsHost{
     int32 code = 1;
     string title = 2;
+}
+
+message PilotUserRequest{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    string password_confirmation = 6;
+    google.protobuf.Timestamp date_of_birth = 7;
+    string gender = 8;
+    string phone_number = 9;
+    string nationality = 10;
+    bool pilot_user = 11;
+    bool is_verified = 12;
+    bool is_host = 13;
+    string param = 14;
+}
+
+message PilotUser{
+    string uid = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string password = 5;
+    string password_confirmation = 6;
+    bool pilot_user = 10;
+    bool is_host = 11;
+    bool is_verified= 12;
+}
+
+message PilotUserResponse{
+    PilotUser data = 1;
+    string title = 2 ;
+    int32 code = 3 ;
 }
 
 service UserService{
@@ -640,4 +677,11 @@ service UserService{
 
     //this endpoint only use for update is host by convert by admin
     rpc UpdateIsHost(RequestIsHost) returns (ResponseIsHost);
+
+     rpc CreatePilotUser(PilotUserRequest) returns (PilotUserResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/pilots",
+            body    : "*" 
+        };
+    }
 }
