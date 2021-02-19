@@ -21,6 +21,7 @@ message User{
     bool deleted_permanently = 13;
     bool is_deactivate = 14;
     google.protobuf.Timestamp created_at = 15;
+    string account_number = 16;
 }
 
 message Balances {
