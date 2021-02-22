@@ -25,7 +25,7 @@ message TourHost{
     string bussiness_id = 17;
     bool is_verified = 18;
     string account_number = 19;
-    string balance = 20;
+    int32 balance = 20;
     string user_uid = 21;
     string email = 22 ;
     int32 card_id_status = 23;
@@ -115,7 +115,7 @@ message CreateTourHostRequest{
     string bussiness_id = 16;
     bool is_verified = 17;
     string account_number = 18;
-    string balance = 19;
+    int32 balance = 19;
     string user_uid = 20;
     google.protobuf.Timestamp created_at = 21;
     string email = 22 ;
@@ -128,8 +128,8 @@ message CreateTourHostRequest{
 }
 
 message CreateTourHostResponse{
-    CreateTourHostRequest data = 1;
-    string code = 2;
+    TourHost data = 1;
+    int32 code = 2;
     string title = 3;
 }
 
@@ -283,6 +283,71 @@ message ResponseAdministratorUpdateHost{
     TourHostList data = 3;
 }
 
+message HostProfile{
+    string host_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string gender = 4;
+    string phone_number = 5;
+    google.protobuf.Timestamp date_of_birth = 6;
+    string password = 7;
+    string profile_picture_url = 8;
+    int32 balance = 9;
+    string account_number = 10 ;
+    string business_name = 11;
+    string business_category = 12;
+    string address = 13;
+    string business_about  = 14;
+    string card_id_type = 15;
+    string card_id = 16;
+    string person_with_id = 17;
+    string bussiness_id_type = 18;
+    string bussiness_id = 19;
+    bool is_verified = 20;
+    string user_uid = 23;
+    string email = 24 ;
+    int32 card_id_status = 25;
+    int32 bussiness_id_status = 26;
+    string card_number = 27;
+    string bussiness_number = 28;
+    string nationality = 29;
+    string rejection_message = 30;
+    int32 count_package = 31;
+    google.protobuf.Timestamp updated_at = 32;
+    google.protobuf.Timestamp created_at = 33;
+    google.protobuf.Timestamp verified_at = 34;
+}
+
+message HostProfileResponse{
+    HostProfile data = 1;
+}
+
+message CreatePilotHostRequest{
+    string host_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string phone_number = 4;
+    string email = 5 ;
+    string password = 6;
+    string password_confirmation = 7;
+    string business_name = 8;
+    string business_category = 9;
+    string address = 10;
+    string business_about  = 11;
+    string card_id_type = 12;
+    string card_id = 13;
+    int32 card_id_status = 14;
+    string card_number = 15;
+    string person_with_id = 16;
+    string bussiness_id_type = 17;
+    string bussiness_id = 18;
+    int32 bussiness_id_status = 19;
+    string bussiness_number = 20;
+    bool is_verified = 21;
+    google.protobuf.Timestamp created_at = 22;
+    string user_uid = 23;
+}
+
 service TourHostService{
     rpc UpdateTourHost(UpdateTourHostRequest) returns (UpdateTourHostResponse){
         option (google.api.http) = {
@@ -321,7 +386,7 @@ service TourHostService{
     // this endpoint only use for handling to sign up guest as host
     rpc SignUpAsHost(SignUpAsHostRequest) returns (SignUpAsHostResponse);
 
-    rpc GetTourHostInfo(TourHost) returns (GetTourHostResponse){
+    rpc GetTourHostInfo(TourHost) returns (HostProfileResponse){
         option (google.api.http) = {
             get : "/api/v1/tourhosts/profile/me"
         };
@@ -356,6 +421,13 @@ service TourHostService{
     rpc UpdateTourHostByAdmin(RequestAdministratorUpdateHost) returns (ResponseAdministratorUpdateHost){
         option (google.api.http) = {
             patch : "/api/v1/tourhosts/{user_uid}/administrator",
+            body : "*"
+        };
+    }
+
+     rpc RegisterPilotHost(CreatePilotHostRequest) returns (CreateTourHostResponse){
+        option (google.api.http) = {
+            post : "/api/v1/tourhosts/pilots",
             body : "*"
         };
     }
