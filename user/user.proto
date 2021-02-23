@@ -290,7 +290,8 @@ message GetUsers{
     string nationality = 9;
     bool is_verified = 10 ;
     bool is_deactivate = 11;
-    google.protobuf.Timestamp created_at = 12 ;
+    bool pilot_user = 12;
+    google.protobuf.Timestamp created_at = 13;
 }
 
 message GetAllUserResponse{
@@ -512,6 +513,15 @@ message PilotUserResponse{
     int32 code = 3 ;
 }
 
+message SendEmailPilotUserRequest{
+    string SendTo = 1 ;
+}
+
+message SendEmailPilotUserResponse{
+    string title = 1 ;
+    int32 code = 2 ;
+}
+
 service UserService{
 
     rpc Deactivate(RequestDelete) returns (ResponseDelete) {
@@ -682,6 +692,13 @@ service UserService{
      rpc CreatePilotUser(PilotUserRequest) returns (PilotUserResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/pilots",
+            body    : "*" 
+        };
+    }
+
+    rpc SendEmailPilotUser(SendEmailPilotUserRequest) returns (SendEmailPilotUserResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/pilots/send-email",
             body    : "*" 
         };
     }
