@@ -333,6 +333,7 @@ message UserDetail{
     bool is_deactivate = 31;
     bool is_verified = 32;
     int32 count_package = 33;
+    bool pilot_user = 34;
 }
 
 message UserDetailResponse{
