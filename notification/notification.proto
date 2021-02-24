@@ -70,6 +70,8 @@ message Participants {
     string user_id = 1;
     // @inject_tag: bson:"device_id"
     string device_id = 2;
+    // @inject_tag: bson:"is_read"
+    bool is_read = 3;
 }
 
 message Notification {
@@ -83,11 +85,29 @@ message Notification {
     repeated Participants participants = 4;
 }
 
+message NotificationList {
+    // @inject_tag: bson:"_id"
+    string id = 1;
+    // @inject_tag: bson:"service"
+    Service service = 2;
+    // @inject_tag: bson:"body"
+    Body body = 3;
+    // @inject_tag: bson:"created_at"
+    google.protobuf.Timestamp created_at = 4;
+    // @inject_tag: bson:"participants"
+    Participants participants = 5;
+}
+
 message NotificationResponse {
     string title = 1;
     int32 code = 2;
-    repeated Notification data = 3;
+    repeated NotificationList data = 3;
     Paginate paginate = 4;
+}
+
+message Response {
+    string title = 1;
+    int32 code = 2;
 }
 
 message Request {
@@ -96,6 +116,7 @@ message Request {
     string user_id = 3;
     string device_id = 4;
     string type = 5;  
+    string notif_id = 6;
 }
 
 message Paginate {
@@ -108,7 +129,7 @@ message Paginate {
 
 service NotificationService {
 
-    rpc CreateNotification (Notification) returns (NotificationResponse) {
+    rpc CreateNotification (Notification) returns (Response) {
         option (google.api.http) = {
             post : "/api/v1/notification/create",
             body : "*"
@@ -120,5 +141,11 @@ service NotificationService {
             get : "/api/v1/notification/get/{user_id}"
         };
     }
-        
+
+    rpc ReadNotification (Request) returns (Response) {
+        option (google.api.http) = {
+            post : "/api/v1/notification/read"
+            body : "*"
+        };
+    }
 }
