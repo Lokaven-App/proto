@@ -121,6 +121,7 @@ message LogBalance {
     google.protobuf.Timestamp updated_at = 11;
     int32 administration_fee = 12;
     string bank_name = 13;
+    string account_number = 14;
 }
 
 message LogBalanceResponse {
@@ -133,10 +134,12 @@ message LogBalanceResponse {
     string message = 7;
     string transaction_id = 8;
     string transaction_type = 9; 
-    string status= 10;
+    string status = 10;
     google.protobuf.Timestamp updated_at = 11;
     int32 administration_fee = 12;
     string bank_name = 13;
+    string account_number = 14;
+    google.protobuf.Timestamp created_at = 15;
 }
 
 message SingleLogBalanceResponse {
