@@ -119,6 +119,8 @@ message LogBalance {
     TransactionType transaction_type = 9; 
     TransactionStatus status= 10;
     google.protobuf.Timestamp updated_at = 11;
+    int32 administration_fee = 12;
+    string bank_name = 13;
 }
 
 message LogBalanceResponse {
@@ -133,6 +135,8 @@ message LogBalanceResponse {
     string transaction_type = 9; 
     string status= 10;
     google.protobuf.Timestamp updated_at = 11;
+    int32 administration_fee = 12;
+    string bank_name = 13;
 }
 
 message SingleLogBalanceResponse {
@@ -175,6 +179,7 @@ message LogBalancesRequestWithSchedule {
     string user_id = 1;
     string tour_id = 2;
     string schedule_id = 3;
+    string transaction_id = 4;
 }
 
 service WalletService{
@@ -220,6 +225,8 @@ service WalletService{
             get : "/api/v1/users/logs/wallets/{tour_id}/{schedule_id}",
         };
     };
+
+    rpc GetLogBalanceTransaction(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse);
 
     rpc WithdrawHostReq(ReqWithdraw) returns (SingleLogBalanceResponse){
         option (google.api.http) = {
