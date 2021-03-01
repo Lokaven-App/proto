@@ -56,7 +56,7 @@ message TourHost{
   string bussiness_id = 17;
   bool is_verified = 18;
   string account_number = 19;
-  string balance = 20;
+  int32 balance = 20;
   string user_uid = 21;
   string email = 22 ;
   int32 card_id_status = 23;
@@ -165,7 +165,8 @@ message PackageSchedule{
   string max_quota = 9;
   bool is_booked = 10;
   string tour_status = 11;
-  bool on_hold = 12;
+  string on_hold = 12;
+  google.protobuf.Timestamp onhold_date = 13;
 }
 
 message ScheduleBrowseRequest{
@@ -472,7 +473,6 @@ message Paginate {
   int32 next_page = 2;
   int32 total_page = 3;
   int32 per_page = 4;
-  int32 total = 5;
 }
 
 message ScheduleTourStatus {
@@ -512,6 +512,57 @@ message ResponseCountTour {
   int32 total = 3;
 }
 
+message UsersWishlistResponse{
+  bool in_wishlist = 1;
+}
+
+message HostsTourPackage{
+  string tour_id = 1;
+  string title = 2;
+  repeated PackageMedia medias = 3;
+  repeated PackageSchedule schedules = 4;
+  string description = 5;
+  repeated string categories = 7;
+  repeated string tags = 8;
+  string location = 9;
+  string rate = 10;
+  string review = 11;
+  repeated PackageAddon addons = 12;
+  bool is_curated = 13;
+  bool is_featured = 14;
+  bool is_refundable = 15;
+  string host_id = 16;
+  string type_tour = 17;
+  repeated PackagePrice prices = 18;
+  string terms_of_service = 19;
+  repeated CustomPolicy custom_policies = 20;
+  string age_restriction = 21;
+  string cost_foreign_guest = 22;
+  string itinerary = 23;
+  string policy_title = 24;
+  string policy = 25;
+  AdditionalCost additional_cost = 26;
+  google.protobuf.Timestamp created_at = 27;
+  bool delete_status = 28;
+  string user_uid = 29;
+  google.protobuf.Timestamp update_at = 30;
+  TourHostsInfo host_info = 31;
+}
+
+message TourHostsInfo{
+  string profile_picture_url = 1;
+  string business_name = 2;
+  string business_category = 3;
+  string address = 4;
+  string business_about  = 5;
+  string email = 6 ;
+}
+
+message BrowseHostTourPackage{
+  repeated HostsTourPackage data = 1;
+  Paginate paginate = 2;
+}
+
 service TourPackageService{
   
   rpc CountTourHost (RequestCountTour) returns (ResponseCountTour);
@@ -535,7 +586,7 @@ service TourPackageService{
     };
   }
 
-  rpc GetTourPackage(BrowseRequest)returns(BrowseTourPackage){
+  rpc GetTourPackage(BrowseRequest)returns(BrowseHostTourPackage){
     option (google.api.http) = {
       get : "/api/v1/tourpackages"
     };
@@ -651,6 +702,13 @@ service TourPackageService{
 
   //This method only use for update tour status 
   rpc UdpdateScheduleTourStatus (ScheduleTourStatus) returns (ScheduleTourStatusResponse);
+
+   rpc ConfirmEndTourV1_1(ParamActiveTour) returns (ResponseConfirmedToEnd) {
+    option (google.api.http) = {
+      patch : "/api/v1b/tourpackages/active-to-end/{tour_id}/{schedule_id}",
+      body : "*"
+    };
+  }
   
 }
 
@@ -665,6 +723,12 @@ service WishListService{
   rpc GetWishList(BrowseRequestWishList)returns(WishListResponse){
     option (google.api.http) = {
       get : "/api/v1/tourpackages/wish-list/{user_uid}",
+    };
+  }
+
+  rpc UsersWishlist(BrowseRequestWishList)returns(UsersWishlistResponse){
+    option (google.api.http) = {
+      get : "/api/v1/tourpackages/{tour_id}/wish-list/{user_uid}",
     };
   }
 }
