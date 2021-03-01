@@ -63,8 +63,8 @@ message Properties {
     string discussion_id = 16;
     // @inject_tag: bson:"discussion_parent_id"
     string discussion_parent_id = 17;
-    // @inject_tag: bson:"logs_balance_id"
-    string logs_balance_id = 18;
+    // @inject_tag: bson:"balance_transaction_id"
+    string balance_transaction_id = 18;
 }
 
 message Participants {
