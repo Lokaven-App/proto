@@ -46,7 +46,7 @@ message Properties {
     // @inject_tag: bson:"withdrawal_status"
     string withdrawal_status = 8;
     // @inject_tag: bson:"withdrawal_date"
-    string withdrawal_date = 9;
+    google.protobuf.Timestamp withdrawal_date = 9;
     // @inject_tag: bson:"profile_url"
     string profile_url = 10;
     // @inject_tag: bson:"opponent_of_discussion"
