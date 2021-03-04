@@ -147,6 +147,25 @@ message LogsBalanceResponse {
     repeated LogBalanceResponse data = 1;
 }
 
+message AllTransactionListResponse {
+    repeated LogBalanceResponse data = 1;
+    Paginate paginate = 2;
+}
+
+message Paginate {
+    int32 current_page = 1;
+    int32 next_page = 2;
+    int32 total_page = 3;
+    int32 per_page = 4;
+    int32 total = 5;
+}
+
+message AllTransactionListRequest {
+    string query = 1;
+    int32 limit = 2;
+    int32 offset = 3;
+}
+
 message TransactionInHistoryResponse {
     google.protobuf.Timestamp created_at = 1;
     LogType type = 2;
@@ -232,6 +251,12 @@ service WalletService{
         option (google.api.http) = {
             post    : "/api/v1/users/wallet/withdraw-callback",
             body    : "*" 
+        };
+    };
+
+    rpc AllTransactionList(AllTransactionListRequest) returns (AllTransactionListResponse){
+        option (google.api.http) = {
+            get    : "/api/v1/users/wallet/all-transaction-list"
         };
     };
 
