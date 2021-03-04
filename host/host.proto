@@ -38,6 +38,7 @@ message TourHost{
     google.protobuf.Timestamp updated_at = 30;
     google.protobuf.Timestamp created_at = 31;
     google.protobuf.Timestamp verified_at = 32;
+    string bank_name = 33;
 }
 
 message UpdateTourHostRequest{
@@ -214,6 +215,7 @@ message TourHostList{
     google.protobuf.Timestamp updated_at = 33;
     google.protobuf.Timestamp created_at = 34;
     google.protobuf.Timestamp verified_at = 35;
+    bool pilot_user = 36;
     
 }
 

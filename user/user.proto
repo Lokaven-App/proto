@@ -22,6 +22,7 @@ message User{
     bool is_deactivate = 14;
     google.protobuf.Timestamp created_at = 15;
     string account_number = 16;
+    string bank_name = 17;
 }
 
 message Balances {
@@ -290,7 +291,8 @@ message GetUsers{
     string nationality = 9;
     bool is_verified = 10 ;
     bool is_deactivate = 11;
-    google.protobuf.Timestamp created_at = 12 ;
+    bool pilot_user = 12;
+    google.protobuf.Timestamp created_at = 13;
 }
 
 message GetAllUserResponse{
@@ -332,6 +334,7 @@ message UserDetail{
     bool is_deactivate = 31;
     bool is_verified = 32;
     int32 count_package = 33;
+    bool pilot_user = 34;
 }
 
 message UserDetailResponse{
@@ -386,7 +389,6 @@ message Paginate {
   int32 next_page = 2;
   int32 total_page = 3;
   int32 per_page = 4;
-  int32 total = 5;
 }
 
 message Administrator{
@@ -510,6 +512,20 @@ message PilotUserResponse{
     PilotUser data = 1;
     string title = 2 ;
     int32 code = 3 ;
+}
+
+message SendEmailPilotUserRequest{
+    string SendTo = 1 ;
+}
+
+message SendEmailPilotUserResponse{
+    string title = 1 ;
+    int32 code = 2 ;
+    repeated Email data = 3;
+}
+
+message Email{
+    string email = 1;
 }
 
 service UserService{
@@ -682,6 +698,13 @@ service UserService{
      rpc CreatePilotUser(PilotUserRequest) returns (PilotUserResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/pilots",
+            body    : "*" 
+        };
+    }
+
+    rpc SendEmailPilotUser(SendEmailPilotUserRequest) returns (SendEmailPilotUserResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/pilots/send-email",
             body    : "*" 
         };
     }
