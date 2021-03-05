@@ -1,0 +1,130 @@
+syntax = "proto3";
+package promotion;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message Promotion{
+  string promo_id = 1;
+  string title_promo = 2;
+  string code_promo = 3;
+  double discount = 4;
+  string description = 5;
+  string image = 6;
+  google.protobuf.Timestamp expired = 7;
+  int32 min_booking = 8;
+  int32 max_booking = 9;
+  string time_start = 10;
+  string time_end = 11;
+  repeated Tours tours = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+  string created_by = 15;
+}
+
+message Tours{
+  string tour_id = 1;
+}
+
+message CreateResponse{
+  int32 code = 1;
+  string title = 2;
+  Promotion data = 3;
+}
+
+message UpdateResponse{
+  int32 code = 1;
+  string title = 2;
+  Promotion data = 3;
+}
+
+message DeleteResponse{
+  int32 code = 1;
+  string title = 2;
+}
+
+message DetailPromotion{
+  string promo_id = 1;
+  string title_promo = 2;
+  string code_promo = 3;
+  double discount = 4;
+  string description = 5;
+  string image = 6;
+  google.protobuf.Timestamp expired = 7;
+  int32 min_booking = 8;
+  int32 max_booking = 9;
+  string time_start = 10;
+  string time_end = 11;
+  repeated Tours tours= 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+  int32 time_remaining = 15;
+  int32 promotion_used = 16;
+  CreateByInfo create_by_info = 17;
+}
+
+message CreateByInfo{
+  string uid = 1;
+  string name = 2;
+}
+
+message DetailResponse{
+  int32 code = 1;
+  string title = 2;
+  DetailPromotion data = 3;
+}
+
+message ListRequest{
+  string param = 1;
+  string key = 2;
+  string page = 3;
+  string per_page = 4;
+}
+
+message ListResponse{
+  int32 code = 1;
+  string title = 2;
+  repeated DetailPromotion data = 3;
+  Paginate paginate = 4;
+}
+
+message Paginate {
+  int32 current_page = 1;
+  int32 next_page = 2;
+  int32 total_page = 3;
+  int32 per_page = 4;
+}
+
+service PromotionService{
+  rpc CreatePromotion(Promotion)returns(CreateResponse){
+    option (google.api.http) = {
+      post : "/api/v1/promotion/administrator",
+      body :"*"
+    };
+  }
+
+  rpc EditPromotion(Promotion)returns(UpdateResponse){
+    option (google.api.http) = {
+      patch : "/api/v1/promotion/{promo_id}/administrator",
+      body :"*"
+    };
+  }
+
+   rpc DeletePromotion(Promotion)returns(DeleteResponse){
+    option (google.api.http) = {
+      delete : "/api/v1/promotion/{promo_id}/administrator",
+    };
+  }
+
+  rpc DetailsPromotion(DetailPromotion)returns(DetailResponse){
+    option (google.api.http) = {
+      get : "/api/v1/promotion/{promo_id}/details",
+    };
+  }
+
+  rpc ListPromotion(ListRequest)returns(ListResponse){
+    option (google.api.http) = {
+      get : "/api/v1/promotion/lists/administrator",
+    };
+  }
+}
