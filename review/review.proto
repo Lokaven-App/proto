@@ -9,11 +9,14 @@ message RatingReview{
   string order_id = 2;
   string user_uid = 3 ;
   string tour_id = 4 ;
-  string rating = 5 ;
-  string review = 6 ;
-  google.protobuf.Timestamp created_at = 7;
-  google.protobuf.Timestamp updated_at = 8;
-  UserDetail user_info = 9;
+  string schedule_id = 5 ;
+  google.protobuf.Timestamp start_date = 6;
+  google.protobuf.Timestamp end_date = 7;
+  string rating = 8 ;
+  string review = 9 ;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+  UserDetail user_info = 12;
 }
 
 message RequestAddRatingReview{
@@ -21,10 +24,13 @@ message RequestAddRatingReview{
   string order_id = 2;
   string user_uid = 3 ;
   string tour_id = 4 ;
-  string rating = 5;
-  string review = 6 ;
-  google.protobuf.Timestamp created_at = 7;
-  UserDetail user_info = 8;
+  string schedule_id = 5 ;
+  google.protobuf.Timestamp start_date = 6;
+  google.protobuf.Timestamp end_date = 7;
+  string rating = 8;
+  string review = 9 ;
+  google.protobuf.Timestamp created_at = 10;
+  UserDetail user_info = 11;
 }
 
 message RequestUpdateRatingReview{
@@ -32,11 +38,14 @@ message RequestUpdateRatingReview{
   string order_id = 2;
   string user_uid = 3 ;
   string tour_id = 4 ;
-  string rating = 5 ;
-  string review = 6 ;
-  google.protobuf.Timestamp created_at = 7;
-  google.protobuf.Timestamp updated_at = 8;
-  UserDetail user_info = 9;
+  string schedule_id = 5;
+  google.protobuf.Timestamp start_date = 6;
+  google.protobuf.Timestamp end_date = 7;
+  string rating = 8 ;
+  string review = 9 ;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+  UserDetail user_info = 12;
 }
 
 message UpdateRatingReviewResponse{
@@ -55,6 +64,7 @@ message RequestParams{
   string page = 1;
   string per_page = 2;
   string tour_id = 3;
+  string schedule_id = 4;
 }
 
 message GetRatingReviewListResponse{
@@ -71,7 +81,6 @@ message Paginate{
   int32 next_page = 2;
   int32 total_page = 3;
   int32 per_page = 4;
-  int32 total = 5;
 }
 
 message GetSingleRatingReviewResponse{
@@ -104,14 +113,14 @@ message GetRatingListReviewResponse{
 service RatingAndReviewService{
     rpc AddRatingReview (RequestAddRatingReview)returns(RatingReviewResponse){
       option (google.api.http) = {
-        post : "/api/v1/reviews/orders/{order_id}/tourpackages/{tour_id}/users/{user_uid}",
+        post : "/api/v1/reviews/orders/{order_id}/tourpackages/{tour_id}/schedules/{schedule_id}",
         body : "*"
       };
     }
 
     rpc UpdateRatingReview (RequestUpdateRatingReview)returns(UpdateRatingReviewResponse){
        option (google.api.http) = {
-        patch : "/api/v1/reviews/{review_id}/orders/{order_id}/tourpackages/{tour_id}",
+        patch : "/api/v1/reviews/{review_id}/orders/{order_id}/tourpackages/{tour_id}/schedules/{schedule_id}",
         body : "*"
       };
     }
@@ -124,7 +133,7 @@ service RatingAndReviewService{
 
     rpc GetSingleRatingReview (RatingReview)returns(GetSingleRatingReviewResponse){
        option (google.api.http) = {
-        get : "/api/v1/reviews/orders/{order_id}/tourpackages/{tour_id}/users"
+        get : "/api/v1/reviews/orders/{order_id}/tourpackages/{tour_id}/schedules/{schedule_id}/users"
       };
     }
 
