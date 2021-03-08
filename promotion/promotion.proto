@@ -79,6 +79,7 @@ message ListRequest{
   string key = 2;
   string page = 3;
   string per_page = 4;
+  string tour_id = 5;
 }
 
 message ListResponse{
@@ -93,6 +94,13 @@ message Paginate {
   int32 next_page = 2;
   int32 total_page = 3;
   int32 per_page = 4;
+}
+
+message GetPromoByTourIDResponse{
+  int32 available_promos = 1;
+  int32 code = 2;
+  string title = 3;
+  repeated DetailPromotion data = 4;
 }
 
 service PromotionService{
@@ -127,4 +135,10 @@ service PromotionService{
       get : "/api/v1/promotion/lists/administrator",
     };
   }
+
+  rpc GetPromotionByTourID (ListRequest) returns (GetPromoByTourIDResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/promotion/tours/{tour_id}/lists"
+    };
+   }
 }
