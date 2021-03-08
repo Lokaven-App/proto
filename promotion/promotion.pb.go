@@ -1154,7 +1154,7 @@ var file_pb_promotion_promotion_proto_rawDesc = []byte{
 	0x69, 0x74, 0x6c, 0x65, 0x12, 0x2e, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x03,
 	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44,
 	0x65, 0x74, 0x61, 0x69, 0x6c, 0x50, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x04,
-	0x64, 0x61, 0x74, 0x61, 0x32, 0xe4, 0x05, 0x0a, 0x10, 0x50, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69,
+	0x64, 0x61, 0x74, 0x61, 0x32, 0xaf, 0x06, 0x0a, 0x10, 0x50, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69,
 	0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x6e, 0x0a, 0x0f, 0x43, 0x72, 0x65,
 	0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x14, 0x2e, 0x70,
 	0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69,
@@ -1200,8 +1200,12 @@ var file_pb_promotion_promotion_proto_rawDesc = []byte{
 	0x49, 0x44, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2f, 0x82, 0xd3, 0xe4, 0x93,
 	0x02, 0x29, 0x12, 0x27, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x72, 0x6f, 0x6d,
 	0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x74, 0x6f, 0x75, 0x72, 0x73, 0x2f, 0x7b, 0x74, 0x6f, 0x75,
-	0x72, 0x5f, 0x69, 0x64, 0x7d, 0x2f, 0x6c, 0x69, 0x73, 0x74, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x72, 0x5f, 0x69, 0x64, 0x7d, 0x2f, 0x6c, 0x69, 0x73, 0x74, 0x73, 0x12, 0x49, 0x0a, 0x10, 0x47,
+	0x65, 0x74, 0x50, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x43, 0x6f, 0x64, 0x65, 0x12,
+	0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44, 0x65, 0x74, 0x61,
+	0x69, 0x6c, 0x50, 0x72, 0x6f, 0x6d, 0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x19, 0x2e, 0x70, 0x72,
+	0x6f, 0x6d, 0x6f, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1254,14 +1258,16 @@ var file_pb_promotion_promotion_proto_depIdxs = []int32{
 	5,  // 18: promotion.PromotionService.DetailsPromotion:input_type -> promotion.DetailPromotion
 	8,  // 19: promotion.PromotionService.ListPromotion:input_type -> promotion.ListRequest
 	8,  // 20: promotion.PromotionService.GetPromotionByTourID:input_type -> promotion.ListRequest
-	2,  // 21: promotion.PromotionService.CreatePromotion:output_type -> promotion.CreateResponse
-	3,  // 22: promotion.PromotionService.EditPromotion:output_type -> promotion.UpdateResponse
-	4,  // 23: promotion.PromotionService.DeletePromotion:output_type -> promotion.DeleteResponse
-	7,  // 24: promotion.PromotionService.DetailsPromotion:output_type -> promotion.DetailResponse
-	9,  // 25: promotion.PromotionService.ListPromotion:output_type -> promotion.ListResponse
-	11, // 26: promotion.PromotionService.GetPromotionByTourID:output_type -> promotion.GetPromoByTourIDResponse
-	21, // [21:27] is the sub-list for method output_type
-	15, // [15:21] is the sub-list for method input_type
+	5,  // 21: promotion.PromotionService.GetPromotionCode:input_type -> promotion.DetailPromotion
+	2,  // 22: promotion.PromotionService.CreatePromotion:output_type -> promotion.CreateResponse
+	3,  // 23: promotion.PromotionService.EditPromotion:output_type -> promotion.UpdateResponse
+	4,  // 24: promotion.PromotionService.DeletePromotion:output_type -> promotion.DeleteResponse
+	7,  // 25: promotion.PromotionService.DetailsPromotion:output_type -> promotion.DetailResponse
+	9,  // 26: promotion.PromotionService.ListPromotion:output_type -> promotion.ListResponse
+	11, // 27: promotion.PromotionService.GetPromotionByTourID:output_type -> promotion.GetPromoByTourIDResponse
+	7,  // 28: promotion.PromotionService.GetPromotionCode:output_type -> promotion.DetailResponse
+	22, // [22:29] is the sub-list for method output_type
+	15, // [15:22] is the sub-list for method input_type
 	15, // [15:15] is the sub-list for extension type_name
 	15, // [15:15] is the sub-list for extension extendee
 	0,  // [0:15] is the sub-list for field type_name
@@ -1456,6 +1462,8 @@ type PromotionServiceClient interface {
 	DetailsPromotion(ctx context.Context, in *DetailPromotion, opts ...grpc.CallOption) (*DetailResponse, error)
 	ListPromotion(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	GetPromotionByTourID(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*GetPromoByTourIDResponse, error)
+	//This endpoint only use for booking when user using certain promotion
+	GetPromotionCode(ctx context.Context, in *DetailPromotion, opts ...grpc.CallOption) (*DetailResponse, error)
 }
 
 type promotionServiceClient struct {
@@ -1520,6 +1528,15 @@ func (c *promotionServiceClient) GetPromotionByTourID(ctx context.Context, in *L
 	return out, nil
 }
 
+func (c *promotionServiceClient) GetPromotionCode(ctx context.Context, in *DetailPromotion, opts ...grpc.CallOption) (*DetailResponse, error) {
+	out := new(DetailResponse)
+	err := c.cc.Invoke(ctx, "/promotion.PromotionService/GetPromotionCode", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PromotionServiceServer is the server API for PromotionService service.
 type PromotionServiceServer interface {
 	CreatePromotion(context.Context, *Promotion) (*CreateResponse, error)
@@ -1528,6 +1545,8 @@ type PromotionServiceServer interface {
 	DetailsPromotion(context.Context, *DetailPromotion) (*DetailResponse, error)
 	ListPromotion(context.Context, *ListRequest) (*ListResponse, error)
 	GetPromotionByTourID(context.Context, *ListRequest) (*GetPromoByTourIDResponse, error)
+	//This endpoint only use for booking when user using certain promotion
+	GetPromotionCode(context.Context, *DetailPromotion) (*DetailResponse, error)
 }
 
 // UnimplementedPromotionServiceServer can be embedded to have forward compatible implementations.
@@ -1551,6 +1570,9 @@ func (*UnimplementedPromotionServiceServer) ListPromotion(context.Context, *List
 }
 func (*UnimplementedPromotionServiceServer) GetPromotionByTourID(context.Context, *ListRequest) (*GetPromoByTourIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPromotionByTourID not implemented")
+}
+func (*UnimplementedPromotionServiceServer) GetPromotionCode(context.Context, *DetailPromotion) (*DetailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPromotionCode not implemented")
 }
 
 func RegisterPromotionServiceServer(s *grpc.Server, srv PromotionServiceServer) {
@@ -1665,6 +1687,24 @@ func _PromotionService_GetPromotionByTourID_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PromotionService_GetPromotionCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DetailPromotion)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PromotionServiceServer).GetPromotionCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/promotion.PromotionService/GetPromotionCode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PromotionServiceServer).GetPromotionCode(ctx, req.(*DetailPromotion))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _PromotionService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "promotion.PromotionService",
 	HandlerType: (*PromotionServiceServer)(nil),
@@ -1692,6 +1732,10 @@ var _PromotionService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPromotionByTourID",
 			Handler:    _PromotionService_GetPromotionByTourID_Handler,
+		},
+		{
+			MethodName: "GetPromotionCode",
+			Handler:    _PromotionService_GetPromotionCode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
