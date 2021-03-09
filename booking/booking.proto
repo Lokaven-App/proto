@@ -37,6 +37,8 @@ message Booking{
   bool badge = 29;
   bool is_refund = 30;
   bool is_reviewed = 31;
+  string promo_code = 33;
+  double discount = 34;
 }
 
 message DetailBookingHost {
@@ -62,6 +64,8 @@ message DetailBookingHost {
   string reason = 20;
   string status = 21;
   google.protobuf.BoolValue show_link = 22;
+  string promo_code = 23;
+  double discount = 24;
 }
 
 message DetailBookingGuest {
@@ -97,6 +101,8 @@ message DetailBookingGuest {
   bool badge = 32;
   bool is_refund = 33;
   bool is_reviewed = 34;
+  string promo_code = 35;
+  double discount = 36;
 }
 
 message UserInfo {
@@ -180,6 +186,8 @@ message ListBooking {
   google.protobuf.Timestamp created_at = 18;
   string schedule_id = 19;
   string reason = 20;
+  string promo_code = 21;
+  double discount = 22;
 }
 
 message RequestCancelTourHost {
@@ -213,6 +221,9 @@ message ListIncomingBooking{
   string awaiting=17;
   string ongoing=18;
   bool ask_host=19;
+  google.protobuf.Timestamp created_at = 20;
+  string promo_code = 21;
+  double discount = 22;
 }
 
 message ListScheduleHost {
@@ -273,7 +284,6 @@ message Paginate {
   int32 next_page = 2;
   int32 total_page = 3;
   int32 per_page = 4;
-  int32 total = 5;
 }
 
 message BookingByContactResponse{
@@ -436,6 +446,8 @@ message ResponseDetailPriceByParticipant {
   string total_adult_price = 13;
   string total_kid_price = 14;
   string total_price_participant = 15;
+  string promo_code = 16;
+  double discount = 17;
 }
 
 message ReceiptBooking{
@@ -470,6 +482,8 @@ message ReceiptBooking{
   string max_quota = 29;
   string quota_left = 30;
   google.protobuf.Timestamp cancel_at = 31;
+  string promo_code = 32;
+  double discount = 33;
 }
 
 message ResponseReceiptBooking{
@@ -601,6 +615,7 @@ message RequestInfoBookings {
   string schedule_id = 1;
   string tour_id = 2;
   string status = 3;
+  string param = 4;
 }
 
 message ResponseListInfoBookings {
@@ -679,6 +694,8 @@ message ListBookingByAdmin {
   google.protobuf.Timestamp payment_date = 20;
   google.protobuf.Timestamp cancel_at = 21;
   google.protobuf.Timestamp created_at = 22;
+  string promo_code = 23;
+  double discount = 24;
 }
 
 message RequestAdminParams {
@@ -763,6 +780,12 @@ service BookingRPC {
   rpc GetActivityTour (ActiveTour) returns (ResponseActiveTour) {
     option (google.api.http) = {
       get : "/api/v1/orders/activities/details/{order_id}",
+    };
+  }
+
+  rpc TotalOrders (Booking) returns (ResponseCountOrders) {
+    option (google.api.http) = {
+      get : "/api/v1/orders/total/orders",
     };
   }
 
