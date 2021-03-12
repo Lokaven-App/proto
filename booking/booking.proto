@@ -759,9 +759,24 @@ message RequestDeleteBookingByContact{
   string info = 2;
 }
 
+message TransactionRequest {
+   string filter = 1;
+}
+
+message BookingTransaction {
+  string date = 1;
+  double nominal = 2;
+}
+
+message TransactionResponse {
+  repeated BookingTransaction data = 1;
+}
+
 service BookingRPC {
 
   rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
+
+  rpc GetTransactionNominal (TransactionRequest) returns (TransactionResponse);
   
   rpc TotalParticipant (TotalParticipants) returns (ResponseTotalParticipant);
 
