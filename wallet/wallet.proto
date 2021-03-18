@@ -122,6 +122,7 @@ message LogBalance {
     int32 administration_fee = 12;
     string bank_name = 13;
     string account_number = 14;
+    int32 tax = 15;
 }
 
 message LogBalanceResponse {
@@ -154,25 +155,6 @@ message LogsBalanceResponse {
     repeated LogBalanceResponse data = 1;
 }
 
-message AllTransactionListResponse {
-    repeated LogBalanceResponse data = 1;
-    Paginate paginate = 2;
-}
-
-message Paginate {
-    int32 current_page = 1;
-    int32 next_page = 2;
-    int32 total_page = 3;
-    int32 per_page = 4;
-    int32 total = 5;
-}
-
-message AllTransactionListRequest {
-    string query = 1;
-    int32 limit = 2;
-    int32 offset = 3;
-}
-
 message TransactionInHistoryResponse {
     google.protobuf.Timestamp created_at = 1;
     LogType type = 2;
@@ -203,6 +185,151 @@ message LogBalancesRequestWithSchedule {
     string schedule_id = 3;
     string transaction_id = 4;
 }
+
+message AllTransactionListResponse {
+    repeated LogBalanceResponse data = 1;
+    Paginate paginate = 2;
+}
+
+message Paginate {
+    int32 current_page = 1;
+    int32 next_page = 2;
+    int32 total_page = 3;
+    int32 per_page = 4;
+}
+
+message AllTransactionListRequest {
+    string query = 1;
+    int32 per_page = 2;
+    int32 page = 3;
+}
+
+message TransactionDetailRequest{
+    string tour_id = 1;
+    string schedule_id = 2;
+}
+
+message TransactionDetailResponse{
+    int32 code = 1;
+    string title = 2;
+    BookingInfo booking_info = 3;
+    DPDetail dp_detail = 4;
+    FPDetail fp_detail = 5;
+    WithdrawDetail wd_detail = 6 ;
+}
+
+message DPDetail{
+     google.protobuf.Timestamp date = 1;
+     string invoice_number = 2;
+     string type = 3;
+     string transaction_type = 4;
+     int32 total = 5;
+     string host_name = 7;
+     string email = 8;
+     string tour_title = 9;
+     PackageSchedule schedule_info = 10;
+     string link = 11;
+}
+
+message FPDetail{
+     google.protobuf.Timestamp date = 1;
+     string invoice_number = 2;
+     string type = 3;
+     string transaction_type = 4;
+     int32 total = 5;
+     string host_name = 7;
+     string email = 8;
+     string tour_title = 9;
+     PackageSchedule schedule_info = 10;
+     string link = 11;
+}
+
+message WithdrawDetail{
+     google.protobuf.Timestamp date = 1;
+     string invoice_number = 2;
+     string type = 3;
+     string transaction_type = 4;
+     int32 total = 5;
+     string host_name = 7;
+     string email = 8;
+     string tour_title = 9;
+     PackageSchedule schedule_info = 10;
+     string bank = 11;
+     string bank_account = 12;
+     string link = 13;
+}
+
+message BookingInfo{
+    google.protobuf.Timestamp payment_date = 1;
+    string invoice_number =2 ;
+    int32 total_paid_price = 3;
+    double discount = 4;
+    double tax = 5;
+    string name = 6;
+    string email = 7;
+    string tour_title = 8;
+    PackageSchedule schedule_info = 9;
+    int32 total_participants = 10;
+}
+
+message PackageSchedule{
+  string schedule_id = 1;
+  string tour_id = 2;
+  google.protobuf.Timestamp tour_start_date = 3;
+  google.protobuf.Timestamp tour_end_date = 4;
+}
+
+message TransactionTotal{
+   repeated TransactionBKTotal booking = 1;
+   repeated TransactionDPTotal down_payment = 2;
+   repeated TransactionFPTotal full_payment= 3;
+   repeated TransactionWDTotal withdraw= 4;
+}
+
+message TransactionBKTotal{
+    string date = 1;
+    int32 total_booking = 2;
+}
+message TransactionDPTotal{
+    google.protobuf.Timestamp date = 1;
+    int32 total_dp = 2;
+    string type = 3;
+    string status = 4;
+}
+message TransactionFPTotal{
+    google.protobuf.Timestamp date = 1;
+    int32 total_fullpayment = 2;
+    string type = 3;
+     string status = 4;
+}
+message TransactionWDTotal{
+    google.protobuf.Timestamp date = 1;
+    int32 total_withdraw =2;
+    string type = 3;
+     string status = 4;
+}
+
+message TransactionTotalResponse{
+    int32 code = 1;
+    string title = 2;
+    TransactionTotal data = 3;
+    SummaryTransaction summary = 4;
+}
+
+message AccountingInfo{
+    int32 debit = 2;
+    int32 credit = 3;
+    int32 balance = 4;
+}
+
+message SummaryTransaction{
+    int32 total_booking = 1;
+    int32 total_dp = 2;
+    int32 total_fullpayment = 3;
+    int32 total_withdraw_success =4;
+    AccountingInfo accounting_info =5;
+}
+
 
 service WalletService{
     rpc CreateOrAddBalance(LogBalance) returns (BalanceResponse) {
@@ -267,6 +394,18 @@ service WalletService{
     rpc AllTransactionList(AllTransactionListRequest) returns (AllTransactionListResponse){
         option (google.api.http) = {
             get    : "/api/v1/users/wallet/all-transaction-list"
+        };
+    };
+
+    rpc GetTransactionDetails(TransactionDetailRequest) returns (TransactionDetailResponse){
+        option (google.api.http) = {
+            get : "/api/v1/users/transactions/tours/{tour_id}/schedules/{schedule_id}/details/administrators",
+        };
+    };
+
+    rpc GetTransactionTotal(TransactionTotal) returns (TransactionTotalResponse){
+        option (google.api.http) = {
+            get : "/api/v1/users/transactions/totals/administrators",
         };
     };
 
