@@ -122,7 +122,6 @@ message LogBalance {
     int32 administration_fee = 12;
     string bank_name = 13;
     string account_number = 14;
-    int32 tax = 15;
 }
 
 message LogBalanceResponse {
