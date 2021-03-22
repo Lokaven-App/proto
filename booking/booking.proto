@@ -766,6 +766,10 @@ message TransactionRequest {
 message BookingTransaction {
   string date = 1;
   double nominal = 2;
+  double addons = 3;
+  double base_total = 4;
+  double total_additional_price = 5;
+  double total_tax = 6;
 }
 
 message TransactionResponse {
