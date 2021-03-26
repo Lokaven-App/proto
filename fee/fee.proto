@@ -1,0 +1,82 @@
+syntax = "proto3";
+package fee;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message Fee {
+  string fee_id = 1;
+  string fee_name = 2;
+  double nominal = 3;
+  double percentage = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  AdminInfo created_by = 7;
+}
+
+message AdminInfo {
+  string user_uid = 1;
+  string name = 2;
+}
+
+message FeeResponse{
+    string title = 1;
+    int32 code = 2;
+    Fee data = 3;
+}
+
+message RequestFee{
+    string param = 1;
+    string filter = 2;
+    string key = 3;
+}
+
+message ResponseFeeList{
+    string title = 1;
+    int32 code = 2;
+    repeated Fee data = 3;
+}
+
+message FeeDeleteResponse{
+    string title = 1;
+    int32 code = 2;
+}
+
+service FeeService{
+  rpc AddFee (Fee) returns (FeeResponse) {
+    option (google.api.http) = {
+      post : "/api/v1/fees/administrators",
+      body : "*"
+    };
+  }
+
+ rpc EditFee (Fee) returns (FeeResponse) {
+    option (google.api.http) = {
+      patch : "/api/v1/fees/{fee_id}/administrators",
+      body : "*"
+    };
+  }
+
+ rpc DetailFee (Fee) returns (FeeResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/fees/{fee_id}/administrators"
+    };
+  }
+
+  rpc DeleteFee (Fee) returns (FeeDeleteResponse) {
+    option (google.api.http) = {
+      delete : "/api/v1/fees/{fee_id}/administrators"
+    };
+  }
+
+  rpc ListFee (RequestFee) returns (ResponseFeeList) {
+    option (google.api.http) = {
+      get : "/api/v1/fees/list-administrators"
+    };
+  }
+
+  //this endpoint only use fot get fees by fee names
+  rpc GetFee(Fee) returns (FeeResponse);
+
+
+}
