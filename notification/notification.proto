@@ -65,6 +65,8 @@ message Properties {
     string discussion_parent_id = 17;
     // @inject_tag: bson:"balance_transaction_id"
     string balance_transaction_id = 18;
+    // @inject_tag: bson:"administration_fee"
+    int32 administration_fee = 19;
 }
 
 message Participants {
