@@ -9,9 +9,10 @@ message Fee {
   string fee_name = 2;
   double nominal = 3;
   double percentage = 4;
-  google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp updated_at = 6;
-  AdminInfo created_by = 7;
+  string charge_to = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+  AdminInfo created_by = 8;
 }
 
 message AdminInfo {
