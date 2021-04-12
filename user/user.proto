@@ -20,9 +20,10 @@ message User{
     string nationality = 12;
     bool deleted_permanently = 13;
     bool is_deactivate = 14;
-    google.protobuf.Timestamp created_at = 15;
-    string account_number = 16;
-    string bank_name = 17;
+    bool pilot_user = 15;
+    google.protobuf.Timestamp created_at = 16;
+    string account_number = 17;
+    string bank_name = 18;
 }
 
 message Balances {
