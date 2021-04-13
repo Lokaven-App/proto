@@ -39,6 +39,7 @@ message TourHost{
     google.protobuf.Timestamp created_at = 31;
     google.protobuf.Timestamp verified_at = 32;
     string bank_name = 33;
+    string npwp = 34;
 }
 
 message UpdateTourHostRequest{
@@ -62,6 +63,7 @@ message UpdateTourHostRequest{
     bool by_admin = 18;
     bool is_verified = 19;
     string nationality = 20;
+    string npwp = 21;
 }
 
 message UpdateTourHostResponse{
@@ -126,6 +128,7 @@ message CreateTourHostRequest{
     int32 bussiness_id_status = 26;
     string card_number = 27;
     string bussiness_number = 28;
+    string npwp = 29;
 }
 
 message CreateTourHostResponse{
@@ -216,7 +219,7 @@ message TourHostList{
     google.protobuf.Timestamp created_at = 34;
     google.protobuf.Timestamp verified_at = 35;
     bool pilot_user = 36;
-    
+    string npwp = 37;
 }
 
 message ResponseTourHostList{
@@ -318,6 +321,7 @@ message HostProfile{
     google.protobuf.Timestamp updated_at = 32;
     google.protobuf.Timestamp created_at = 33;
     google.protobuf.Timestamp verified_at = 34;
+    string npwp = 35;
 }
 
 message HostProfileResponse{
