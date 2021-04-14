@@ -7,9 +7,9 @@ import "google/protobuf/timestamp.proto";
 message Fee {
   string fee_id = 1;
   string fee_name = 2;
-  double nominal = 3;
-  double percentage = 4;
-  string charge_to = 5;
+  repeated FeeInfo fee_info = 3;
+  string charge_to = 4;
+  bool mark_up = 5;
   google.protobuf.Timestamp created_at = 6;
   google.protobuf.Timestamp updated_at = 7;
   AdminInfo created_by = 8;
@@ -18,6 +18,11 @@ message Fee {
 message AdminInfo {
   string user_uid = 1;
   string name = 2;
+}
+
+message FeeInfo{
+  string key = 1;
+  double value = 2;
 }
 
 message FeeResponse{
@@ -41,6 +46,16 @@ message ResponseFeeList{
 message FeeDeleteResponse{
     string title = 1;
     int32 code = 2;
+}
+
+message RequestCalculate{
+  int32 addon_price = 1;
+  int32 amount_dp = 2; 
+}
+
+message ResponseCalculate{
+  int32 total_tax = 1;
+  int32 amount = 2;
 }
 
 service FeeService{
@@ -76,8 +91,16 @@ service FeeService{
     };
   }
 
-  //this endpoint only use fot get fees by fee names
+  rpc GetFeeByFeeName(Fee) returns (FeeResponse){
+    option (google.api.http) = {
+      get : "/api/v1/fees/fee-name/{fee_name}/users"
+    };
+  }
+
+  //this endpoint only use for get fees by fee names
   rpc GetFee(Fee) returns (FeeResponse);
 
+  //this endpoint only use for get fees calculation result
+  rpc CalculateFullPayment (RequestCalculate) returns (ResponseCalculate);
 
 }
