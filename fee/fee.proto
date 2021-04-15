@@ -23,6 +23,7 @@ message AdminInfo {
 message FeeInfo{
   string key = 1;
   double value = 2;
+  bool is_active = 3;
 }
 
 message FeeResponse{
