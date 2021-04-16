@@ -13,8 +13,8 @@ message TourPackage{
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
-  string rate = 10;
-  string review = 11;
+  double rate = 10;
+  double review = 11;
   repeated PackageAddon addons = 12;
   bool is_curated = 13;
   bool is_featured = 14;
@@ -33,7 +33,8 @@ message TourPackage{
   google.protobuf.Timestamp created_at = 27;
   bool delete_status = 28;
   string user_uid = 29;
-  google.protobuf.Timestamp update_at = 30;
+  bool have_promotion = 30;
+  google.protobuf.Timestamp update_at = 31;
 }
 
 message TourHost{
@@ -78,8 +79,8 @@ message TourPackageRequest{
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
-  string rate = 10;
-  string review = 11;
+  double rate = 10;
+  double review = 11;
   repeated PackageAddon addons = 12;
   bool is_curated = 13;
   bool is_featured = 14;
@@ -433,6 +434,7 @@ message BroadcastMessage {
 message UserInfo {
   string name = 1;
   string image = 2;
+  string user_uid = 3;
 }
 
 message ActiveTour {
@@ -448,6 +450,12 @@ message ActiveTour {
   string tour_status = 10;
   bool confirm_end   = 11;
   repeated BroadcastMessage message = 12;
+  UserInfo host_info = 13;
+  UserInfo guest_info = 14;
+  // string host_uid = 13;
+  // string full_name = 15;
+  // string image = 16;
+  // string guest_id = 17;
 }
 
 message ParamActiveTour {
@@ -525,8 +533,8 @@ message HostsTourPackage{
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
-  string rate = 10;
-  string review = 11;
+  double rate = 10;
+  double review = 11;
   repeated PackageAddon addons = 12;
   bool is_curated = 13;
   bool is_featured = 14;
@@ -547,6 +555,7 @@ message HostsTourPackage{
   string user_uid = 29;
   google.protobuf.Timestamp update_at = 30;
   TourHostsInfo host_info = 31;
+  bool have_promotion = 32;
 }
 
 message TourHostsInfo{
@@ -561,6 +570,59 @@ message TourHostsInfo{
 message BrowseHostTourPackage{
   repeated HostsTourPackage data = 1;
   Paginate paginate = 2;
+}
+
+message RequestSync{
+  string key = 1;
+}
+
+message ResponseSync{
+  int32 code = 1;
+  string title = 2;
+  repeated TourPackageSync data = 3;
+}
+
+message TourPackageSync{
+  string tour_id = 1;
+  string title = 2;
+  repeated PackageMedia medias = 3;
+  repeated PackageSchedule schedules = 4;
+  string description = 5;
+  repeated string categories = 7;
+  repeated string tags = 8;
+  string location = 9;
+  double rate = 10;
+  double review = 11;
+  repeated PackageAddon addons = 12;
+  bool is_curated = 13;
+  bool is_featured = 14;
+  bool is_refundable = 15;
+  string host_id = 16;
+  string type_tour = 17;
+  repeated PackagePrice prices = 18;
+  string terms_of_service = 19;
+  repeated CustomPolicy custom_policies = 20;
+  string age_restriction = 21;
+  string cost_foreign_guest = 22;
+  string itinerary = 23;
+  string policy_title = 24;
+  string policy = 25;
+  AdditionalCost additional_cost = 26;
+  google.protobuf.Timestamp created_at = 27;
+  bool delete_status = 28;
+  string user_uid = 29;
+  bool have_promotion = 30;
+  google.protobuf.Timestamp update_at = 31;
+  repeated Promotion promo_info = 32;
+}
+
+message Promotion{
+  string promo_id = 1;    
+	string title_promo = 2;
+	string code_promo = 3;
+	double discount = 4;   
+	google.protobuf.Timestamp expired = 5;    
+	bool is_active = 6;   
 }
 
 service TourPackageService{
@@ -703,7 +765,14 @@ service TourPackageService{
   //This method only use for update tour status 
   rpc UdpdateScheduleTourStatus (ScheduleTourStatus) returns (ScheduleTourStatusResponse);
 
-   rpc ConfirmEndTourV1_1(ParamActiveTour) returns (ResponseConfirmedToEnd) {
+  rpc SynchronizeExplorer(RequestSync)returns(ResponseSync){
+    option (google.api.http) = {
+      post : "/api/v1/tourpackages/sync/explorer",
+      body : "*"
+    };
+  }
+
+  rpc ConfirmEndTourV1_1(ParamActiveTour) returns (ResponseConfirmedToEnd) {
     option (google.api.http) = {
       patch : "/api/v1b/tourpackages/active-to-end/{tour_id}/{schedule_id}",
       body : "*"
