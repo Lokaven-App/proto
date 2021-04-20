@@ -39,6 +39,7 @@ message Booking{
   bool is_reviewed = 31;
   string promo_code = 33;
   double discount = 34;
+  int32 admin_fee = 35;
 }
 
 message DetailBookingHost {
@@ -66,6 +67,7 @@ message DetailBookingHost {
   google.protobuf.BoolValue show_link = 22;
   string promo_code = 23;
   double discount = 24;
+  int32 admin_fee = 25;
 }
 
 message DetailBookingGuest {
@@ -103,6 +105,7 @@ message DetailBookingGuest {
   bool is_reviewed = 34;
   string promo_code = 35;
   double discount = 36;
+  int32 admin_fee = 37;
 }
 
 message UserInfo {
@@ -122,8 +125,8 @@ message TourPackage{
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
-  string rate = 10;
-  string review = 11;
+  double rate = 10;
+  double review = 11;
   repeated PackageAddon addons = 12;
   bool is_curated = 13;
   bool is_featured = 14;
@@ -188,6 +191,7 @@ message ListBooking {
   string reason = 20;
   string promo_code = 21;
   double discount = 22;
+  int32 admin_fee = 23;
 }
 
 message RequestCancelTourHost {
@@ -224,6 +228,7 @@ message ListIncomingBooking{
   google.protobuf.Timestamp created_at = 20;
   string promo_code = 21;
   double discount = 22;
+  int32 admin_fee = 23;
 }
 
 message ListScheduleHost {
@@ -238,6 +243,9 @@ message ListScheduleHost {
   google.protobuf.Timestamp remaining_time = 9;
   google.protobuf.Timestamp payment_date = 10;
   string reason = 11;
+  string tour_id = 12;
+  string schedule_id = 13;
+  string user_id = 14;
 }
 
 message ResponseListScheduleHost {
@@ -448,6 +456,7 @@ message ResponseDetailPriceByParticipant {
   string total_price_participant = 15;
   string promo_code = 16;
   double discount = 17;
+  int32 admin_fee = 18;
 }
 
 message ReceiptBooking{
@@ -484,6 +493,7 @@ message ReceiptBooking{
   google.protobuf.Timestamp cancel_at = 31;
   string promo_code = 32;
   double discount = 33;
+  int32 admin_fee = 34;
 }
 
 message ResponseReceiptBooking{
@@ -696,6 +706,7 @@ message ListBookingByAdmin {
   google.protobuf.Timestamp created_at = 22;
   string promo_code = 23;
   double discount = 24;
+  int32 admin_fee = 25;
 }
 
 message RequestAdminParams {
