@@ -6,13 +6,12 @@ import "google/protobuf/timestamp.proto";
 
 message Fee {
   string fee_id = 1;
-  string fee_name = 2;
-  repeated FeeInfo fee_info = 3;
-  string charge_to = 4;
-  bool mark_up = 5;
-  google.protobuf.Timestamp created_at = 6;
-  google.protobuf.Timestamp updated_at = 7;
-  AdminInfo created_by = 8;
+  repeated FeesInfo fees_info = 2;
+  repeated TaxesInfo taxes_info = 3;
+  repeated Commission commissions = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  AdminInfo created_by = 7;
 }
 
 message AdminInfo {
@@ -20,10 +19,38 @@ message AdminInfo {
   string name = 2;
 }
 
-message FeeInfo{
+message FeesInfo{
   string key = 1;
-  double value = 2;
-  bool is_active = 3;
+  string types = 2;
+  double value_nominal = 3;
+  double value_percentage = 4;
+  Tax tax = 5;
+  bool is_active = 6;
+  string charge_to = 7;
+  bool mark_up = 8;
+}
+
+message Tax{
+  double value = 1;
+  bool is_active = 2;
+}
+
+message TaxesInfo{
+  string key = 1;
+  double value_npwp = 2;
+  double value_no_npwp = 3;
+  bool is_active = 4;
+  string charge_to = 5;
+  bool mark_up = 6;
+}
+
+message Commission{
+  string types = 1;
+  double value_nominal = 2;
+  double value_percentage = 3;
+  bool is_active = 4;
+  string charge_to = 5;
+  bool mark_up = 6;
 }
 
 message FeeResponse{
@@ -36,6 +63,7 @@ message RequestFee{
     string param = 1;
     string filter = 2;
     string key = 3;
+    string fee_id = 4;
 }
 
 message ResponseFeeList{
@@ -52,6 +80,7 @@ message FeeDeleteResponse{
 message RequestCalculate{
   int32 addon_price = 1;
   int32 amount_dp = 2; 
+  int32 admin_fee = 3;
 }
 
 message ResponseCalculate{
@@ -92,16 +121,17 @@ service FeeService{
     };
   }
 
-  rpc GetFeeByFeeName(Fee) returns (FeeResponse){
+  rpc GetFeeByID(RequestFee) returns (FeeResponse){
     option (google.api.http) = {
-      get : "/api/v1/fees/fee-name/{fee_name}/users"
+      get : "/api/v1/fees/{fee_id}/users"
     };
   }
 
   //this endpoint only use for get fees by fee names
-  rpc GetFee(Fee) returns (FeeResponse);
+  rpc GetFee(RequestFee) returns (FeeResponse);
 
-  //this endpoint only use for get fees calculation result
+  //this endpoint only use for get fees calculation result 
   rpc CalculateFullPayment (RequestCalculate) returns (ResponseCalculate);
+  //"/api/v1/fees/testing/calculator"
 
 }
