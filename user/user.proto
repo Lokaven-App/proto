@@ -109,6 +109,7 @@ message UpdateUserRequest{
     string phone_number = 10;
     string profile_picture_url = 11;
     string nationality = 12;
+    string password_change_email = 13;
 }
 
 message UpdateUserSettingRequest{
@@ -190,14 +191,15 @@ message OldUser{
 message ResendEmailVerificationRequest{
     string uid = 1;
     string email = 2;
-    string verification_token = 3;
+    string password = 3;
+    string verification_token = 4;
 }
 
 message ResendEmailVerificationRespone{
     ResendEmailVerificationRequest data = 1;
     string code = 2;
     string title = 3;
-    }
+}
 
 message GetUserInfoRespone{
     ResponseUser data = 1;
@@ -259,6 +261,7 @@ message UpdateHostUserRequest{
     string phone_number = 10;
     string profile_picture_url = 11;
     string nationality = 12;
+    string password_change_email = 13;
 }
 
 message UpdateHostUserRespone{
