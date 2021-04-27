@@ -54,33 +54,35 @@ message Commission{
 }
 
 message FeeResponse{
-    string title = 1;
-    int32 code = 2;
-    Fee data = 3;
+  string title = 1;
+  int32 code = 2;
+  Fee data = 3;
 }
 
 message RequestFee{
-    string param = 1;
-    string filter = 2;
-    string key = 3;
-    string fee_id = 4;
+  string param = 1;
+  string filter = 2;
+  string key = 3;
+  string fee_id = 4;
+  string fee_name = 5;
 }
 
 message ResponseFeeList{
-    string title = 1;
-    int32 code = 2;
-    repeated Fee data = 3;
+  string title = 1;
+  int32 code = 2;
+  repeated Fee data = 3;
 }
 
 message FeeDeleteResponse{
-    string title = 1;
-    int32 code = 2;
+  string title = 1;
+  int32 code = 2;
 }
 
 message RequestCalculate{
-  int32 addon_price = 1;
-  int32 amount_dp = 2; 
-  int32 admin_fee = 3;
+  string order_id = 1;
+  int32 addon_price = 2;
+  int32 amount_dp = 3;
+  int32 admin_fee = 4;
 }
 
 message ResponseCalculate{
@@ -96,14 +98,14 @@ service FeeService{
     };
   }
 
- rpc EditFee (Fee) returns (FeeResponse) {
+  rpc EditFee (Fee) returns (FeeResponse) {
     option (google.api.http) = {
       patch : "/api/v1/fees/{fee_id}/administrators",
       body : "*"
     };
   }
 
- rpc DetailFee (Fee) returns (FeeResponse) {
+  rpc DetailFee (Fee) returns (FeeResponse) {
     option (google.api.http) = {
       get : "/api/v1/fees/{fee_id}/administrators"
     };
@@ -121,9 +123,9 @@ service FeeService{
     };
   }
 
-  rpc GetFeeByID(RequestFee) returns (FeeResponse){
+  rpc GetFeeByName(RequestFee) returns (FeeResponse){
     option (google.api.http) = {
-      get : "/api/v1/fees/{fee_id}/users"
+      get : "/api/v1/fees/fee-name/{fee_name}/users"
     };
   }
 
