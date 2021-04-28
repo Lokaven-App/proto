@@ -221,6 +221,7 @@ message PackageAddon{
   string price = 4;
   string price_type = 5;
   int32 qty = 6;
+  bool is_rental = 7;
 }
 
 message CustomPolicy{
