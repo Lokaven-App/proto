@@ -13,7 +13,9 @@ message TourPackage{
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
+   // @inject_tag: json:"rate"
   double rate = 10;
+  // @inject_tag: json:"review"
   double review = 11;
   repeated PackageAddon addons = 12;
   bool is_curated = 13;
@@ -214,9 +216,11 @@ message PackageScheduleResponse{
 
 message PackageAddon{
   string addon_id = 1;
-  string tour_id = 4;
-  string addon = 2;
-  string price = 3;
+  string tour_id = 2;
+  string addon = 3;
+  string price = 4;
+  string price_type = 5;
+  int32 qty = 6;
 }
 
 message CustomPolicy{
@@ -371,7 +375,27 @@ message AddWishListResponse{
 }
 
 message WishListResponse{
-  repeated AddWishListRequest data = 1;
+  repeated GetWishListResponse data = 1;
+}
+
+message GetWishListResponse{
+  string tour_id = 1 ;
+  string title = 2 ;
+  string price = 3 ;
+  string location = 4 ;
+  string type_tour = 5;
+  string rate = 6 ;
+  string user_uid = 7;
+  bool have_promotion = 8;
+  repeated PackageMedia medias = 9;
+  repeated PackageSchedule schedules = 10;
+  HostInfo host_info  = 11;
+}
+
+message HostInfo {
+  string name = 1;
+  string image = 2;
+  string host_id = 3;
 }
 
 message RequestDetailPriceByParticipant {
@@ -591,7 +615,9 @@ message TourPackageSync{
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
+ // @inject_tag: json:"rate"
   double rate = 10;
+  // @inject_tag: json:"review"
   double review = 11;
   repeated PackageAddon addons = 12;
   bool is_curated = 13;
@@ -625,8 +651,21 @@ message Promotion{
 	bool is_active = 6;   
 }
 
+message ChangeRequestDemo {
+  string tour_id = 1;
+  string schedule_id = 2;
+  string status = 3;
+}
+
 service TourPackageService{
   
+  rpc ChangeStatusDemo(ChangeRequestDemo) returns (GeneralResponse){
+    option(google.api.http) = {
+      post : "/api/v1/tourpackages/change/status",
+      body : "*"
+    };
+  }
+
   rpc CountTourHost (RequestCountTour) returns (ResponseCountTour);
 
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
