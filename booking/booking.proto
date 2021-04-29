@@ -335,6 +335,11 @@ message PackageAddon{
   string price = 3;
   string tour_id = 4;
   string order_number = 5;
+  string price_type = 6;
+  int32 qty = 7;
+  int32 qty_order = 8;
+  bool is_rental = 9;
+  string image = 10;
 }
 
 message PackagePrice{
