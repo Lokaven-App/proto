@@ -230,7 +230,12 @@ message PackageAddon{
   string price_type = 5;
   int32 qty = 6;
   bool is_rental = 7;
-  string image = 8;
+  repeated ImageAddon images = 8;
+}
+
+message ImageAddon {
+  string addon_id = 1;
+  string image_url = 2;
 }
 
 message CustomPolicy{
