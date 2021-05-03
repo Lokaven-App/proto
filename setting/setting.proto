@@ -2,6 +2,7 @@ syntax = "proto3";
 package setting;
 
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 message Setting{
     string key = 1;
@@ -12,6 +13,7 @@ message Setting{
 message UserSetting{
     string id = 1;
     repeated Setting settings = 2;
+    repeated BankAccount bank_account = 3;
 }
 
 message UpdateUserSettingResponse{
@@ -26,16 +28,10 @@ message BankAccount{
     string account_holder = 5;
     bool can_disburse = 6;
     bool is_default = 7;
-}
-
-message  HostSetting {
-   string id = 1;
-   repeated Setting settings = 2;
-   repeated BankAccount bank_account = 3;
-}
-
-message UpdateHostSettingResponse{
-    HostSetting data = 1;
+    string verification_token = 8;
+    bool is_verified = 9;
+    google.protobuf.Timestamp date_changes = 10;
+    google.protobuf.Timestamp token_expire_at = 11;
 }
 
 message CreateSettingRequest{
@@ -53,8 +49,20 @@ message BankAccountRequest{
     repeated BankAccount bank_account = 3;
 }
 
-message GetHostSettingResponse{
-    repeated BankAccount data = 1;
+message GetUserSettingResponse{
+    repeated ListBankAccount data = 1;
+}
+
+message ListBankAccount{
+    string bank_id = 1;
+    string bank = 2;
+    string code = 3;
+    string account_number = 4;
+    string account_holder = 5;
+    bool can_disburse = 6;
+    bool is_default = 7;
+    bool is_verified = 8;
+    google.protobuf.Timestamp date_changes = 9;
 }
 
 message Banks{
@@ -82,6 +90,48 @@ message ResponseBankAccount{
     BankAccount data = 1;
 }
 
+message GetCountDownRequest {
+    string email = 1;
+    string account_number = 2;
+}
+
+message GetCountDownResponse {
+    string title = 1;
+    int32 code = 2;
+    CountDown data = 3;
+}
+
+message CountDown {
+    string email = 1;
+    string account_number = 2;
+    google.protobuf.Timestamp token_expire_at = 3;
+}
+
+message VerificationRequest {
+    string email = 1;
+    string account_number = 2;
+    string verification_token = 3;
+}
+
+message VerificationResponse {
+    string title = 1;
+    int32 code = 2;
+    UserSetting data = 3;
+}
+
+message ResendVerificationRequest {
+    string email = 1;
+    string account_number = 2;
+    string verification_token = 3;
+    google.protobuf.Timestamp date_changes = 4;
+    google.protobuf.Timestamp token_expire_at = 5;
+}
+
+message ResendVerificationResponse {
+    string title = 1;
+    int32 code = 2;
+}
+
 service SettingService{
     rpc UpdateUserSetting(UserSetting) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
@@ -90,35 +140,28 @@ service SettingService{
         };
     }
 
-    rpc UpdateHostSetting(HostSetting) returns (UpdateHostSettingResponse){
+    rpc AddBankAccount(UserSetting) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
-            post : "/api/v1/hosts/{id}/settings",
+            post : "/api/v1/users/{id}/bank-account/settings",
             body : "*"
         };
     }
 
-    rpc AddHostBankAccount(HostSetting) returns (UpdateHostSettingResponse){
+    rpc GetBankAccount(UserSetting) returns (GetUserSettingResponse){
         option (google.api.http) = {
-            post : "/api/v1/hosts/{id}/bank-account/settings",
-            body : "*"
+            get : "/api/v1/users/{id}/gets/bank-accounts"
         };
     }
 
-    rpc GetHostBankAccount(HostSetting) returns (GetHostSettingResponse){
+     rpc DeleteBankAccount(BankAccountRequest) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
-            get : "/api/v1/hosts/{id}/gets/bank-accounts"
+            delete : "/api/v1/users/{id}/delete/bank-account/{bank_id}/settings"
         };
     }
 
-     rpc DeleteHostBankAccount(BankAccountRequest) returns (UpdateHostSettingResponse){
+     rpc UpdateBankAccount(BankAccountRequest) returns (UpdateUserSettingResponse){
         option (google.api.http) = {
-            delete : "/api/v1/hosts/{id}/delete/bank-account/{bank_id}/settings"
-        };
-    }
-
-     rpc UpdateHostBankAccount(BankAccountRequest) returns (UpdateHostSettingResponse){
-        option (google.api.http) = {
-            patch : "/api/v1/hosts/{id}/bank-account/{bank_id}/settings",
+            patch : "/api/v1/users/{id}/bank-account/{bank_id}/settings",
             body  : "*"
         };
     }
@@ -143,5 +186,26 @@ service SettingService{
 
     // this endpoint only use for get bank account data default 
     rpc GetHostBankAccountByUserID(RequestBankAccount) returns (ResponseBankAccount);
+
+     rpc GetCountDownVerifyToken(GetCountDownRequest) returns (GetCountDownResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/get/users/bank-account/countdown",
+            body    : "*" 
+        };
+     }
+
+    rpc BankAccountVerification(VerificationRequest) returns (VerificationResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/bank-account/verification",
+            body    : "*" 
+        };
+    }
+
+    rpc ReSendBankAccountVerification(ResendVerificationRequest) returns (ResendVerificationResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/resend/bank-account/verification",
+            body    : "*" 
+        };
+    }
 
 }
