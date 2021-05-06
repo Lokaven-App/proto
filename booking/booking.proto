@@ -40,6 +40,8 @@ message Booking{
   string promo_code = 33;
   double discount = 34;
   int32 admin_fee = 35;
+  string qr_code = 36;
+  int32 code_unique = 37;
 }
 
 message DetailBookingHost {
@@ -106,6 +108,8 @@ message DetailBookingGuest {
   string promo_code = 35;
   double discount = 36;
   int32 admin_fee = 37;
+  string qr_code = 38;
+  int32 code_unique = 39;
 }
 
 message UserInfo {
@@ -320,6 +324,7 @@ message PackageSchedule{
   bool is_booked = 10;
   string order_number = 11;
   string tour_status = 12;
+  bool ended_by_guest = 13;
 }
 
 message PackageMedia{
@@ -335,6 +340,16 @@ message PackageAddon{
   string price = 3;
   string tour_id = 4;
   string order_number = 5;
+  string price_type = 6;
+  int32 qty = 7;
+  int32 qty_order = 8;
+  bool is_rental = 9;
+  repeated ImageAddon images = 10;
+}
+
+message ImageAddon {
+  string addon_id = 1;
+  string image_url = 2;
 }
 
 message PackagePrice{
@@ -494,6 +509,8 @@ message ReceiptBooking{
   string promo_code = 32;
   double discount = 33;
   int32 admin_fee = 34;
+  string qr_code = 35;
+  int32 code_unique = 36;
 }
 
 message ResponseReceiptBooking{
@@ -787,6 +804,16 @@ message TransactionResponse {
   repeated BookingTransaction data = 1;
 }
 
+message RequestEndedScheduleByGuest{
+  string tour_id = 1;
+  string schedule_id = 2;
+}
+
+message ResponseEndedScheduleByGuest{
+  int32 code = 1;
+  string title = 2;
+}
+
 service BookingRPC {
 
   rpc GetListBokings (RequestInfoBookings) returns (ResponseListInfoBookings); 
@@ -960,6 +987,13 @@ service BookingRPC {
   rpc DeleteBookingByContactByAdmin (RequestDeleteBookingByContact) returns (ResponseBookingByContact) {
     option (google.api.http) = {
       delete: "/api/v1/orders/orders-by-contact/{by_contact_id}",
+    };
+  }
+
+   rpc ConfirmEndTourByGuest (RequestEndedScheduleByGuest) returns (ResponseEndedScheduleByGuest){
+    option (google.api.http) = {
+      patch : "/api/v1/orders/tourpackages/{tour_id}/schedules/{schedule_id}",
+      body : "*"
     };
   }
 

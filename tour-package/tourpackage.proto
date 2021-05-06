@@ -13,7 +13,9 @@ message TourPackage{
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
+   // @inject_tag: json:"rate"
   double rate = 10;
+  // @inject_tag: json:"review"
   double review = 11;
   repeated PackageAddon addons = 12;
   bool is_curated = 13;
@@ -35,9 +37,10 @@ message TourPackage{
   string user_uid = 29;
   bool have_promotion = 30;
   google.protobuf.Timestamp update_at = 31;
+  Insurance insurance = 32;
 }
 
-message TourHost{
+message TourHost {
   string host_id = 1;
   string first_name = 2;
   string last_name = 3;
@@ -70,6 +73,12 @@ message TourHost{
   bool is_deactivate = 30;
 }
 
+message Insurance {
+  string title = 1;
+  string description = 2;
+  string tour_id = 3;
+}
+
 message TourPackageRequest{
   string tour_id = 1;
   string title = 2;
@@ -96,6 +105,7 @@ message TourPackageRequest{
   string policy_title = 24;
   string policy = 25;
   AdditionalCost additional_cost = 26;
+  Insurance insurance = 27;
 }
 
 message CreateTourPackageResponse{
@@ -214,9 +224,18 @@ message PackageScheduleResponse{
 
 message PackageAddon{
   string addon_id = 1;
-  string tour_id = 4;
-  string addon = 2;
-  string price = 3;
+  string tour_id = 2;
+  string addon = 3;
+  string price = 4;
+  string price_type = 5;
+  int32 qty = 6;
+  bool is_rental = 7;
+  repeated ImageAddon images = 8;
+}
+
+message ImageAddon {
+  string addon_id = 1;
+  string image_url = 2;
 }
 
 message CustomPolicy{
@@ -371,7 +390,27 @@ message AddWishListResponse{
 }
 
 message WishListResponse{
-  repeated AddWishListRequest data = 1;
+  repeated GetWishListResponse data = 1;
+}
+
+message GetWishListResponse{
+  string tour_id = 1 ;
+  string title = 2 ;
+  string price = 3 ;
+  string location = 4 ;
+  string type_tour = 5;
+  string rate = 6 ;
+  string user_uid = 7;
+  bool have_promotion = 8;
+  repeated PackageMedia medias = 9;
+  repeated PackageSchedule schedules = 10;
+  HostInfo host_info  = 11;
+}
+
+message HostInfo {
+  string name = 1;
+  string image = 2;
+  string host_id = 3;
 }
 
 message RequestDetailPriceByParticipant {
@@ -556,6 +595,7 @@ message HostsTourPackage{
   google.protobuf.Timestamp update_at = 30;
   TourHostsInfo host_info = 31;
   bool have_promotion = 32;
+  Insurance insurance = 33;
 }
 
 message TourHostsInfo{
@@ -591,7 +631,9 @@ message TourPackageSync{
   repeated string categories = 7;
   repeated string tags = 8;
   string location = 9;
+ // @inject_tag: json:"rate"
   double rate = 10;
+  // @inject_tag: json:"review"
   double review = 11;
   repeated PackageAddon addons = 12;
   bool is_curated = 13;
@@ -625,8 +667,21 @@ message Promotion{
 	bool is_active = 6;   
 }
 
+message ChangeRequestDemo {
+  string tour_id = 1;
+  string schedule_id = 2;
+  string status = 3;
+}
+
 service TourPackageService{
   
+  rpc ChangeStatusDemo(ChangeRequestDemo) returns (GeneralResponse){
+    option(google.api.http) = {
+      post : "/api/v1/tourpackages/change/status",
+      body : "*"
+    };
+  }
+
   rpc CountTourHost (RequestCountTour) returns (ResponseCountTour);
 
   rpc CreateTourPackage(TourPackage) returns (TourPackageResponse){
