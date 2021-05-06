@@ -159,9 +159,6 @@ message SignUpAsHostRequest{
     string business_name = 2 ;
     string business_category = 3 ;
     string address = 4 ;
-    bool terms_of_service = 5;
-    bool privacy_policy = 6;
-    bool subscription_newsletter = 7;
 }
 
 message SignUpAsHostResponse{
