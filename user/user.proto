@@ -52,6 +52,9 @@ message CreateUserRequest{
     string gender = 8;
     string phone_number = 9;
     string nationality = 10;
+    bool terms_of_service = 11;
+    bool privacy_policy = 12;
+    bool subscription_newsletter = 13;
 }
 
 message CreateUserResponse{
@@ -78,7 +81,7 @@ message ResetPasswordTokenRequest {
 
 message ResetPasswordTokenResponse {
     string title = 1;
-    string code = 2; 
+    string code = 2;
     ResetPasswordTokenRequest data = 3;
 }
 
@@ -93,7 +96,7 @@ message ResetPasswordRequest {
 message ResetPasswordResponse {
     ResetPasswordRequest data =1;
     string title = 2;
-    string code = 3; 
+    string code = 3;
 }
 
 message UpdateUserRequest{
@@ -193,6 +196,7 @@ message ResendEmailVerificationRequest{
     string email = 2;
     string password = 3;
     string verification_token = 4;
+    string from_app = 5;
 }
 
 message ResendEmailVerificationRespone{
@@ -232,8 +236,11 @@ message SignUpAsHostRequest{
     string uid = 1;
     string business_name = 2 ;
     string business_category = 3 ;
-    string address = 4 ; 
-    repeated Setting settings = 5; 
+    string address = 4 ;
+    bool terms_of_service = 5;
+    bool privacy_policy = 6;
+    bool subscription_newsletter = 7;
+    repeated Setting settings = 8;
 }
 
 message SignUpAsHostRespone{
@@ -267,11 +274,11 @@ message UpdateHostUserRequest{
 message UpdateHostUserRespone{
     UpdateHostUserRequest data = 1;
     string code = 2;
-    string title = 3; 
+    string title = 3;
 }
 
 message RefundResponse{
-    string title = 1; 
+    string title = 1;
     int32 code = 2;
 }
 
@@ -355,7 +362,7 @@ message ResponseUser{
     string gender = 7;
     string phone_number = 8;
     string profile_picture_url = 9;
-    int32 balance = 10 ; 
+    int32 balance = 10 ;
     string account_number = 11;
     bool is_verified = 12;
     bool is_suspended = 13;
@@ -370,7 +377,7 @@ message RequestDelete {
 }
 
 message ResponseDelete {
-    string title = 1; 
+    string title = 1;
     int32 code = 2;
 }
 
@@ -453,7 +460,7 @@ message ResponseDeleteAdmin{
 }
 
 message RequestEditRoleAdmin{
-   string uid = 1; 
+   string uid = 1;
    int32 role_admin = 2;
 }
 
@@ -532,6 +539,34 @@ message Email{
     string email = 1;
 }
 
+message GetCountDownRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message GetCountDownResponse {
+    string title = 1;
+    int32 code = 2;
+    CountDown data = 3;
+}
+
+message CountDown {
+    string email = 1;
+    string token_expire_at = 2;
+}
+
+message SendEmailSinglePilotUserRequest{
+    string email = 1 ;
+    string top_message = 2;
+    string bottom_message = 3;
+    string links = 4 ;
+}
+
+message SendEmailSinglePilotUserResponse{
+    string title = 1 ;
+    int32 code = 2 ;
+}
+
 service UserService{
 
     rpc Deactivate(RequestDelete) returns (ResponseDelete) {
@@ -550,14 +585,14 @@ service UserService{
     rpc DeletePermanently(RequestDelete) returns (ResponseDelete) {
         option (google.api.http) = {
             post    : "/api/v1/delete/permanently",
-            body    : "*" 
+            body    : "*"
         };
     }
 
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users",
-            body    : "*" 
+            body    : "*"
         };
     }
 
@@ -600,7 +635,7 @@ service UserService{
     rpc EmailVerification(EmailVerificationRequest) returns (EmailVerificationResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/emailverification",
-            body    : "*" 
+            body    : "*"
         };
     }
 
@@ -614,14 +649,14 @@ service UserService{
     rpc ResetPasswordToken(ResetPasswordTokenRequest) returns (ResetPasswordTokenResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/resetpasswordtoken",
-            body    : "*" 
+            body    : "*"
         };
     }
 
     rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/resetpassword",
-            body    : "*" 
+            body    : "*"
         };
     }
 
@@ -631,11 +666,11 @@ service UserService{
     rpc SignUpAsHost(SignUpAsHostRequest)returns(SignUpAsHostRespone){
          option (google.api.http) = {
             post    : "/api/v1/users/{uid}/registerhosts",
-            body    : "*" 
+            body    : "*"
         };
     }
 
-    // this endpoint only user for handling for update host profile 
+    // this endpoint only user for handling for update host profile
     rpc UpdateHostUser(UpdateHostUserRequest) returns (UpdateHostUserRespone);
 
     rpc GetUserByID(GetUserRequest) returns (GetUserResponse){
@@ -646,7 +681,7 @@ service UserService{
 
     // this endpoint only use for handle get all user for admin
     rpc GetAllUser(GetAllUserRequest) returns (GetAllUserResponse);
-    
+
 
     rpc GetUserDetail(GetUserRequest) returns (UserDetailResponse){
         option (google.api.http) = {
@@ -693,7 +728,7 @@ service UserService{
         };
     }
 
-    //This endpoint only use for get admin 
+    //This endpoint only use for get admin
     rpc GetAdmin(RequestGetAdmin) returns (ResponseAdministrator);
 
     //this endpoint only use for update is host by convert by admin
@@ -702,14 +737,27 @@ service UserService{
      rpc CreatePilotUser(PilotUserRequest) returns (PilotUserResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/pilots",
-            body    : "*" 
+            body    : "*"
         };
     }
 
     rpc SendEmailPilotUser(SendEmailPilotUserRequest) returns (SendEmailPilotUserResponse) {
         option (google.api.http) = {
             post    : "/api/v1/users/pilots/send-email",
-            body    : "*" 
+            body    : "*"
+        };
+    }
+
+    rpc GetCountDownVerifyToken(GetCountDownRequest) returns (GetCountDownResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/emailverification/countdown",
+            body    : "*"
+        };
+     }
+     rpc SendEmailSinglePilotUser(SendEmailSinglePilotUserRequest) returns (SendEmailSinglePilotUserResponse) {
+        option (google.api.http) = {
+            post    : "/api/v1/users/pilot/single/send-email",
+            body    : "*"
         };
     }
 }
