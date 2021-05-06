@@ -64,6 +64,7 @@ message UpdateTourHostRequest{
     bool is_verified = 19;
     string nationality = 20;
     string npwp = 21;
+    string password_change_email = 22;
 }
 
 message UpdateTourHostResponse{
@@ -158,6 +159,9 @@ message SignUpAsHostRequest{
     string business_name = 2 ;
     string business_category = 3 ;
     string address = 4 ;
+    bool terms_of_service = 5;
+    bool privacy_policy = 6;
+    bool subscription_newsletter = 7;
 }
 
 message SignUpAsHostResponse{
