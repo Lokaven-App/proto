@@ -673,6 +673,17 @@ message ChangeRequestDemo {
   string status = 3;
 }
 
+message RequestFullPayment{
+  string user_uid = 1;
+  string tour_id = 2;
+  string schedule_id = 3;
+}
+
+message ResponseFullPayment{
+  int32 code = 1;
+  string title = 2;
+}
+
 service TourPackageService{
   
   rpc ChangeStatusDemo(ChangeRequestDemo) returns (GeneralResponse){
@@ -820,16 +831,12 @@ service TourPackageService{
   //This method only use for update tour status 
   rpc UdpdateScheduleTourStatus (ScheduleTourStatus) returns (ScheduleTourStatusResponse);
 
+  //This method only use for fullpayment
+  rpc FullpaymentHostAfterEndedActivity (RequestFullPayment) returns (ResponseFullPayment);
+
   rpc SynchronizeExplorer(RequestSync)returns(ResponseSync){
     option (google.api.http) = {
       post : "/api/v1/tourpackages/sync/explorer",
-      body : "*"
-    };
-  }
-
-  rpc ConfirmEndTourV1_1(ParamActiveTour) returns (ResponseConfirmedToEnd) {
-    option (google.api.http) = {
-      patch : "/api/v1b/tourpackages/active-to-end/{tour_id}/{schedule_id}",
       body : "*"
     };
   }
