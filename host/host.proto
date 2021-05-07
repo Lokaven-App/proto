@@ -40,6 +40,9 @@ message TourHost{
     google.protobuf.Timestamp verified_at = 32;
     string bank_name = 33;
     string npwp = 34;
+    bool terms_of_service = 35;
+    bool privacy_policy = 36;
+    bool subscription_newsletter = 37;
 }
 
 message UpdateTourHostRequest{
@@ -130,6 +133,9 @@ message CreateTourHostRequest{
     string card_number = 27;
     string bussiness_number = 28;
     string npwp = 29;
+    bool terms_of_service = 30;
+    bool privacy_policy = 31;
+    bool subscription_newsletter = 32;
 }
 
 message CreateTourHostResponse{
@@ -224,6 +230,9 @@ message TourHostList{
     google.protobuf.Timestamp verified_at = 35;
     bool pilot_user = 36;
     string npwp = 37;
+    bool terms_of_service = 38;
+    bool privacy_policy = 39;
+    bool subscription_newsletter = 40;
 }
 
 message ResponseTourHostList{
@@ -326,6 +335,9 @@ message HostProfile{
     google.protobuf.Timestamp created_at = 33;
     google.protobuf.Timestamp verified_at = 34;
     string npwp = 35;
+    bool terms_of_service = 36;
+    bool privacy_policy = 37;
+    bool subscription_newsletter = 38;
 }
 
 message HostProfileResponse{
