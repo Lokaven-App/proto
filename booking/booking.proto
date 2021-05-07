@@ -40,8 +40,11 @@ message Booking{
   string promo_code = 33;
   double discount = 34;
   int32 admin_fee = 35;
-  string qr_code = 36;
-  int32 code_unique = 37;
+  bool terms_of_service = 36;
+  bool privacy_policy = 37;
+  bool refund_policy = 38;
+  string qr_code = 39;
+  string code_unique = 40;
 }
 
 message DetailBookingHost {
@@ -70,6 +73,9 @@ message DetailBookingHost {
   string promo_code = 23;
   double discount = 24;
   int32 admin_fee = 25;
+  bool terms_of_service = 26;
+  bool privacy_policy = 27;
+  bool refund_policy = 28;
 }
 
 message DetailBookingGuest {
@@ -108,8 +114,11 @@ message DetailBookingGuest {
   string promo_code = 35;
   double discount = 36;
   int32 admin_fee = 37;
-  string qr_code = 38;
-  int32 code_unique = 39;
+  bool terms_of_service = 38;
+  bool privacy_policy = 39;
+  bool refund_policy = 40;
+  string qr_code = 41;
+  string code_unique = 42;
 }
 
 message UserInfo {
@@ -510,7 +519,7 @@ message ReceiptBooking{
   double discount = 33;
   int32 admin_fee = 34;
   string qr_code = 35;
-  int32 code_unique = 36;
+  string code_unique = 36;
 }
 
 message ResponseReceiptBooking{
@@ -833,6 +842,8 @@ service BookingRPC {
   rpc CountOrdersHost (RequestCountOrders) returns (ResponseCountOrders);
 
   rpc UpdateBookingScheduleTourStatus (RequestBookingScheduleTourStatus) returns (ResponseBookingScheduleTourStatus);
+
+  rpc GetBookingCodeUnique (Booking) returns (BookingResponse);
 
   rpc GetActivityTour (ActiveTour) returns (ResponseActiveTour) {
     option (google.api.http) = {
