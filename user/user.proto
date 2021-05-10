@@ -24,6 +24,9 @@ message User{
     google.protobuf.Timestamp created_at = 16;
     string account_number = 17;
     string bank_name = 18;
+    bool terms_of_service = 19;
+    bool privacy_policy = 20;
+    bool subscription_newsletter = 21;
 }
 
 message Balances {
@@ -52,9 +55,9 @@ message CreateUserRequest{
     string gender = 8;
     string phone_number = 9;
     string nationality = 10;
-    bool terms_of_service = 11;
-    bool privacy_policy = 12;
-    bool subscription_newsletter = 13;
+    bool terms_of_service = 19;
+    bool privacy_policy = 20;
+    bool subscription_newsletter = 21;
 }
 
 message CreateUserResponse{
@@ -224,6 +227,9 @@ message CreateUserHostRequest{
     bool is_verified = 10;
     bool by_admin = 11;
     string nationality = 12;
+    bool terms_of_service = 19;
+    bool privacy_policy = 20;
+    bool subscription_newsletter = 21;
 }
 
 message CreateUserHostResponse{
@@ -304,6 +310,9 @@ message GetUsers{
     bool is_deactivate = 11;
     bool pilot_user = 12;
     google.protobuf.Timestamp created_at = 13;
+    bool terms_of_service = 14;
+    bool privacy_policy = 20;
+    bool subscription_newsletter = 21;
 }
 
 message GetAllUserResponse{
@@ -346,6 +355,9 @@ message UserDetail{
     bool is_verified = 32;
     int32 count_package = 33;
     bool pilot_user = 34;
+    bool terms_of_service = 35;
+    bool privacy_policy = 36;
+    bool subscription_newsletter = 37;
 }
 
 message UserDetailResponse{
