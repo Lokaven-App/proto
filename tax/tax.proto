@@ -1,0 +1,167 @@
+syntax = "proto3";
+package tax;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message Tax {
+  string tax_id = 1;
+  string number_tax = 2 ;
+  google.protobuf.Timestamp date = 3;
+  string type_tax = 4;
+  int32 nominal = 5;
+  string attachment = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  AdminInfo admin_info = 9;
+}
+
+message TaxTransaction {
+  string log_tax_transactions_id = 1;
+  string order_id = 2;
+  string order_number = 3;
+  string tax_transaction_number = 4;
+  string invoice_number = 5;
+  string type_transaction = 6;
+  string tour_id = 7;
+  string tour_title = 8;
+  string schedule_date = 9;
+  string nominal_total_booking = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+  string host_id = 13;
+  string host_name = 14;
+  int32 add_ons_price = 15;
+  int32 total_dp = 16;
+  int32 total_dp_multiplier = 17;
+  int32 tax = 18;
+  int32 admin_fee = 19;
+  int32 pph23 = 20;
+  int32 commission = 21;
+  int32 total_tax = 22;
+  int32 total_amount = 23;
+  int32 full_payment = 24;
+  string ket = 25;
+
+}
+
+message TaxTransactionListResponse {
+  string title = 1;
+  int32 code = 2;
+  repeated TaxTransaction data = 3;
+  Paginate paginate = 4;
+}
+
+message TaxTransactionResponse {
+  string title = 1;
+  int32 code = 2;
+  TaxTransaction data = 3;
+}
+
+message TaxSummary {
+  string year = 1;
+  int32 nominal = 2;
+}
+
+message RequestTax {
+  string param = 1;
+  int32 page = 2;
+  int32 per_page = 3;
+  string filter = 4;
+  string key = 5;
+}
+
+message AdminInfo {
+  string user_uid = 1;
+  string name = 2;
+}
+
+message TaxResponse {
+  string title = 1;
+  int32 code = 2;
+  Tax data = 3;
+}
+
+message TaxDeleteResponse {
+  string title = 1;
+  int32 code = 2;
+}
+
+message TaxListResponse {
+  string title = 1;
+  int32 code = 2;
+  repeated Tax data = 3;
+  repeated TaxSummary summary = 4;
+  Paginate paginate = 5;
+}
+
+message Paginate {
+  int32 current_page = 1;
+  int32 next_page = 2;
+  int32 total_page = 3;
+  int32 per_page = 4;
+}
+
+message ResponseLokavenTax {
+  int32 code = 1;
+  string title = 2;
+  repeated TaxLokaven taxs = 3;
+}
+
+message TaxLokaven {
+  string month = 1;
+  double amount = 2;
+}
+
+service TaxService {
+  rpc AddTax (Tax) returns (TaxResponse) {
+    option (google.api.http) = {
+      post : "/api/v1/taxes/administrators",
+      body : "*"
+    };
+  }
+
+  rpc EditTax (Tax) returns(TaxResponse) {
+    option (google.api.http) = {
+      patch : "/api/v1/taxes/{tax_id}/administrators",
+      body : "*"
+    };
+  }
+
+  rpc DeleteTax (Tax) returns (TaxDeleteResponse) {
+    option (google.api.http) = {
+      delete : "/api/v1/taxes/{tax_id}/administrators",
+    };
+  }
+
+  rpc DetailTax (Tax) returns (TaxResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/taxes/{tax_id}/administrators",
+    };
+  }
+
+  rpc ListTax (RequestTax) returns (TaxListResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/taxes/lists-taxes",
+    };
+  }
+
+  rpc LokavenTaxReport (RequestTax) returns(ResponseLokavenTax) {
+    option (google.api.http) = {
+      get : "/api/v1/taxes/lokaven/lists",
+    };
+  }
+
+  rpc ListTaxByTransactionList (RequestTax) returns(TaxTransactionListResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/taxes/transaction/lists",
+    };
+  }
+
+  rpc DetailTaxByTransactionList (TaxTransaction) returns(TaxTransactionResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/taxes/transaction/detail/{log_tax_transactions_id}",
+    };
+  }
+
+}
