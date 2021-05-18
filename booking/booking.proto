@@ -662,18 +662,19 @@ message ResponseListInfoBookings {
 
 message GetBookingByTourScheduleID{
   repeated string order_numbers = 1;
-  string tour_id = 2 ;
-  string title = 3 ;
-  repeated PackageSchedule schedules = 4;
-  string qty_adults = 5 ;
-  string qty_kids = 6;
-  string host_id = 7;
-  string type_tour = 8;
-  string location = 9;
-  string total_quota = 10;
-  string min_quota = 11;
-  string max_quota = 12;
-  string quota_left = 13;
+  string booking_order_id = 2;
+  string tour_id = 3;
+  string title = 4;
+  repeated PackageSchedule schedules = 5;
+  string qty_adults = 6;
+  string qty_kids = 7;
+  string host_id = 8;
+  string type_tour = 9;
+  string location = 10;
+  string total_quota = 11;
+  string min_quota = 12;
+  string max_quota = 13;
+  string quota_left = 14;
 }
 
 message ResponseGetBookingByTourScheduleID{
