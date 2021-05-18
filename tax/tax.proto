@@ -152,15 +152,27 @@ service TaxService {
     };
   }
 
-  rpc ListTaxByTransactionList (RequestTax) returns(TaxTransactionListResponse) {
+  rpc ListTaxByTransactionListByAdmin (RequestTax) returns(TaxTransactionListResponse) {
     option (google.api.http) = {
       get : "/api/v1/taxes/transaction/lists",
     };
   }
 
-  rpc DetailTaxByTransactionList (TaxTransaction) returns(TaxTransactionResponse) {
+  rpc DetailTaxByTransactionListByAdmin (TaxTransaction) returns(TaxTransactionResponse) {
     option (google.api.http) = {
       get : "/api/v1/taxes/transaction/detail/{log_tax_transactions_id}",
+    };
+  }
+
+  rpc ListTaxByTransactionListByUser (RequestTax) returns(TaxTransactionListResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/taxes/transaction-user/lists",
+    };
+  }
+
+  rpc DetailTaxByTransactionListByUser (TaxTransaction) returns(TaxTransactionResponse) {
+    option (google.api.http) = {
+      get : "/api/v1/taxes/transaction-user/detail/{log_tax_transactions_id}",
     };
   }
 
