@@ -6,14 +6,16 @@ import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 
 message ReqWithdraw {
-    string balance_uid        = 1; // hold balanceid
-    string tour_id           = 2;
-    string schedule_id       = 3;
-	int32  amount            = 4;
-	string bank_code          = 5;
-	string account_holder_name = 6;
-	string account_number     = 7;
-	string description       = 8;
+    string balance_uid         = 1; // hold balanceid
+    string tour_id             = 2;
+    string schedule_id         = 3;
+	int32 amount               = 4;
+    int32 admin_fee            = 5;
+	string bank_code           = 6;
+	string account_holder_name = 7;
+	string account_number      = 8;
+    string description         = 9;
+    string bank_name           = 10;
 }
 
 enum LogType {
@@ -137,9 +139,14 @@ message LogBalanceResponse {
     string status = 10;
     google.protobuf.Timestamp updated_at = 11;
     int32 administration_fee = 12;
-    string bank_name = 13;
-    string account_number = 14;
-    google.protobuf.Timestamp created_at = 15;
+    int32 withdrawal_fee = 13;
+    int32 payment_fee = 14;
+    int32 pph23 = 15;
+    int32 commission = 16;
+    int32 total_tax = 17;
+    string bank_name = 18;
+    string account_number = 19;
+    google.protobuf.Timestamp created_at = 20;
 }
 
 message SingleLogBalanceResponse {
