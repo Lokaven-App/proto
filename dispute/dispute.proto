@@ -12,18 +12,88 @@ message Dispute {
     string tour_id = 3;
     // @inject_tag: bson:"schedule_id"
     string schedule_id = 4;
+    // @inject_tag: bson:"user_uid"
+    string user_uid = 5;
     // @inject_tag: bson:"guest_name"
-    string guest_name = 5;
+    string guest_name = 6;
     // @inject_tag: bson:"guest_email"
-    string guest_email = 6;
+    string guest_email = 7;
     // @inject_tag: bson:"guest_phone"
-    string guest_phone = 7;
+    string guest_phone = 8;
     // @inject_tag: bson:"message"
-    string message = 8;
+    string message = 9;
     // @inject_tag: bson:"resolve"
-    bool resolve = 9;
+    bool resolve = 10;
     // @inject_tag: bson:"created_at"
-    google.protobuf.Timestamp created_at = 10;
+    google.protobuf.Timestamp created_at = 11;
+    // @inject_tag: bson:"order_number"
+    string order_number = 12;
+}
+
+message PackageSchedule{
+    string schedule_id = 1;
+    string tour_id = 2;
+    string durations = 3;
+    google.protobuf.Timestamp start_date = 4;
+    google.protobuf.Timestamp end_date = 5;
+    string quota = 6;
+    bool is_active = 7;
+    string min_quota = 8;
+    string max_quota = 9;
+    bool is_booked = 10;
+    string tour_status = 11;
+    string on_hold = 12;
+    google.protobuf.Timestamp onhold_date = 13;
+}
+
+message Host {
+    string host_id = 1;
+    string firstname = 2;
+    string lastname = 3;
+    string email = 4;
+    string phone = 5;
+}
+
+message Detail {
+    Dispute dispute = 1;
+    PackageSchedule schedule = 2;
+    Host host = 3;
+}
+
+message TourPackage {
+    string tour_id = 1;
+    string title = 2;
+    PackageSchedule schedule = 3;
+    repeated Dispute disputes = 4;
+}
+
+message Paginate {
+    int32 current_page = 1;
+    int32 next_page = 2;
+    int32 total_page = 3;
+    int32 per_page = 4;
+}
+
+message RequestParam {
+    string key = 1;
+    string sort = 2;
+    string filter = 3;
+    string dispute_id = 4;
+    string page = 5;
+    string per_page = 6;
+}
+
+message ResponsesList {
+    int32 code = 1;
+    string title = 2;
+    repeated TourPackage data = 3;
+    Paginate paginate = 4;    
+}
+
+message ResponseDetail {
+    int32 code = 1;
+    string title = 2;
+    Detail data = 3;
 }
 
 message Responses {
@@ -37,6 +107,25 @@ service DisputeServices {
         option (google.api.http) = {
           post : "/api/v1/dispute/create",
           body : "*"
+        };
+    }
+
+    rpc ListDispute (RequestParam) returns (ResponsesList) {
+        option (google.api.http) = {
+          get : "/api/v1/dispute/list"
+        };
+    }
+
+    rpc DetailDispute (RequestParam) returns (ResponseDetail) {
+        option (google.api.http) = {
+          get : "/api/v1/dispute/detail/{dispute_id}"
+        };
+    }
+
+    rpc ResolveDispute (RequestParam) returns (Responses) {
+        option (google.api.http) = {
+            post : "/api/v1/dispute/resolve",
+            body : "*"
         };
     }
     
