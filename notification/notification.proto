@@ -67,6 +67,8 @@ message Properties {
     string balance_transaction_id = 18;
     // @inject_tag: bson:"administration_fee"
     int32 administration_fee = 19;
+    // @inject_tag: bson:"dispute_id"
+    string dispute_id = 20;
 }
 
 message Participants {
