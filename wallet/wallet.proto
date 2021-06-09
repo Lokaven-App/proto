@@ -130,6 +130,7 @@ message LogBalance {
   string bank_name = 13;
   string account_number = 14;
   string user_type = 15;
+  string order_id = 16;
 }
 
 message LogBalanceResponse {
