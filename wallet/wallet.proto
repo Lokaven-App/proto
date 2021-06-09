@@ -198,6 +198,8 @@ message LogBalancesRequestWithSchedule {
   string tour_id = 2;
   string schedule_id = 3;
   string transaction_id = 4;
+  string order_id = 5;
+  string type = 6;
 }
 
 message AllTransactionListResponse {
@@ -408,6 +410,8 @@ service WalletService{
   };
 
   rpc GetLogBalanceTransaction(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse);
+
+  rpc GetLogBalanceOrder(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse);
 
   rpc WithdrawHostReq(ReqWithdraw) returns (SingleLogBalanceResponse){
     option (google.api.http) = {
