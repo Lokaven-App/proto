@@ -6,87 +6,88 @@ import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 
 message ReqWithdraw {
-    string balance_uid         = 1; // hold balanceid
-    string tour_id             = 2;
-    string schedule_id         = 3;
-	int32 amount               = 4;
-    int32 admin_fee            = 5;
-	string bank_code           = 6;
-	string account_holder_name = 7;
-	string account_number      = 8;
-    string description         = 9;
-    string bank_name           = 10;
+  string balance_uid         = 1; // hold balanceid
+  string tour_id             = 2;
+  string schedule_id         = 3;
+  int32 amount               = 4;
+  int32 admin_fee            = 5;
+  string bank_code           = 6;
+  string account_holder_name = 7;
+  string account_number      = 8;
+  string description         = 9;
+  string bank_name           = 10;
 }
 
 enum LogType {
-    withdraw_request = 0;
-    withdraw_success = 1;
-    withdraw_failed  = 2;
-    refund           = 3;
-    dp               = 4;
-    full_payment     = 5;
+  withdraw_request = 0;
+  withdraw_success = 1;
+  withdraw_failed  = 2;
+  refund           = 3;
+  dp               = 4;
+  full_payment     = 5;
 }
 
 enum TransactionType {
-    money_in    = 0;
-    money_out   = 1;
+  money_in    = 0;
+  money_out   = 1;
 }
 
 enum TransactionStatus {
-    success     = 0;
-    failed      = 1;
-    pending     = 2;
+  success     = 0;
+  failed      = 1;
+  pending     = 2;
 }
 
 message Host {
-    string id = 1;
-    string name = 2;
-    string bussiness_name = 3;
-    string email = 4;
-    string contact = 5;
+  string id = 1;
+  string name = 2;
+  string bussiness_name = 3;
+  string email = 4;
+  string contact = 5;
 }
 
 message DeletedUser {
-    string id = 1;
-    string name = 2;
-    string email = 3;
+  string id = 1;
+  string name = 2;
+  string email = 3;
 }
 
 message HostWithdrawCallback {
-	string id                             = 1;
-	string user_id                        = 2;
-	string external_id                    = 3;  
-	int32 amount                          = 4;
-	string bank_code                      = 5;
-	string account_holder_name            = 6;
-	string disbursement_description       = 7;
-	string failure_code                   = 8;
-	bool is_instant                       = 9;
-	string status                         = 10;               
-	google.protobuf.Timestamp created     = 11;              
-	google.protobuf.Timestamp updated     = 12;     
-	repeated string email_to              = 13;       
-	repeated string email_cc              = 14;       
-	repeated string email_bcc             = 15;
+  string id                             = 1;
+  string user_id                        = 2;
+  string external_id                    = 3;
+  int32 amount                          = 4;
+  string bank_code                      = 5;
+  string account_holder_name            = 6;
+  string disbursement_description       = 7;
+  string failure_code                   = 8;
+  bool is_instant                       = 9;
+  string status                         = 10;
+  google.protobuf.Timestamp created     = 11;
+  google.protobuf.Timestamp updated     = 12;
+  repeated string email_to              = 13;
+  repeated string email_cc              = 14;
+  repeated string email_bcc             = 15;
 }
 
 message HostWithdrawCallbackResponse {
-    string data = 1;
+  string data = 1;
 }
 
 message Balance {
-    string uid = 1;
-    string user_uid = 2;
-    int32 amount = 3;
-    google.protobuf.Timestamp updated_at = 4;
+  string uid = 1;
+  string user_uid = 2;
+  int32 amount = 3;
+  string user_type = 4;
+  google.protobuf.Timestamp updated_at = 5;
 }
 
 message Balances {
-    repeated Balance balances = 1;
+  repeated Balance balances = 1;
 }
 
 message BalanceResponse {
-    Balance data = 1;
+  Balance data = 1;
 }
 
 // message BalancesResponse {
@@ -94,7 +95,11 @@ message BalanceResponse {
 // }
 
 message BalanceRequest {
-    string uid = 1;
+  string user_uid = 1;
+  string user_type = 2;
+}
+
+message LokavenBalanceRequest {
 }
 
 // message BalancesRequest {
@@ -102,56 +107,57 @@ message BalanceRequest {
 // }
 
 message Tour {
-    string tour_title = 1;
-    google.protobuf.Timestamp tour_start_date = 2;
-    google.protobuf.Timestamp tour_end_date = 3;
-    string schedule_id = 4;
-    string tour_id = 5;
+  string tour_title = 1;
+  google.protobuf.Timestamp tour_start_date = 2;
+  google.protobuf.Timestamp tour_end_date = 3;
+  string schedule_id = 4;
+  string tour_id = 5;
 }
 
 message LogBalance {
-    string uid = 1;
-    string balance_uid = 2;
-    string user_uid = 3;
-    Tour tour = 4;
-    int32 amount = 5;
-    LogType type = 6;
-    string message = 7;
-    string transaction_id = 8;
-    TransactionType transaction_type = 9; 
-    TransactionStatus status= 10;
-    google.protobuf.Timestamp updated_at = 11;
-    int32 administration_fee = 12;
-    string bank_name = 13;
-    string account_number = 14;
-    string order_id = 15;
+  string uid = 1;
+  string balance_uid = 2;
+  string user_uid = 3;
+  Tour tour = 4;
+  int32 amount = 5;
+  LogType type = 6;
+  string message = 7;
+  string transaction_id = 8;
+  TransactionType transaction_type = 9;
+  TransactionStatus status= 10;
+  google.protobuf.Timestamp updated_at = 11;
+  int32 administration_fee = 12;
+  string bank_name = 13;
+  string account_number = 14;
+  string user_type = 15;
 }
 
 message LogBalanceResponse {
-    string uid = 1;
-    string balance_uid = 2;
-    string user_uid = 3;
-    Tour tour = 4;
-    int32 amount = 5;
-    string type = 6;
-    string message = 7;
-    string transaction_id = 8;
-    string transaction_type = 9; 
-    string status = 10;
-    google.protobuf.Timestamp updated_at = 11;
-    int32 administration_fee = 12;
-    int32 withdrawal_fee = 13;
-    int32 payment_fee = 14;
-    int32 pph23 = 15;
-    int32 commission = 16;
-    int32 total_tax = 17;
-    string bank_name = 18;
-    string account_number = 19;
-    google.protobuf.Timestamp created_at = 20;
+  string uid = 1;
+  string balance_uid = 2;
+  string user_uid = 3;
+  Tour tour = 4;
+  int32 amount = 5;
+  string type = 6;
+  string message = 7;
+  string transaction_id = 8;
+  string transaction_type = 9;
+  string status = 10;
+  google.protobuf.Timestamp updated_at = 11;
+  int32 administration_fee = 12;
+  int32 withdrawal_fee = 13;
+  int32 payment_fee = 14;
+  int32 pph23 = 15;
+  int32 commission = 16;
+  int32 total_tax = 17;
+  string bank_name = 18;
+  string account_number = 19;
+  google.protobuf.Timestamp created_at = 20;
+  string user_type = 21;
 }
 
 message SingleLogBalanceResponse {
-    LogBalanceResponse data = 1;
+  LogBalanceResponse data = 1;
 }
 
 // message LogBalanceResponse {
@@ -159,126 +165,137 @@ message SingleLogBalanceResponse {
 // }
 
 message LogsBalanceResponse {
-    repeated LogBalanceResponse data = 1;
+  repeated LogBalanceResponse data = 1;
 }
 
 message TransactionInHistoryResponse {
-    google.protobuf.Timestamp created_at = 1;
-    LogType type = 2;
-    string amount = 3;
-    TransactionStatus status = 4;
-    Tour tour = 5;
-    Host host = 6;
-    DeletedUser deleted_user = 7;
+  google.protobuf.Timestamp created_at = 1;
+  LogType type = 2;
+  string amount = 3;
+  TransactionStatus status = 4;
+  Tour tour = 5;
+  Host host = 6;
+  DeletedUser deleted_user = 7;
 }
 
 message LogBalancesRequest {
-    string user_id = 1;
-    int32 limit = 2;
-    int32 offset = 3;
+  string user_id = 1;
+  string user_type = 2;
+  int32 limit = 3;
+  int32 offset = 4;
 }
 
 message LogHistoryRequest {
-    string filter = 1;
-    int32 limit   = 2;
-    int32 page    = 3;
-    string search = 4;
-    string order  = 5;
+  string filter = 1;
+  int32 limit   = 2;
+  int32 page    = 3;
+  string search = 4;
+  string order  = 5;
 }
 
 message LogBalancesRequestWithSchedule {
-    string user_id = 1;
-    string tour_id = 2;
-    string schedule_id = 3;
-    string transaction_id = 4;
-    string order_id = 5;
-    string type = 6;
+  string user_id = 1;
+  string tour_id = 2;
+  string schedule_id = 3;
+  string transaction_id = 4;
 }
 
 message AllTransactionListResponse {
-    repeated LogBalanceResponse data = 1;
-    Paginate paginate = 2;
+  repeated LogBalanceResponse data = 1;
+  Paginate paginate = 2;
 }
 
 message Paginate {
-    int32 current_page = 1;
-    int32 next_page = 2;
-    int32 total_page = 3;
-    int32 per_page = 4;
+  int32 current_page = 1;
+  int32 next_page = 2;
+  int32 total_page = 3;
+  int32 per_page = 4;
+}
+
+message Filter{
+  string Field = 1;
+  string Operator =2;
+  string Value = 3;
+}
+
+message BrowseRequest{
+  repeated Filter filters = 1;
+  int32 limit = 2;
+  int32 offset = 3;
 }
 
 message AllTransactionListRequest {
-    string query = 1;
-    int32 per_page = 2;
-    int32 page = 3;
+  string query = 1;
+  int32 per_page = 2;
+  int32 page = 3;
 }
 
 message TransactionDetailRequest{
-    string tour_id = 1;
-    string schedule_id = 2;
+  string tour_id = 1;
+  string schedule_id = 2;
 }
 
 message TransactionDetailResponse{
-    int32 code = 1;
-    string title = 2;
-    BookingInfo booking_info = 3;
-    DPDetail dp_detail = 4;
-    FPDetail fp_detail = 5;
-    WithdrawDetail wd_detail = 6 ;
+  int32 code = 1;
+  string title = 2;
+  BookingInfo booking_info = 3;
+  DPDetail dp_detail = 4;
+  FPDetail fp_detail = 5;
+  WithdrawDetail wd_detail = 6 ;
 }
 
 message DPDetail{
-     google.protobuf.Timestamp date = 1;
-     string invoice_number = 2;
-     string type = 3;
-     string transaction_type = 4;
-     int32 total = 5;
-     string host_name = 7;
-     string email = 8;
-     string tour_title = 9;
-     PackageSchedule schedule_info = 10;
-     string link = 11;
+  google.protobuf.Timestamp date = 1;
+  string invoice_number = 2;
+  string type = 3;
+  string transaction_type = 4;
+  int32 total = 5;
+  string host_name = 7;
+  string email = 8;
+  string tour_title = 9;
+  PackageSchedule schedule_info = 10;
+  string link = 11;
 }
 
 message FPDetail{
-     google.protobuf.Timestamp date = 1;
-     string invoice_number = 2;
-     string type = 3;
-     string transaction_type = 4;
-     int32 total = 5;
-     string host_name = 7;
-     string email = 8;
-     string tour_title = 9;
-     PackageSchedule schedule_info = 10;
-     string link = 11;
+  google.protobuf.Timestamp date = 1;
+  string invoice_number = 2;
+  string type = 3;
+  string transaction_type = 4;
+  int32 total = 5;
+  string host_name = 7;
+  string email = 8;
+  string tour_title = 9;
+  PackageSchedule schedule_info = 10;
+  string link = 11;
 }
 
 message WithdrawDetail{
-     google.protobuf.Timestamp date = 1;
-     string invoice_number = 2;
-     string type = 3;
-     string transaction_type = 4;
-     int32 total = 5;
-     string host_name = 7;
-     string email = 8;
-     string tour_title = 9;
-     PackageSchedule schedule_info = 10;
-     string bank = 11;
-     string bank_account = 12;
-     string link = 13;
+  google.protobuf.Timestamp date = 1;
+  string invoice_number = 2;
+  string type = 3;
+  string transaction_type = 4;
+  int32 total = 5;
+  string host_name = 7;
+  string email = 8;
+  string tour_title = 9;
+  PackageSchedule schedule_info = 10;
+  string bank = 11;
+  string bank_account = 12;
+  string link = 13;
 }
 
 message BookingInfo{
-    google.protobuf.Timestamp payment_date = 1;
-    string invoice_number =2 ;
-    int32 total_paid_price = 3;
-    double discount = 4;
-    double tax = 5;
-    string name = 6;
-    string email = 7;
-    string tour_title = 8;
-    PackageSchedule schedule_info = 9;
-    int32 total_participants = 10;
+  google.protobuf.Timestamp payment_date = 1;
+  string invoice_number =2 ;
+  int32 total_paid_price = 3;
+  double discount = 4;
+  double tax = 5;
+  string name = 6;
+  string email = 7;
+  string tour_title = 8;
+  PackageSchedule schedule_info = 9;
+  int32 total_participants = 10;
 }
 
 message PackageSchedule{
@@ -289,135 +306,139 @@ message PackageSchedule{
 }
 
 message TransactionTotal{
-   repeated TransactionBKTotal booking = 1;
-   repeated TransactionDPTotal down_payment = 2;
-   repeated TransactionFPTotal full_payment= 3;
-   repeated TransactionWDTotal withdraw= 4;
+  repeated TransactionBKTotal booking = 1;
+  repeated TransactionDPTotal down_payment = 2;
+  repeated TransactionFPTotal full_payment= 3;
+  repeated TransactionWDTotal withdraw= 4;
 }
 
 message TransactionBKTotal{
-    string date = 1;
-    int32 total_booking = 2;
+  string date = 1;
+  int32 total_booking = 2;
 }
 message TransactionDPTotal{
-    google.protobuf.Timestamp date = 1;
-    int32 total_dp = 2;
-    string type = 3;
-    string status = 4;
+  google.protobuf.Timestamp date = 1;
+  int32 total_dp = 2;
+  string type = 3;
+  string status = 4;
 }
 message TransactionFPTotal{
-    google.protobuf.Timestamp date = 1;
-    int32 total_fullpayment = 2;
-    string type = 3;
-     string status = 4;
+  google.protobuf.Timestamp date = 1;
+  int32 total_fullpayment = 2;
+  string type = 3;
+  string status = 4;
 }
 message TransactionWDTotal{
-    google.protobuf.Timestamp date = 1;
-    int32 total_withdraw =2;
-    string type = 3;
-     string status = 4;
+  google.protobuf.Timestamp date = 1;
+  int32 total_withdraw =2;
+  string type = 3;
+  string status = 4;
 }
 
 message TransactionTotalResponse{
-    int32 code = 1;
-    string title = 2;
-    TransactionTotal data = 3;
-    SummaryTransaction summary = 4;
+  int32 code = 1;
+  string title = 2;
+  TransactionTotal data = 3;
+  SummaryTransaction summary = 4;
 }
 
 message AccountingInfo{
-    int32 debit = 2;
-    int32 credit = 3;
-    int32 balance = 4;
+  int32 debit = 2;
+  int32 credit = 3;
+  int32 balance = 4;
 }
 
 message SummaryTransaction{
-    int32 total_booking = 1;
-    int32 total_dp = 2;
-    int32 total_fullpayment = 3;
-    int32 total_withdraw_success =4;
-    AccountingInfo accounting_info =5;
+  int32 total_booking = 1;
+  int32 total_dp = 2;
+  int32 total_fullpayment = 3;
+  int32 total_withdraw_success =4;
+  AccountingInfo accounting_info =5;
 }
 
 
 service WalletService{
-    rpc CreateOrAddBalance(LogBalance) returns (BalanceResponse) {
-        option (google.api.http) = {
-            post    : "/api/v1/users/wallet",
-            body    : "*" 
-        };
-    }
-
-    rpc GetBalance(BalanceRequest) returns (BalanceResponse){
-        option (google.api.http) = {
-            get : "/api/v1/users/wallets/{uid}",
-        };
-    }
-
-    // rpc GetBalances(BalancesRequest) returns (BalancesResponse){
-    //     option (google.api.http) = {
-    //         get : "/api/v1/users/wallets",
-    //     };
-    // }
-
-    // rpc GetLogBalance(LogBalanceRequest) returns (LogBalanceResponse){
-    //     option (google.api.http) = {
-    //         get : "/api/v1/users/wallets/logs/{uid}",
-    //     };
-    // }
-
-    rpc GetLogBalances(LogBalancesRequest) returns (LogsBalanceResponse){
-        option (google.api.http) = {
-            get : "/api/v1/users/logs-balances/wallets",
-        };
+  rpc CreateOrAddBalance(LogBalance) returns (BalanceResponse) {
+    option (google.api.http) = {
+      post    : "/api/v1/wallet/balance",
+      body    : "*"
     };
+  }
 
-    rpc TransactionInHistory(LogHistoryRequest) returns (TransactionInHistoryResponse){
-        option (google.api.http) = {
-            get : "/api/v1/wallets/logs",
-        };
+  rpc GetBalance(BalanceRequest) returns (BalanceResponse){
+    option (google.api.http) = {
+      get : "/api/v1/wallet/balance/{user_uid}",
     };
+  }
 
-    rpc GetLogBalancesSchedule(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse){
-        option (google.api.http) = {
-            get : "/api/v1/users/logs/wallets/{tour_id}/{schedule_id}",
-        };
+  rpc GetBalanceLokaven(LokavenBalanceRequest) returns (BalanceResponse){
+    option (google.api.http) = {
+      get : "/api/v1/wallet/balance-lokaven",
     };
+  }
 
-    rpc GetLogBalanceTransaction(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse);
+  // rpc GetBalances(BalancesRequest) returns (BalancesResponse){
+  //     option (google.api.http) = {
+  //         get : "/api/v1/users/wallets",
+  //     };
+  // }
 
-    rpc GetLogBalanceOrder(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse);
+  // rpc GetLogBalance(LogBalanceRequest) returns (LogBalanceResponse){
+  //     option (google.api.http) = {
+  //         get : "/api/v1/users/wallets/logs/{uid}",
+  //     };
+  // }
 
-    rpc WithdrawHostReq(ReqWithdraw) returns (SingleLogBalanceResponse){
-        option (google.api.http) = {
-            post    : "/api/v1/users/wallet/withdraw",
-            body    : "*" 
-        };
+  rpc GetLogBalances(LogBalancesRequest) returns (LogsBalanceResponse){
+    option (google.api.http) = {
+      get : "/api/v1/wallet/logs-balances",
     };
+  };
 
-    rpc WithdrawHostCallback(HostWithdrawCallback) returns (HostWithdrawCallbackResponse){
-        option (google.api.http) = {
-            post    : "/api/v1/users/wallet/withdraw-callback",
-            body    : "*" 
-        };
+  rpc TransactionInHistory(LogHistoryRequest) returns (TransactionInHistoryResponse){
+    option (google.api.http) = {
+      get : "/api/v1/wallet/logs",
     };
+  };
 
-    rpc AllTransactionList(AllTransactionListRequest) returns (AllTransactionListResponse){
-        option (google.api.http) = {
-            get    : "/api/v1/users/wallet/all-transaction-list"
-        };
+  rpc GetLogBalancesSchedule(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse){
+    option (google.api.http) = {
+      get : "/api/v1/wallet/logs-balances/{tour_id}/{schedule_id}",
     };
+  };
 
-    rpc GetTransactionDetails(TransactionDetailRequest) returns (TransactionDetailResponse){
-        option (google.api.http) = {
-            get : "/api/v1/users/transactions/tours/{tour_id}/schedules/{schedule_id}/details/administrators",
-        };
-    };
+  rpc GetLogBalanceTransaction(LogBalancesRequestWithSchedule) returns (SingleLogBalanceResponse);
 
-    rpc GetTransactionTotal(TransactionTotal) returns (TransactionTotalResponse){
-        option (google.api.http) = {
-            get : "/api/v1/users/transactions/totals/administrators",
-        };
+  rpc WithdrawHostReq(ReqWithdraw) returns (SingleLogBalanceResponse){
+    option (google.api.http) = {
+      post    : "/api/v1/wallet/withdraw",
+      body    : "*"
     };
+  };
+
+  rpc WithdrawHostCallback(HostWithdrawCallback) returns (HostWithdrawCallbackResponse){
+    option (google.api.http) = {
+      post    : "/api/v1/wallet/withdraw-callback",
+      body    : "*"
+    };
+  };
+
+  rpc AllTransactionList(AllTransactionListRequest) returns (AllTransactionListResponse){
+    option (google.api.http) = {
+      get    : "/api/v1/wallet/all-transaction-list"
+    };
+  };
+
+  rpc GetTransactionDetails(TransactionDetailRequest) returns (TransactionDetailResponse){
+    option (google.api.http) = {
+      get : "/api/v1/wallet/transactions/tours/{tour_id}/schedules/{schedule_id}/details/administrators",
+    };
+  };
+
+  rpc GetTransactionTotal(TransactionTotal) returns (TransactionTotalResponse){
+    option (google.api.http) = {
+      get : "/api/v1/wallet/transactions/totals/administrators",
+    };
+  };
 
 }
