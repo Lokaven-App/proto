@@ -3,7 +3,6 @@ package wallet;
 
 import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
-import "google/protobuf/wrappers.proto";
 
 message ReqWithdraw {
   string balance_uid         = 1; // hold balanceid
@@ -359,6 +358,25 @@ message SummaryTransaction{
   AccountingInfo accounting_info =5;
 }
 
+message RequestDP{
+    string request_uid = 1;
+    string user_uid = 2;
+    string host_id = 3;
+    string tour_title = 4; 
+    string tour_id = 5;
+    string schedule_id = 6;
+    google.protobuf.Timestamp tour_start_date = 7;
+    google.protobuf.Timestamp tour_end_date = 8;
+    int32 amount = 9;
+    google.protobuf.Timestamp date_request = 10;
+}
+
+message ResponseDP{
+    int32 code = 1;
+    string title = 2;
+    RequestDP data = 3;
+}
+
 
 service WalletService{
   rpc CreateOrAddBalance(LogBalance) returns (BalanceResponse) {
@@ -377,6 +395,12 @@ service WalletService{
   rpc GetBalanceLokaven(LokavenBalanceRequest) returns (BalanceResponse){
     option (google.api.http) = {
       get : "/api/v1/wallet/balance-lokaven",
+    };
+  }
+
+  rpc GetBalanceByUserType(BalanceRequest) returns (BalanceResponse){
+    option (google.api.http) = {
+      get : "/api/v1/wallet/balance",
     };
   }
 
@@ -445,5 +469,11 @@ service WalletService{
       get : "/api/v1/wallet/transactions/totals/administrators",
     };
   };
+
+   rpc DownPaymentRequest(RequestDP) returns (ResponseDP){
+        option (google.api.http) = {
+            post : "/api/v1/users/request/downpayment",
+        };
+    };
 
 }
