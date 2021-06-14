@@ -200,6 +200,7 @@ message LogBalancesRequestWithSchedule {
   string transaction_id = 4;
   string order_id = 5;
   string type = 6;
+  string user_type = 7;
 }
 
 message AllTransactionListResponse {
