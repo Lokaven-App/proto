@@ -83,6 +83,7 @@ message RequestCalculate{
   int32 addon_price = 2;
   int32 amount_dp = 3;
   int32 admin_fee = 4;
+  double percentage_dp = 5;
 }
 
 message ResponseCalculate{
